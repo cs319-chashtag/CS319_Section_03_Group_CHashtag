@@ -200,6 +200,7 @@ export default function Navbar() {
                     <p class="text-sm text-center text-gray-600">
                         v0.1 | &copy; Erasmouse
                     </p>
+                    
                 </div>
                 <div
                     id="content"
