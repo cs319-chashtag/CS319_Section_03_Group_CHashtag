@@ -7,9 +7,11 @@
 // const StudentRepo = require ("./repository/StudentRepo")
 import * as express from "express"
 import { Request, Response } from "express"
+import { request } from "http"
 import { AppDataSource } from "./database/data-source"
 import  StudentRepo  from "./database/repository/StudentRepo"
-
+import  LoginR from "./routers/Loginrouter"
+import EmailM from "./routers/emailmanager"
 AppDataSource
     .initialize()
     .then(() => {
@@ -19,18 +21,14 @@ AppDataSource
         console.error("Error during Data Source initialization:", err)
     })
 
-
+EmailM.sendLoginMail("hayrullah.tas@ug.bilkent.edu.tr", 21903488);
 // create and setup express app
-const app = express()
+/* const app = express()
 app.use(express.json())
 
 // register routes
 
-app.get("/", function (req: Request, res: Response) {
-    console.log("Hello World!");
-
-    // here we will have logic to return all users
-})
+app.get("/login",LoginR.checkLogin);
 
 app.get("/users", function (req: Request, res: Response) {
 
@@ -60,4 +58,4 @@ app.delete("/users/:id", function (req: Request, res: Response) {
 // start express server
 app.listen(3000, () => {
     console.log("Server started on port 3000!")
-});
+}); */
