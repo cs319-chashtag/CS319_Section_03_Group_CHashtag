@@ -7,8 +7,8 @@
 // const StudentRepo = require ("./repository/StudentRepo")
 import * as express from "express"
 import { Request, Response } from "express"
-import { AppDataSource } from "./data-source"
-import StudentRepo from "./repository/StudentRepo"
+import { AppDataSource } from "./database/data-source"
+import  StudentRepo  from "./database/repository/StudentRepo"
 
 AppDataSource
     .initialize()
