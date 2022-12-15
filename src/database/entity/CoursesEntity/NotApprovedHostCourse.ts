@@ -10,6 +10,4 @@ export class NotApprovedHostCourse extends HostCourse{
 
     @Column({length: 30})
     courseInfoLink: string
-
-    
 }

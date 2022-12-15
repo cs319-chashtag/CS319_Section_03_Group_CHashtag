@@ -9,9 +9,11 @@ import * as express from "express"
 import { Request, Response } from "express"
 import { request } from "http"
 import { AppDataSource } from "./database/data-source"
+// const bodyParser = require('body-parser')
 import  StudentRepo  from "./database/repository/StudentRepo"
 import  LoginR from "./routers/Loginrouter"
 import EmailM from "./routers/emailmanager"
+
 AppDataSource
     .initialize()
     .then(() => {
@@ -24,7 +26,11 @@ AppDataSource
 EmailM.sendLoginMail("hayrullah.tas@ug.bilkent.edu.tr", 21903488);
 // create and setup express app
 /* const app = express()
+app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(express.json())
+
+
+
 
 // register routes
 

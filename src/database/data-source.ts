@@ -15,6 +15,10 @@ import { School } from "./entity/SchoolEntity/School"
 import { PreApproval } from "./entity/ApprovalsEntity/PreApproval"
 import { LearningAgreement } from "./entity/ApprovalsEntity/LearningAgreement"
 import { StudentCourse } from "./entity/CoursesEntity/StudentCourse"
+import { FCT } from "./entity/ApprovalsEntity/FCT"
+import { Admin } from "./entity/UsersEntity/Admin"
+import { Administration } from "./entity/UsersEntity/Administration"
+import { Comment } from "./entity/CommentEntity/Comment"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -28,16 +32,21 @@ export const AppDataSource = new DataSource({
         Student,
         Instructor,
         Coordinator,
+        Administration,
+        Admin,
         Course,
-        BilkentCourse,
-        HostCourse,
-        StudentCourse,
-        ApprovedCourse,
         ApprovedHostCourse,
         NotApprovedHostCourse,
+        HostCourse,
+        BilkentCourse,
+        StudentCourse,
+        ApprovedCourse,
+        PendingCourse,
         PreApproval,
-        // LearningAgreement,
+        LearningAgreement,
+        FCT,
         School,
+        Comment,
     ],
     synchronize: true,
     logging: false,

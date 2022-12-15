@@ -1,9 +1,11 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable  } from "typeorm"
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, CreateDateColumn  } from "typeorm"
 // import { Student } from "../UsersEntity/Student"
 import { StudentCourse } from "../CoursesEntity/StudentCourse"
 import { Coordinator } from "../UsersEntity/Coordinator"
 import { ApprovedCourse } from "../CoursesEntity/ApprovedCourse"
 import { PendingCourse } from "../CoursesEntity/PendingCourse"
+import { LearningAgreement } from "./LearningAgreement"
+import { FCT } from "./FCT"
 
 export enum ApprovalStatus {
     STUDENT_PENDING = "stdnt",
@@ -11,7 +13,6 @@ export enum ApprovalStatus {
     ADMINISTRATION_PENDING = "adm",
     APPROVED = "apprvd",
 }
-
 
 @Entity()
 export class PreApproval {
@@ -22,32 +23,36 @@ export class PreApproval {
     @Column()
     totalCredit: number
 
-    @Column({length: 20})
-    status: string
+    @CreateDateColumn()
+    createdAt: Date
 
-    // @Column({
-    //     type: "enum",
-    //     enum: ApprovalStatus,
-    //     default: ApprovalStatus.STUDENT_PENDING,
-    // })
-    // status: ApprovalStatus
+    @Column({length: 100})
+    coordinatorResponse: string
 
+    @Column({length: 100})
+    administrationResponse: string
+
+    @Column({
+        type: "enum",
+        enum: ApprovalStatus,
+        default: ApprovalStatus.STUDENT_PENDING,
+    })
+    status: ApprovalStatus
 
     @ManyToMany(() => ApprovedCourse, {eager: true, cascade: true, onDelete: "CASCADE"})
     @JoinTable()
     approvedCourses: ApprovedCourse[]
 
-    // @ManyToMany(() => PendingCourse)
-    // @JoinTable()
-    // pendingCourses: PendingCourse[]
+    @ManyToMany(() => PendingCourse)
+    @JoinTable()
+    pendingCourses: PendingCourse[]
 
-    @ManyToOne(() => Coordinator, (Coordinator) => Coordinator.preApprovals, {onDelete: "CASCADE"})
-    coordinator: Coordinator
+    @Column({length: 128})
+    fileLink: string
 
     // @Column()
     // coordinatorId:  number
 
-    
     // @OneToOne(() => LearningAggrement)
     // @JoinColumn()
     // learningAggrement: LearningAggrement

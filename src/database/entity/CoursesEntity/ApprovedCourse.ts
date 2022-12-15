@@ -12,9 +12,6 @@ export class ApprovedCourse extends StudentCourse{
     @JoinTable()
     approvedHostCourses: ApprovedHostCourse[]
 
-    // @ManyToOne(type => StudentCourse, StudentCourse => StudentCourse.pendingCourse)
-    // studentCourse: StudentCourse
-
     @ManyToOne(type => School, School => School.approvedCourses)
     school: School
 }

@@ -1,13 +1,14 @@
 import { AppDataSource } from '../data-source';
-import { PreApproval } from '../entity/ApprovalsEntity/PreApproval';
+import { ApprovalStatus, PreApproval } from '../entity/ApprovalsEntity/PreApproval';
 import { ApprovedCourse } from '../entity/CoursesEntity/ApprovedCourse';
 import { ApprovedHostCourse } from '../entity/CoursesEntity/ApprovedHostCourse';
 import { BilkentCourse, CourseType } from '../entity/CoursesEntity/BilkentCourse';
 import { HostCourse } from '../entity/CoursesEntity/HostCourse';
 import { StudentCourse } from '../entity/CoursesEntity/StudentCourse';
+import { Administration } from '../entity/UsersEntity/Administration';
 import { Coordinator } from '../entity/UsersEntity/Coordinator';
 import { ExchangeType, Student } from '../entity/UsersEntity/Student';
-import { User } from '../entity/UsersEntity/User';
+import { DepartmentType, User } from '../entity/UsersEntity/User';
 import CoordinatorRepo from './CoordinatorRepo';
 
 export default class StudentRepo {
@@ -32,23 +33,8 @@ export default class StudentRepo {
         })
     }
 
-    //IT SHOULD BE USED FOR ALL USERS
-    public static async changePassword(id : number, password: string): Promise<User | null> {
-        const userRepo = AppDataSource.getRepository(User)
-        const user = await userRepo.findOne({
-            where: {
-                id: id
-            },
-        });
-        if (user == null) {
-            throw new Error("User not found");
-        }
-        user.password = password;
-        return userRepo.save(user);
-    }
-
     //DONE
-    public static async setPreApprovalStatus(id : number, status: string): Promise<boolean> {
+    public static async setPreApprovalStatus(id : number, status: ApprovalStatus): Promise<boolean> {
         const studentRepo = AppDataSource.getRepository(Student)
         const student =  await StudentRepo.findStudentById(id);
         if (student == null) {
@@ -59,6 +45,7 @@ export default class StudentRepo {
         return true;
     }
 
+    //DONE
     public static async removeStudentById(id : number ): Promise<boolean> {
         const student =  await StudentRepo.findStudentById(id);
 
@@ -72,6 +59,7 @@ export default class StudentRepo {
             const approvedHostCourseRepo = AppDataSource.getRepository(ApprovedHostCourse)
             const coordinatorRepo = AppDataSource.getRepository(Coordinator)
             const bilkentCourseRepo = AppDataSource.getRepository(BilkentCourse)
+            const administrationRepo = AppDataSource.getRepository(Administration)
             
             for (const approvedCourse of student.preApproval.approvedCourses) {
                 if (approvedCourse.approvedHostCourses != null) {
@@ -85,19 +73,22 @@ export default class StudentRepo {
                 await approvedCourseRepo.remove(approvedCourse);
             }
             
-            if( student.preApproval.coordinator != null){
-                student.preApproval.coordinator.preApprovals = student.preApproval.coordinator.preApprovals.filter(preApproval => preApproval.studentId != student.id);
-                await coordinatorRepo.save(student.preApproval.coordinator);
+            if( student.coordinator != null){
+                student.coordinator.students = student.coordinator.students.filter((s) => s.id != student.id);
+                await coordinatorRepo.save(student.coordinator);
+            }
+            if ( student.administration != null) {
+                student.administration.students = student.administration.students.filter((s) => s.id != student.id);
+                await administrationRepo.save(student.administration);
             }
             await preApprovalRepo.remove(student.preApproval);
         }
         await studentRepo.remove(student);
         return true;
     }
-
-
+    
     //DONE
-    public static async findStudentByDepartment(department : string): Promise<Student[] | null> {
+    public static async findStudentByDepartment(department : DepartmentType): Promise<Student[] | null> {
         const studentRepository = AppDataSource.getRepository(Student)
         const studentArray = await studentRepository.find({
             where: {
@@ -140,40 +131,47 @@ export default class StudentRepo {
     }
 
     //DONE
-    public static async create(id : number, email: string, firstName: string, lastName: string, password: string, department: string, exhangeType: ExchangeType, schoolName : string): Promise<Student | null> {
-        return StudentRepo.findStudentById(id).then(async (student) => {
+    //create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType, exhangeType: ExchangeType, schoolName : string)
+    public static async create( newStudent : Student ): Promise<boolean | null> {
+        var created = false;
+        await StudentRepo.findStudentById(newStudent.id).then(async (student) => {
             if (student != null) {
                 throw new Error("Student already exists");
             }
             else {
-                const studentRepository = AppDataSource.getRepository(Student)
+                console.log("newStudent: ", newStudent);
+                const studentRepository = AppDataSource.getRepository(Student);
+                // student = newStudent;
                 const student = new Student();
-                student.id = id;
-                student.email = email;
-                student.firstName = firstName;
-                student.lastName = lastName;
-                student.password = password;
-                student.department = department;
-                student.exhangeType = exhangeType;
-                student.school = schoolName;
+                student.id = newStudent.id;
+                student.email = newStudent.email;
+                student.firstName = newStudent.firstName;
+                student.lastName = newStudent.lastName;
+                student.password = newStudent.password;
+                student.department = newStudent.department;
+                student.exhangeType = newStudent.exhangeType;
+                student.school = newStudent.school;
+                student.administration = newStudent.administration;
+                student.coordinator = newStudent.coordinator;
+                student.preApproval = null;
+                student.learningAgreement = null;
+                student.fct = null;
                 
                 await studentRepository.save(student).then((student) => {
-                    console.log("Student has been saved to the database.");
-                    console.log("Student id: " + student.id);
+                    console.log("Student has been saved to the database with id: " + student.id);
                     // return student;
                 }).catch(() => {
-                    throw Error("Student could not be saved to the database.");
+                    throw Error("Student could not be saved to the database with id: " + newStudent.id);
                 });
-
-                return student;
+                created = true;
             }
         }).catch((err) => {
             throw err;
         });
-        // return null;
+        return created;
     }
     
-    public static async createPreApproval(id : number, coordinatorId: number): Promise<Student | null> {
+    public static async createPreApproval(id : number ): Promise<Student | null> {
         return StudentRepo.findStudentById(id).then(async (student) => {
             if (student == null)
                 throw new Error("Student not found in the database. Please check the student id.");
@@ -182,18 +180,15 @@ export default class StudentRepo {
                 throw new Error("Student already has a pre-approval.");
             }
             else{
-                // const preApprovalRepository = AppDataSource.getRepository(PreApproval);
                 const preApproval = new PreApproval();
                 preApproval.studentId = student.id;
                 preApproval.totalCredit = 0;
-                preApproval.status = "Student Pending";
-                preApproval.coordinator = await CoordinatorRepo.findCoordinatorById(coordinatorId).then((coordinator) => {
-                    if (coordinator == null)
-                        throw new Error("Coordinator not found in the database. Please check the coordinator id.");
-                    return coordinator;
-                }).catch((error) => {
-                    throw error;
-                });
+                preApproval.status = ApprovalStatus.STUDENT_PENDING;
+                preApproval.approvedCourses = [];
+                preApproval.pendingCourses = [];
+                preApproval.administrationResponse = "";
+                preApproval.coordinatorResponse = "";
+                
                 student.preApproval = preApproval;
 
                 await StudentRepo.updateStudent(student).then((student) => {
@@ -203,18 +198,6 @@ export default class StudentRepo {
                 }).catch((error) => {
                     throw Error("Student could not be saved to the database.");
                 });
-
-                console.log("It Should Wait Here");
-
-                // await preApprovalRepository.save(preApproval).then((preApproval) => {
-                //     console.log("Pre-Approval has been saved to the database.");
-                //     console.log("Pre-Approval id: " + preApproval.studentId);
-                //     student.preApproval = preApproval;
-                    
-                    
-                // }).catch((error) => {
-                //     throw Error("Pre-Approval could not be saved to the database.");
-                // });
                 return student;
             }
         }).catch((error) => {
@@ -223,7 +206,29 @@ export default class StudentRepo {
         // return null;
     }
 
-    public static async updatePreApproval(id : number, preApproval: PreApprovalItem ): Promise<Student | null> {
+    public static async updatePreApproval(id : number, preApproval: PreApproval): Promise<Student | null> {
+
+        return StudentRepo.findStudentById(id).then(async (student) => {
+            if (student == null)
+                throw new Error("Student not found in the database. Please check the student id.");
+
+            student.preApproval = preApproval;
+            
+            await StudentRepo.updateStudent(student).then((student) => {
+                console.log("Student has been saved to the database.");
+                console.log("Student id: " + student.id);
+                return student;
+            }
+            ).catch((error) => {
+                throw Error("Student could not be saved to the database.");
+            });
+            return student;
+        }).catch((error) => {
+            throw error;
+        });
+    }
+
+    public static async updatePreApproval2(id : number, preApproval: PreApproval ): Promise<Student | null> {
 
         return StudentRepo.findStudentById(id).then(async (student) => {
             if (student == null)
@@ -337,7 +342,8 @@ export default class StudentRepo {
             const updatedPreApproval = new PreApproval();
             updatedPreApproval.studentId = student.id;
             updatedPreApproval.totalCredit = credit;
-            updatedPreApproval.status = preApproval.status;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // updatedPreApproval.status = preApproval.status; TODO
             updatedPreApproval.approvedCourses = apprvdCoursesArray;
             await preApprovalRepository.save(updatedPreApproval).then(async (approval) => {
                 
@@ -506,6 +512,7 @@ export default class StudentRepo {
     }
 
 
+    //THIS IS NOT REQUIRED
     public static async getPreApproval(id : number ): Promise<PreApproval | null> {
         return StudentRepo.findStudentById(id).then(async (student) => {
             return student.preApproval;
@@ -513,6 +520,7 @@ export default class StudentRepo {
             throw error;
         });
     }
+
 
     public static async findStudentBilkentMustCourses(id: number): Promise<ApprovedCourse[]> {
         // Promise<Student | null>
@@ -624,14 +632,14 @@ export default class StudentRepo {
 
     }
 
-    public static async findAllStudentsAssignedtoCoordinator(coordinatorId: number, department:string): Promise<Student[]| null> {
+    public static async findAllStudentsAssignedtoCoordinator(coordinatorId: number, department: DepartmentType): Promise<Student[]| null> {
         // Promise<Student | null>
 
         const students = await StudentRepo.findStudentByDepartment(department);
 
         const studentsAssignedToCoordinator = [];
         for (const student of students){
-            if ( student.preApproval != null && student.preApproval.coordinator.id == coordinatorId)
+            if ( student.preApproval != null && student.coordinator.id == coordinatorId)
                 studentsAssignedToCoordinator.push(student);
         }
 
@@ -640,7 +648,6 @@ export default class StudentRepo {
 
         return studentsAssignedToCoordinator;
     }
-
 
     public static async findStudentBilkentCoursesByComparingBilkentCourse(id: number, bilkentCourse: BilkentCourse): Promise<ApprovedCourse | null> {
         // Promise<Student | null>
@@ -713,7 +720,6 @@ export default class StudentRepo {
         // });
 
     }
-
 
     //DONE
     public static async updateStudent(student : Student): Promise<Student | null> {

@@ -1,28 +1,27 @@
 import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, PrimaryGeneratedColumn, CreateDateColumn  } from "typeorm"
 
-export enum LearningAggrementStatus {
-    STUDENT_PENDING = "stdnt",
+export enum FCTSatus {
     COORDINATOR_PENDING = "crdnt",
     ADMINISTRATION_PENDING = "adm",
     APPROVED = "apprvd",
 }
 
 @Entity()
-export class LearningAgreement {
+export class FCT {
 
     @PrimaryColumn()
     studentId: number
-    
+
     @CreateDateColumn()
     createdAt: Date
     
     @Column({
         type: "enum",
-        enum: LearningAggrementStatus,
-        default: LearningAggrementStatus.STUDENT_PENDING,
+        enum: FCTSatus,
+        default: FCTSatus.COORDINATOR_PENDING,
     })
-    status: LearningAggrementStatus
+    status: FCTSatus
 
-    @Column()
+    @Column({length: 128})
     fileLink: string
 }

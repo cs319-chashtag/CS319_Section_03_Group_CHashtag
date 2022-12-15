@@ -20,7 +20,7 @@ export default class UserRepo {
         return user;
     }
 
-    public static async checkUserLogin(id: number, password: string){
+    public static async checkUserLogin(id: number, password: string) : Promise<User | null>{
         const userRepository = AppDataSource.getRepository(User)
     
         const user = await userRepository.findOne({
@@ -35,5 +35,20 @@ export default class UserRepo {
             throw new Error("User not found");
         }
         return user;
+    }
+
+    public static async changePassword(id : number, password: string): Promise<boolean | null> {
+        const userRepo = AppDataSource.getRepository(User)
+        const user = await userRepo.findOne({
+            where: {
+                id: id
+            },
+        });
+        if (user == null) {
+            throw new Error("User not found");
+        }
+        user.password = password;
+        await userRepo.save(user);
+        return true;
     }
 }

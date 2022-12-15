@@ -1,13 +1,22 @@
 import { Entity, Column, ChildEntity, OneToMany } from 'typeorm'
 import { Instructor } from './Instructor'
 import { PreApproval } from '../ApprovalsEntity/PreApproval'
+import { FCT } from '../ApprovalsEntity/FCT'
+import { LearningAgreement } from '../ApprovalsEntity/LearningAgreement'
+import { Student } from './Student'
 
 @ChildEntity()
 export class Coordinator extends Instructor {
 
-    @OneToMany(() => PreApproval, preApproval => preApproval.coordinator)
-    preApprovals: PreApproval[]
+    @OneToMany(() => Student, (Student) => Student.coordinator)
+    students: Student[]
 
-    // @Column({length: 30})
-    // fctApprovals: string
+    // @Column()
+    // preApprovals: PreApproval[]
+
+    // @Column()
+    // learningAgreements: LearningAgreement[]
+    
+    // @Column()
+    // fctApprovals: FCT[]
 }

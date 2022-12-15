@@ -21,6 +21,10 @@ export class BilkentCourse extends Course{
     })
     courseType: CourseType
 
+    @Column({length: 100})
+    instructorResponse: string
+
+
     // @Column({length: 30})
     // courseType: string
 }
