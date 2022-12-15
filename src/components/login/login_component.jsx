@@ -14,7 +14,7 @@ export default function Login() {
                     <span>Back</span>
                 </button>
             </div>
-            <div class="flex items-center justify-center h-screen">
+            <div class="flex items-center justify-center pt-32">
                 <img src="" />
                 <div class="w-96 flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] ">
                     <div class="mb-8 flex justify-center place-items-center">

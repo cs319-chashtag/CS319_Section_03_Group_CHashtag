@@ -1,14 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../modal/modal_component";
+import { useState } from "react";
 
-export default function Navbar() {
+export default function StudentCourseComponent() {
     const navigate = useNavigate();
+    const [modalOn, setModalOn] = useState(false);
+    const [choice, setChoice] = useState(false);
+
+    const clicked = () => {
+        setModalOn(true);
+    };
+
     return (
-        <div>
-            <div class="py-4 grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 px-2">
+        <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
+            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
+            <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
-                    class="border border-black bg-white/10 col-span-2 rounded-lg p-4 "
+                    class="w-64 border border-black bg-white/10 col-span-2 rounded-lg p-4 "
                 >
                     <a
                         href="#"
@@ -34,6 +44,9 @@ export default function Navbar() {
                     <div id="menu" class="flex flex-col space-y-2 my-5">
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/studentActions");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -65,6 +78,9 @@ export default function Navbar() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/preapprovalForms");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -86,14 +102,11 @@ export default function Navbar() {
                                 </div>
                                 <div>
                                     <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Messages
+                                        Pre-Approval Forms
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
-                                        View Messages
+                                        View Form
                                     </p>
-                                </div>
-                                <div class="text-white absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
-                                    23
                                 </div>
                             </div>
                         </a>
@@ -120,10 +133,10 @@ export default function Navbar() {
                                 </div>
                                 <div>
                                     <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Profile
+                                        Learning Agreement
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
-                                        Manage Profile
+                                        View Agreement
                                     </p>
                                 </div>
                             </div>
@@ -156,10 +169,78 @@ export default function Navbar() {
                                 </div>
                                 <div>
                                     <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Settings
+                                        Profile
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
-                                        Edit settings
+                                        Edit Profile
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Mail
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        View Mails
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line
+                                            x1="12"
+                                            y1="17"
+                                            x2="12.01"
+                                            y2="17"
+                                        ></line>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Help
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        Show Help
                                     </p>
                                 </div>
                             </div>
@@ -199,6 +280,106 @@ export default function Navbar() {
                     <p class="text-sm text-center text-gray-600">
                         v0.1 | &copy; Erasmouse
                     </p>
+                </div>
+                <div
+                    id="content"
+                    class="border border-black bg-white/10 col-span-8 rounded-lg p-6"
+                >
+                    <div className="flex">
+                        <div id="title">
+                            <h1 class="font-bold text-black text-3xl py-4 uppercase">
+                                Student Actions - Courses
+                                <br />
+                                <span className="text-gray-600 text-base">
+                                    Welcome Back, Arda Tavusbay
+                                </span>
+                            </h1>
+                        </div>
+                        <div className="py-4 ml-auto">
+                            <div className="p-2 bg-green-200  rounded-lg">
+                                <button className=" gap-2 flex">
+                                    Create Pre-Approval Form
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="container">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
+                            <div class="relative col-span-3 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Courses - Host University
+                                </div>
+                                <div class="relative grid grid-rows gap-2">
+                                    <div className="p-2 border border-black rounded-lg">
+                                        <span className="text-l text-black">
+                                            CS353
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Database Systems
+                                        </span>
+                                    </div>
+                                    <div className="p-2 border border-black rounded-lg">
+                                        <span className="text-l text-black">
+                                            CS484
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Introduction to Computer Vision
+                                        </span>
+                                    </div>
+                                    <div className="p-2 border border-black rounded-lg">
+                                        <span className="text-l text-black">
+                                            CS449
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Learning for Robotics
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={clicked}
+                                    >
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add Course
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="relative col-span-3 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Courses - Partner University
+                                </div>
+                                <div class="relative grid grid-rows gap-2">
+                                    <div className="p-2 border border-black rounded-lg">
+                                        <span className="text-l text-black">
+                                            0434 L 500
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Informationssysteme und Datenanalyse
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={clicked}
+                                    >
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
