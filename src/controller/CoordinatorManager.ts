@@ -9,6 +9,7 @@ export default class CoordinatorManager {
     public static async getCoorInfo(req:Request,res:Response){
         if(Auth.checkAuth(req)){
             let result = await CoordinatorRepo.findCoordinatorById(req.session.bid).catch(err => res.send(err));
+    
             if(result) { 
                 res.send(result);
             }

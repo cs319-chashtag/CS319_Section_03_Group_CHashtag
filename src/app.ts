@@ -14,7 +14,7 @@ import { AppDataSource } from "./database/data-source"
 import  StudentRepo  from "./database/repository/StudentRepo"
 import  LoginR from "./controller/LoginManager"
 import EmailM from "./controller/Emailmanager"
-import * as ExpressSession from 'express-session';
+import * as session from 'express-session';
 
 AppDataSource
     .initialize()
@@ -25,7 +25,7 @@ AppDataSource
         console.error("Error during Data Source initialization:", err)
     })
 
-EmailM.sendLoginMail("hayrullah.tas@ug.bilkent.edu.tr", 21903488);
+//mailM.sendLoginMail("hayrullah.tas@ug.bilkent.edu.tr", 21903488);
 // create and setup express app
  const app = express()
 //app.use(bodyParser.json({ type: 'application/*+json' }))
@@ -40,25 +40,22 @@ declare module "express-session" {
       
     }
   }
-app.use(ExpressSession({
+app.use(session({
     secret: 'Ax9**-131asdçç.123',
     resave: false,
     saveUninitialized: false,
 }))
 app.use(express.json())
-app.use(ExpressSession);
+
 app.use("/login", LogRoute);
 // register routes
 
-app.get("/login",LoginR.checkLogin);
-
-app.get("/users", function (req: Request, res: Response) {
 
 
-    // here we will have logic to return all users
-})
+
 
 app.get("/users/:id", async function (req: Request, res: Response) {
+    console.log("asd")
     const student = await StudentRepo.findStudentById(parseInt(req.params.id));
     console.log(student);
     res.send(student);

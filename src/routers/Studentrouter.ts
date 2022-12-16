@@ -9,6 +9,7 @@ class StudentR{
         router.get("/",StudentManager.getStudentInfo);
         router.get("/profile/changepass",StudentManager.changePassword);
         router.post("/approval/create",StudentManager.createPreApproval);
+        router.post("/approval/send", StudentManager.sendApprovaltoCoor);
        // router.post("/approval/edit"), StudentManager.updateApproval);
     }
 }

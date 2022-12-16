@@ -4,6 +4,7 @@ import UserRepo from "../database/repository/UserRepo";
 import { Request, Response } from "express";
 import Auth from "./authenticate";
 import { ApprovalStatus } from "../database/entity/ApprovalsEntity/PreApproval";
+import EmailM from "./Emailmanager";
 
 
 //Class which handles request that will come from student 
@@ -59,10 +60,14 @@ export default class StudentManager {
     public static async sendApprovaltoCoor(req: Request, res: Response ){
         if(Auth.checkAuth(req)){
             let result = await UserRepo.getUserById(req.session.bid).catch(err => res.send(err));
-            let dep = result;// burayı userdan çek böylece departmentını almış oluruz 
+            let dep = result['department'];
+            // burayı userdan çek böylece departmentını almış oluruz 
             let result1 = await CoordinatorRepo.findCoordinatorByDepartment(dep).catch(err=>res.send(err));
             let result2 = await StudentRepo.setPreApprovalStatus(req.session.bid, ApprovalStatus.COORDINATOR_PENDING);
-            if(result2) res.send(result2);
+            if(result2) {
+                EmailM.approvalFormMail(result1['email']);
+                res.send(result2);
+            }
             else res.send("False");}
             else {
                 res.send("Login");
