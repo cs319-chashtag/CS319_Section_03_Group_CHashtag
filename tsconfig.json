@@ -9,10 +9,12 @@
       "module": "commonjs",
       // "module": "es2020",
       "moduleResolution": "node",
+  
       "outDir": "./build",
       "rootDir": "./src",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "skipLibCheck": true
    }
 }

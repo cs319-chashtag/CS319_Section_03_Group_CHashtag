@@ -7,12 +7,14 @@
 // const StudentRepo = require ("./repository/StudentRepo")
 import * as express from "express"
 import { Request, Response } from "express"
+import * as LogRoute from "./routers/LoginRouter";
 import { request } from "http"
 import { AppDataSource } from "./database/data-source"
 // const bodyParser = require('body-parser')
 import  StudentRepo  from "./database/repository/StudentRepo"
-import  LoginR from "./routers/Loginrouter"
-import EmailM from "./routers/emailmanager"
+import  LoginR from "./controller/LoginManager"
+import EmailM from "./controller/Emailmanager"
+import * as ExpressSession from 'express-session';
 
 AppDataSource
     .initialize()
@@ -25,13 +27,27 @@ AppDataSource
 
 EmailM.sendLoginMail("hayrullah.tas@ug.bilkent.edu.tr", 21903488);
 // create and setup express app
-/* const app = express()
-app.use(bodyParser.json({ type: 'application/*+json' }))
+ const app = express()
+//app.use(bodyParser.json({ type: 'application/*+json' }))
+declare module "express-session" {
+    interface SessionData {
+      logged: boolean;
+      bid: number;
+      email: string;
+      name: string;
+      surname: string;
+      status: string;
+      
+    }
+  }
+app.use(ExpressSession({
+    secret: 'Ax9**-131asdçç.123',
+    resave: false,
+    saveUninitialized: false,
+}))
 app.use(express.json())
-
-
-
-
+app.use(ExpressSession);
+app.use("/login", LogRoute);
 // register routes
 
 app.get("/login",LoginR.checkLogin);
@@ -64,4 +80,4 @@ app.delete("/users/:id", function (req: Request, res: Response) {
 // start express server
 app.listen(3000, () => {
     console.log("Server started on port 3000!")
-}); */
+}); 

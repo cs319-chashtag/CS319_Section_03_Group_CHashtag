@@ -1,32 +1,25 @@
-import  StudentRepo  from "../database/repository/StudentRepo";
+import {Router} from "express";
+import StudentManager from "../controller/StudentManager";
+import { Student } from "../database/entity/UsersEntity/Student";
 
-export default class StudentR {
-    public static async getStudentInfo(req, res){
-    if(req.session.logged){
-        let studentinfos =  await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
-        if(studentinfos == null) { 
-            res.json({
-                status: 'no student found',
+const router = Router();
 
-            })
-        }
-
-        else {
-            res.send(studentinfos);
-        }
-        
+class StudentR{
+    constructor(){
+        router.get("/",StudentManager.getStudentInfo);
+        router.get("/profile/changepass",StudentManager.changePassword);
+        router.post("/approval/create",StudentManager.createPreApproval);
+       // router.post("/approval/edit"), StudentManager.updateApproval);
     }
-
-    else{
-        res.send("login");
-    }
-    }
-
-    public static async updateStudentInfo(req,res){
-        if(req.sesssion.logged){
-            
-        }
-    }
-
-    
 }
+new StudentR();
+
+export=router;
+/*
+    create json template 
+    than in the pre-approval stage fill the template and uplode the file 
+    to the drive
+    when request has been made
+    get the file send it back to the front end, 
+    
+*/
