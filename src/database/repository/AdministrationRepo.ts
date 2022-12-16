@@ -1,17 +1,16 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source"
-import { PreApproval } from "../entity/ApprovalsEntity/PreApproval"
-import { Coordinator } from "../entity/UsersEntity/Coordinator"
+import { Administration } from "../entity/UsersEntity/Administration";
 import { DepartmentType, UserType } from "../entity/UsersEntity/User"
-import StudentRepo from "./StudentRepo"
 
 
-export default class CoordinatorRepo {
+export default class AdministrationRepo {
+    private static _administrationRepository = AppDataSource.getRepository(Administration);
 
     //DONE
-    public static async findCoordinatorById(id : number): Promise<Coordinator | null> {
-        const coordinatorRepository = AppDataSource.getRepository(Coordinator)
-
-        return coordinatorRepository.findOne({
+    public static async findAdministrationById(id : number): Promise<Administration | null> {
+        
+        return this._administrationRepository.findOne({
             where: {
                 id: id
             },
@@ -21,10 +20,9 @@ export default class CoordinatorRepo {
         })
     }
 
-    public static async findCoordinatorByDepartment(department : DepartmentType): Promise<Coordinator[] | null> {
-        const coordinatorRepository = AppDataSource.getRepository(Coordinator)
+    public static async findAdministrationByDepartment(department : DepartmentType): Promise<Administration[] | null> {
         
-        const coordinatorArray = await coordinatorRepository.find({
+        const administrationArray = await this._administrationRepository.find({
             where: {
                 department: department
             },
@@ -32,27 +30,27 @@ export default class CoordinatorRepo {
                 students: true
             }
         })
-        if (coordinatorArray == null || coordinatorArray.length == 0) {
-            throw new Error("There is no coordinator in this department or department is not valid");
+        if (administrationArray == null || administrationArray.length == 0) {
+            throw new Error("There is no administration in this department or department is not valid");
         }
 
-        return coordinatorArray;
+        return administrationArray;
     }
 
-    public static async removeCoordinatorById(id : number ): Promise<boolean> {
-        const coordinatorToBeRemoved =  await CoordinatorRepo.findCoordinatorById(id);
+    public static async removeAdministrationById(id : number ): Promise<boolean> {
+        const coordinatorToBeRemoved =  await AdministrationRepo.findAdministrationById(id);
 
         if (coordinatorToBeRemoved == null) {
             return false;
         }
-        const coordinatorRepo = AppDataSource.getRepository(Coordinator);
+        const coordinatorRepo = AppDataSource.getRepository(Administration);
         if ( coordinatorToBeRemoved != null) {
 
             // const PreApprovalRepo = AppDataSource.getRepository(PreApproval);
             // for (let i = 0; i < coordinator.preApprovals.length; i++) {
             //     await PreApprovalRepo.removePreApprovalById(coordinator.preApprovals[i].id);
             // }
-            CoordinatorRepo.findCoordinatorByDepartment(coordinatorToBeRemoved.department).then((coordinators) => {
+            AdministrationRepo.findAdministrationByDepartment(coordinatorToBeRemoved.department).then((coordinators) => {
                 if (coordinators == null) {
                     throw new Error("There is no coordinator in this department or department is not valid");
                 }
@@ -86,32 +84,30 @@ export default class CoordinatorRepo {
         await coordinatorRepo.remove(coordinatorToBeRemoved);
         return true;
     }
-
-
+   
     //DONE
     public static async create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType) : Promise<boolean | null> {
         var created = false;
-        await CoordinatorRepo.findCoordinatorById(id).then(async (coordinator) => {
-            if (coordinator != null) {
-                throw new Error("Coordinator already exists");
+        await AdministrationRepo.findAdministrationById(id).then(async (administration) => {
+            if (administration != null) {
+                throw new Error("Administration already exists");
             }
             else {
-                const coordinatorRepository = AppDataSource.getRepository(Coordinator);
-                const coordinator = new Coordinator();
-                coordinator.id = id;
-                coordinator.email = email;
-                coordinator.firstName = firstName;
-                coordinator.lastName = lastName;
-                coordinator.password = password;
-                coordinator.department = department;
-                coordinator.students = [];
-
-                coordinator.userType = UserType.COORDINATOR;
+                const administrationRepo = AppDataSource.getRepository(Administration);
+                const administration = new Administration();
+                administration.id = id;
+                administration.email = email;
+                administration.firstName = firstName;
+                administration.lastName = lastName;
+                administration.password = password;
+                administration.department = department;
+                administration.students = [];
+                administration.userType = UserType.ADMINISTRATION;
                 
-                await coordinatorRepository.save(coordinator).then((coordinator) => {
-                    console.log("Coordinator has been saved to the database with id: " + coordinator.id);
+                await administrationRepo.save(administration).then((administration) => {
+                    console.log("Administration has been saved to the database with id: " + administration.id);
                 }).catch(() => {
-                    throw Error("Coordinator could not be saved to the database with id: " + id);
+                    throw Error("Administration could not be saved to the database with id: " + id);
                 });
                 created = true;
             }
@@ -120,5 +116,4 @@ export default class CoordinatorRepo {
         });
         return created;
     }
-   
 }

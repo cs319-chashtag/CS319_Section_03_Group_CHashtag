@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany  } from "typeorm"
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn  } from "typeorm"
 import { ApprovedCourse } from "../CoursesEntity/ApprovedCourse"
 import { Student } from "../UsersEntity/Student"
 import { DepartmentType } from "../UsersEntity/User"
@@ -6,15 +6,15 @@ import { DepartmentType } from "../UsersEntity/User"
 @Entity()
 export class School {
 
-    @PrimaryColumn({length: 40})
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column({length: 40, nullable: false})
     name: string
+    
+    @Column()
+    department: DepartmentType
 
-    @Column('text', { array: true, default: [] })
-    department: string[]
-
-    @OneToMany(() => ApprovedCourse, (ApprovedCourse) => ApprovedCourse.school)
+    @OneToMany(() => ApprovedCourse, (ApprovedCourse) => ApprovedCourse.school, {eager: true, cascade: true, onDelete: "CASCADE"})
     approvedCourses: ApprovedCourse[]
-
-    // @OneToMany(() => Student, (Student) => Student.school)
-    // students: Student[]
 }

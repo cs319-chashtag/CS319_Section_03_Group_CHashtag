@@ -7,9 +7,11 @@ import { HostCourse } from '../entity/CoursesEntity/HostCourse';
 import { StudentCourse } from '../entity/CoursesEntity/StudentCourse';
 import { Administration } from '../entity/UsersEntity/Administration';
 import { Coordinator } from '../entity/UsersEntity/Coordinator';
-import { ExchangeType, Student } from '../entity/UsersEntity/Student';
-import { DepartmentType, User } from '../entity/UsersEntity/User';
+import { ExchangeType, SemesterType, Student } from '../entity/UsersEntity/Student';
+import { DepartmentType, User, UserType } from '../entity/UsersEntity/User';
+import AdministrationRepo from './AdministrationRepo';
 import CoordinatorRepo from './CoordinatorRepo';
+import SchoolRepo from './SchoolRepo';
 
 export default class StudentRepo {
     // private static instance: StudentRepo;
@@ -86,7 +88,7 @@ export default class StudentRepo {
         await studentRepo.remove(student);
         return true;
     }
-    
+
     //DONE
     public static async findStudentByDepartment(department : DepartmentType): Promise<Student[] | null> {
         const studentRepository = AppDataSource.getRepository(Student)
@@ -131,37 +133,54 @@ export default class StudentRepo {
     }
 
     //DONE
-    //create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType, exhangeType: ExchangeType, schoolName : string)
-    public static async create( newStudent : Student ): Promise<boolean | null> {
+    public static async create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType, exhangeType: ExchangeType, semesterType : SemesterType, schoolName : string) : Promise<boolean | null> {
         var created = false;
-        await StudentRepo.findStudentById(newStudent.id).then(async (student) => {
+        await StudentRepo.findStudentById(id).then(async (student) => {
             if (student != null) {
                 throw new Error("Student already exists");
             }
             else {
-                console.log("newStudent: ", newStudent);
+                // console.log("newStudent: ", newStudent);
                 const studentRepository = AppDataSource.getRepository(Student);
                 // student = newStudent;
                 const student = new Student();
-                student.id = newStudent.id;
-                student.email = newStudent.email;
-                student.firstName = newStudent.firstName;
-                student.lastName = newStudent.lastName;
-                student.password = newStudent.password;
-                student.department = newStudent.department;
-                student.exhangeType = newStudent.exhangeType;
-                student.school = newStudent.school;
-                student.administration = newStudent.administration;
-                student.coordinator = newStudent.coordinator;
+                student.id = id;
+                student.email = email;
+                student.firstName = firstName;
+                student.lastName = lastName;
+                student.password = password;
+                student.department = department;
+                student.exhangeType = exhangeType;
+                student.school = await SchoolRepo.getSchoolByNameAndDepartment(schoolName, department);
+                student.semesterType = semesterType;
+
+                const coordinatorArray = await CoordinatorRepo.findCoordinatorByDepartment(department);
+                const lengthCoordinatorArray = coordinatorArray.length;
+                var minIndex = 0;
+                for ( const coor of coordinatorArray) {
+                    if (coor.students.length < coordinatorArray[minIndex].students.length) {
+                        minIndex = coordinatorArray.indexOf(coor);
+                    }
+                }
+                coordinatorArray[minIndex].students.push(student);
+                student.coordinator = coordinatorArray[minIndex];
+
+                const administrationArray = await AdministrationRepo.findAdministrationByDepartment(department);
+                for ( const administration of administrationArray) {
+                    administration.students.push(student);
+                    student.administration = administration;
+                }
+                
                 student.preApproval = null;
                 student.learningAgreement = null;
                 student.fct = null;
+                student.userType = UserType.STUDENT;
                 
                 await studentRepository.save(student).then((student) => {
                     console.log("Student has been saved to the database with id: " + student.id);
                     // return student;
                 }).catch(() => {
-                    throw Error("Student could not be saved to the database with id: " + newStudent.id);
+                    throw Error("Student could not be saved to the database with id: " + id);
                 });
                 created = true;
             }
@@ -295,7 +314,7 @@ export default class StudentRepo {
                             apprvdHstCourses.code = approvedHostCourse.code;
                             apprvdHstCourses.name = approvedHostCourse.name;
                             apprvdHstCourses.credit = approvedHostCourse.credit;
-                            apprvdHstCourses.school = student.school;
+                            apprvdHstCourses.school = student.school.name;
                             // approvedHostCourses.hostSchool = approvedCourse.hostSchool;
                             console.log("APPROVED HOST COURSES WILL BE ADDED : " , apprvdHstCourses.code);
                             

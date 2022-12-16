@@ -28,9 +28,6 @@ export class Student extends User {
     })
     exhangeType: ExchangeType
 
-    // @ManyToOne(() => School, school => school.students)
-    // @JoinColumn()
-    // school: School
     @Column({
         type: "enum",
         enum: SemesterType,
@@ -38,13 +35,17 @@ export class Student extends User {
     })
     semesterType: SemesterType
 
-    @Column({length: 40})
-    school: string
+    @Column({length: 11})
+    academicYear: string
+    
+    @OneToOne(() => School, {eager: true})
+    @JoinColumn()
+    school: School
 
-    @ManyToOne(() => Coordinator, (Coordinator) => Coordinator.students, {onDelete: "CASCADE"})
+    @ManyToOne(() => Coordinator, (Coordinator) => Coordinator.students, {eager: true})
     coordinator: Coordinator
 
-    @ManyToOne(() => Administration, (Administration) => Administration.students, {onDelete: "CASCADE"})
+    @ManyToOne(() => Administration, (Administration) => Administration.students, {eager: true})
     administration: Administration
     
     @OneToOne(() => PreApproval, {eager: true, cascade: true, onDelete: "CASCADE"})

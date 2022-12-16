@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, CreateDateColumn  } from "typeorm"
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn  } from "typeorm"
 // import { Student } from "../UsersEntity/Student"
 import { StudentCourse } from "../CoursesEntity/StudentCourse"
 import { Coordinator } from "../UsersEntity/Coordinator"
@@ -10,7 +10,9 @@ import { FCT } from "./FCT"
 export enum ApprovalStatus {
     STUDENT_PENDING = "stdnt",
     COORDINATOR_PENDING = "crdnt",
+    COORDINATOR_REJECTED = "crdnt_rej",
     ADMINISTRATION_PENDING = "adm",
+    ADMINISTRATION_REJECTED = "adm_rej",
     APPROVED = "apprvd",
 }
 
@@ -20,11 +22,14 @@ export class PreApproval {
     @PrimaryColumn()
     studentId: number
 
-    @Column()
-    totalCredit: number
-
     @CreateDateColumn()
     createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
+
+    @Column()
+    totalCredit: number
 
     @Column({length: 100})
     coordinatorResponse: string
@@ -49,11 +54,4 @@ export class PreApproval {
 
     @Column({length: 128})
     fileLink: string
-
-    // @Column()
-    // coordinatorId:  number
-
-    // @OneToOne(() => LearningAggrement)
-    // @JoinColumn()
-    // learningAggrement: LearningAggrement
 }

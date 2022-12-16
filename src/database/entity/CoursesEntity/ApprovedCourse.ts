@@ -6,12 +6,10 @@ import { ApprovedHostCourse } from "./ApprovedHostCourse"
 
 @ChildEntity()
 export class ApprovedCourse extends StudentCourse{
-    
-
-    @ManyToMany(() => ApprovedHostCourse, {eager: true, cascade: true})
+    @ManyToMany(() => ApprovedHostCourse, {eager: true, cascade: true, onDelete: "CASCADE"})
     @JoinTable()
     approvedHostCourses: ApprovedHostCourse[]
-
+    
     @ManyToOne(type => School, School => School.approvedCourses)
     school: School
 }

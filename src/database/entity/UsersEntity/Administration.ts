@@ -7,17 +7,8 @@ import { User } from './User'
 
 @ChildEntity()
 export class Administration extends User {
-
-    // @Column()
-    // preApprovals: PreApproval[]
-
-    // @Column()
-    // learningAgreements: LearningAgreement[]
-
-    // @Column()
-    // fctApprovals: FCT[]
     
-    @OneToMany(() => Student, (Student) => Student.coordinator)
+    @OneToMany(() => Student, (Student) => Student.administration)
     students: Student[]
     
 }

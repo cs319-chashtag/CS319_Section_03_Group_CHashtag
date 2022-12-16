@@ -1,8 +1,10 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, PrimaryGeneratedColumn, CreateDateColumn  } from "typeorm"
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn  } from "typeorm"
 
 export enum FCTSatus {
     COORDINATOR_PENDING = "crdnt",
+    COORDINATOR_REJECTED = "crdnt_rej",
     ADMINISTRATION_PENDING = "adm",
+    ADMINISTRATION_REJECTED = "adm_rej",
     APPROVED = "apprvd",
 }
 
@@ -14,6 +16,9 @@ export class FCT {
 
     @CreateDateColumn()
     createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
     
     @Column({
         type: "enum",

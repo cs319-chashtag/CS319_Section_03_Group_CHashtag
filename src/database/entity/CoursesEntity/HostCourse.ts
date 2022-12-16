@@ -1,14 +1,10 @@
-import { Entity, Column, PrimaryColumn, ChildEntity, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryColumn, ChildEntity, OneToOne, JoinColumn, ManyToOne } from "typeorm"
 import { School } from "../SchoolEntity/School"
 import { Course } from "./Course"
 
 @ChildEntity()
 export class HostCourse extends Course{
 
-    @Column({length: 30})
+    @Column()
     school: string
-    
-    // @OneToOne(() => School)
-    // @JoinColumn()
-    // school: School
 }

@@ -19,6 +19,7 @@ import { FCT } from "./entity/ApprovalsEntity/FCT"
 import { Admin } from "./entity/UsersEntity/Admin"
 import { Administration } from "./entity/UsersEntity/Administration"
 import { Comment } from "./entity/CommentEntity/Comment"
+import { BilkentUniversity } from "./entity/SchoolEntity/BilkentUniversity"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -47,6 +48,7 @@ export const AppDataSource = new DataSource({
         FCT,
         School,
         Comment,
+        BilkentUniversity,
     ],
     synchronize: true,
     logging: false,

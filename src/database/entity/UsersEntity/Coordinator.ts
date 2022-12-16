@@ -10,13 +10,4 @@ export class Coordinator extends Instructor {
 
     @OneToMany(() => Student, (Student) => Student.coordinator)
     students: Student[]
-
-    // @Column()
-    // preApprovals: PreApproval[]
-
-    // @Column()
-    // learningAgreements: LearningAgreement[]
-    
-    // @Column()
-    // fctApprovals: FCT[]
 }

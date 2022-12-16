@@ -19,6 +19,7 @@ export enum DepartmentType {
     CHEM = "chem",
     PSYC = "psyc",
     ADA = "ada",
+    ECON = "econ",
 }
 
 @Entity()
@@ -28,7 +29,7 @@ export class User {
     @PrimaryColumn()
     id: number
 
-    @Column({unique: true, length: 30})
+    @Column({unique: true, length: 50})
     email: string
 
     @Column({
