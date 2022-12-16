@@ -1,10 +1,6 @@
-import { Entity, Column, PrimaryColumn, ChildEntity } from "typeorm"
+import { Entity, Column, PrimaryColumn, ChildEntity, ManyToOne } from "typeorm"
+import { BilkentUniversity } from "../SchoolEntity/BilkentUniversity"
 import { Course } from "./Course"
-
-// enum CourseType {
-//     "Mandatory",
-//     "Elective",
-//     ""
 
 export enum CourseType {
     MANDATORY = "Mandatory",
@@ -21,10 +17,7 @@ export class BilkentCourse extends Course{
     })
     courseType: CourseType
 
-    @Column({length: 100})
-    instructorResponse: string
 
-
-    // @Column({length: 30})
-    // courseType: string
+    @ManyToOne(() => BilkentUniversity, (BilkentUniversity) => BilkentUniversity.bilkentCourses)
+    bilkentUniversity: BilkentUniversity
 }

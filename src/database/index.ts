@@ -11,6 +11,9 @@ import  StudentRepo , {PreApprovalItem}  from "./repository/StudentRepo"
 import schoolRepo from "./repository/SchoolRepo"
 import CoordinatorRepo from "./repository/CoordinatorRepo"
 import { DepartmentType, UserType } from "./entity/UsersEntity/User"
+import AdministrationRepo from "./repository/AdministrationRepo"
+import SchoolRepo from "./repository/SchoolRepo"
+import UserRepo from "./repository/UserRepo"
 
 var compare1 = {
         approvedHostCourses : [
@@ -183,6 +186,9 @@ var studentCourseData  =  {
 
 AppDataSource.initialize().then(async () => {
     console.log("Initialized");
+
+    SchoolRepoTest();
+
     // createOject();
     // getStudent(1234556).then((student) => {
     //     console.log(student);
@@ -232,17 +238,17 @@ AppDataSource.initialize().then(async () => {
 
     // console.log(await StudentRepo.changePassword(22452296, "changed2"));
     // console.log( await StudentRepo.setPreApprovalStatus(21902296, "Admn Pending") );
-    const student = new Student();
-    student.id = 2190226;
-    student.email = "tes2t@ug";
-    student.department = DepartmentType.CS;
-    student.firstName = "Test";
-    student.lastName = "Test2";
-    student.password = "123456";
-    student.exhangeType = ExchangeType.BILETERAL;
-    student.semesterType = SemesterType.FALL;
-    student.userType = UserType.STUDENT;
-    console.log( "RESULT: ", await StudentRepo.create(student) );
+    // const id = 134253;
+    // const email = "c1@ug.bilkent.edu.tr";
+    // const department = DepartmentType.CS;
+    // const firstName = "Test";
+    // const lastName = "Test2";
+    // const password = "123456";
+    // const exhangeType = ExchangeType.BILETERAL;
+    // const semesterType = SemesterType.FALL;;
+    // const schoolName = "ETH";
+    
+    // console.log( "RESULT: ", await StudentRepo.create(id, email, firstName, lastName, password, department, exhangeType, semesterType, schoolName) );
 
     //////////////////////////// TESTS ////////////////////////////
 
@@ -336,16 +342,113 @@ AppDataSource.initialize().then(async () => {
 
 }).catch(error => console.log("TypeORM connection error: ", error))
 
-// function test (){
-//     try {
-//         console.log("test");
-//         if ( true ) {
-//             throw new Error("test");
-//         }
-//     }catch (err) {
-//         console.log("test2");
-//         console.error("Error2: ", err);
-//     } 
-// }
+
+
+// create(name: string, department: DepartmentType): Promise<boolean | null>;
+// addDepartment(name: string, department: DepartmentType): Promise<boolean | null>;
+// removeDepartment(name: string, department: DepartmentType): Promise<boolean | null>;
+// addApprovedCourse(name: string, department: DepartmentType, course: BilkentCourse): Promise<boolean | null>;
+// removeApprovedCourse(name: string, department: DepartmentType, course: BilkentCourse): Promise<boolean | null>;
+// getApprovedCoursesByNameAndDepartment(name: string, department: DepartmentType): Promise<ApprovedCourse[] | null>;
+// getSchoolsByName(name: string): Promise<School[] | null>;
+// getSchoolsByDepartment(department: DepartmentType): Promise<School[] | null>;
+// getSchoolByNameAndDepartment(name: string, department: DepartmentType): Promise<School | null>;
+// getAllSchools(): Promise<School[] | null>;
+// removeSchool(name: string): Promise<boolean | null>;
+async function SchoolRepoTest(){
+
+    var schoolName = "ETH";
+    console.log("Result of school: " , await SchoolRepo.create(schoolName, DepartmentType.CS));
+
+    // console.log("Result of " + schoolName + " : " + DepartmentType.CHEM + ""  , await SchoolRepo.create(schoolName, DepartmentType.CHEM));
+    // console.log("Result of " + schoolName + " : " + DepartmentType.MATH + ""  , await SchoolRepo.create(schoolName, DepartmentType.MATH));
+    // console.log("Result of " + schoolName + " : " + DepartmentType.PHYS + ""  , await SchoolRepo.create(schoolName, DepartmentType.PHYS));
+
+    // console.log( "RESULT : ", await SchoolRepo.getSchoolsByDepartment(DepartmentType.CS));
+
+    // console.log( "RESULT BY NAME : ", await SchoolRepo.getSchoolsByName("EPFL"));
+
+    // console.log( "RESULT ALL SCHOOLS : ", await SchoolRepo.getAllSchools());
+
+    
+    // console.log("Result of " + schoolName + " :  "  , await SchoolRepo.removeDepartment(schoolName, DepartmentType.ECON));
+
+    // console.log( "REMOVE SCHOOL : ", await SchoolRepo.removeSchool(schoolName));
+
+
+////// APPROVED COURSES TESTS
+    const bilkentCoursesRepository = AppDataSource.getRepository(BilkentCourse);
+    const bilkentCourse = new BilkentCourse();
+    bilkentCourse.code = "CS 353"
+    bilkentCourse.name = "Database Systems"
+    bilkentCourse.credit = 3
+    bilkentCourse.courseType = CourseType.MANDATORY;
+    bilkentCourse.department = DepartmentType.CS;
+
+    // await bilkentCoursesRepository.save(bilkentCourse);
+    
+    const approvedHostCourseRepository = AppDataSource.getRepository(ApprovedHostCourse);
+    const approvedHostCourse = new ApprovedHostCourse();
+    approvedHostCourse.code = "CS-322"
+    approvedHostCourse.name = "Introduction to Database Systems"
+    approvedHostCourse.credit = 4
+    approvedHostCourse.department = DepartmentType.CS;
+    approvedHostCourse.school = schoolName;
+    // await approvedHostCourseRepository.save(approvedHostCourse);
+
+    const approvedCoursesRepository = AppDataSource.getRepository(ApprovedCourse); 
+    const approvedCourse = new ApprovedCourse();
+    approvedCourse.bilkentCourse = bilkentCourse;
+    // approvedCourse.school = ;
+    approvedCourse.school = await SchoolRepo.getSchoolByNameAndDepartment(schoolName, DepartmentType.CS);
+    approvedCourse.approvedHostCourses = [approvedHostCourse];
+    // await approvedCoursesRepository.save(approvedCourse);
+
+    console.log( " addApprovedCourse : " , await SchoolRepo.addApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
+    console.log( "removeApprovedCourse : " , await SchoolRepo.removeApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
+    console.log( "getApprovedCoursesByNameAndDepartment : ", await SchoolRepo.getApprovedCoursesByNameAndDepartment(schoolName, DepartmentType.CS));
+//     console.log( "Result of school: " , await SchoolRepo.create("ETH", DepartmentType.EEE));
+//     console.log( "Removing of school: " , await SchoolRepo.removeDepartment("ETH", DepartmentType.CS));
+//     console.log( "Removing of school2: " , await SchoolRepo.addDepartment("ETH", DepartmentType.MATH));
+
+
+}
+
+async function AdministrationRepoTest(){
+
+    const idAdmini = 234567;
+    const emailAdmini = "administration@ug.bilkent.edu.tr";
+    const departmentAdmin = DepartmentType.CS;
+    const firstNameAdmin = "Yelda";
+    const lastNameAdmin = "Ates";
+    const passwordAdmin = "yelda";
+
+    // create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType)
+    console.log( "Result Administration: " , await AdministrationRepo.create(idAdmini, emailAdmini, firstNameAdmin, lastNameAdmin, passwordAdmin, departmentAdmin));
+
+    console.log( "Administration Found: ", await AdministrationRepo.findAdministrationByDepartment(DepartmentType.CS) );
+}
+
+
+async function CoordinatorRepoTest(){
+    const idCoor = 21432435;
+    const emailCoor = "c1@ug.bilkent.edu.tr";
+    const departmentCoord = DepartmentType.CS;
+    const firstNameCoor = "Can";
+    const lastNameCoord = "Alkan";
+    const passwordCoord = "canPassword";
+
+    console.log( "Result Coordinator: " , await CoordinatorRepo.create(idCoor, emailCoor, firstNameCoor, lastNameCoord, passwordCoord, departmentCoord));
+
+    console.log( "Result Coordinator: " , await CoordinatorRepo.findCoordinatorByDepartment(DepartmentType.CS) );
+}
+
+
+async function UserRepoTest(){
+
+    console.log( "Result User: ", await UserRepo.getUserById(21432435) );
+
+    console.log( "Result Coordinator: " , await CoordinatorRepo.findCoordinatorByDepartment(DepartmentType.CS) );
+}
 
 

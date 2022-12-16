@@ -5,7 +5,8 @@ import { NotApprovedHostCourse } from "./NotApprovedHostCourse"
 
 export enum CourseStatus {
     STUDENT_PENDING = "stdnt",
-    INSTRUCTOR_PENDING = "crdnt",
+    INSTRUCTOR_PENDING = "instr",
+    REJECTED = "rjctd",
     APPROVED = "apprvd",
 }
 
@@ -19,10 +20,10 @@ export class PendingCourse extends StudentCourse{
     })
     status: CourseStatus
 
-    @ManyToMany(() => NotApprovedHostCourse)
+    @ManyToMany(() => NotApprovedHostCourse, {eager: true, cascade: true})
     @JoinTable()
     notApprovedHostCourses: NotApprovedHostCourse[]
-    
-    // @ManyToOne(type => StudentCourse, StudentCourse => StudentCourse.pendingCourse)
-    // studentCourse: StudentCourse
+
+    @Column({length: 100, nullable: true})
+    instructorResponse: string
 }

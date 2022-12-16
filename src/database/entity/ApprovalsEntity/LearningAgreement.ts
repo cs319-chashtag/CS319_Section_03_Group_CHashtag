@@ -1,11 +1,14 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, PrimaryGeneratedColumn, CreateDateColumn  } from "typeorm"
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn  } from "typeorm"
+import { ApprovalStatus } from "./PreApproval"
 
-export enum LearningAggrementStatus {
-    STUDENT_PENDING = "stdnt",
-    COORDINATOR_PENDING = "crdnt",
-    ADMINISTRATION_PENDING = "adm",
-    APPROVED = "apprvd",
-}
+// export enum LearningAggrementStatus {
+//     STUDENT_PENDING = "stdnt",
+//     COORDINATOR_PENDING = "crdnt",
+//     COORDINATOR_REJECTED = "crdnt_rej",
+//     ADMINISTRATION_PENDING = "adm",
+//     ADMINISTRATION_REJECTED = "adm_rej",
+//     APPROVED = "apprvd",
+// }
 
 @Entity()
 export class LearningAgreement {
@@ -15,13 +18,16 @@ export class LearningAgreement {
     
     @CreateDateColumn()
     createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
     
     @Column({
         type: "enum",
-        enum: LearningAggrementStatus,
-        default: LearningAggrementStatus.STUDENT_PENDING,
+        enum: ApprovalStatus,
+        default: ApprovalStatus.STUDENT_PENDING,
     })
-    status: LearningAggrementStatus
+    status: ApprovalStatus
 
     @Column()
     fileLink: string

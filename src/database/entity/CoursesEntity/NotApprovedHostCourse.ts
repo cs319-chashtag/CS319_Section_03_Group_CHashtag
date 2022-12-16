@@ -5,9 +5,9 @@ import { HostCourse } from "./HostCourse"
 @ChildEntity()
 export class NotApprovedHostCourse extends HostCourse{
 
-    @Column({length: 30})
-    syllabusLink: string
-
-    @Column({length: 30})
-    courseInfoLink: string
+    // @Column({length: 128})
+    // syllabusLink: string
+    
+    @Column({length: 150})
+    studentMessageLink: string
 }
