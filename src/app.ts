@@ -8,6 +8,7 @@
 import * as express from "express"
 import { Request, Response } from "express"
 import * as LogRoute from "./routers/LoginRouter";
+import * as StudRoute from "./routers/Studentrouter";
 import { request } from "http"
 import { AppDataSource } from "./database/data-source"
 // const bodyParser = require('body-parser')
@@ -48,6 +49,7 @@ app.use(session({
 app.use(express.json())
 
 app.use("/login", LogRoute);
+app.use("/studentActions",StudRoute);
 // register routes
 
 
@@ -57,7 +59,7 @@ app.use("/login", LogRoute);
 app.get("/users/:id", async function (req: Request, res: Response) {
     console.log("asd")
     const student = await StudentRepo.findStudentById(parseInt(req.params.id));
-    console.log(student);
+    
     res.send(student);
     // here we will have logic to return user by id
 })

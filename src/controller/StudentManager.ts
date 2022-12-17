@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import Auth from "./authenticate";
 import { ApprovalStatus } from "../database/entity/ApprovalsEntity/PreApproval";
 import EmailM from "./Emailmanager";
-
+import { User } from "../database/entity/UsersEntity/User";
 
 //Class which handles request that will come from student 
 export default class StudentManager {
@@ -14,13 +14,15 @@ export default class StudentManager {
         let studentinfos =  await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
         if(studentinfos == null) { 
             res.json({
-                status: 'no student found',
+                status: 'FALSE',
 
             })
         }
 
         else {
-            res.json(studentinfos);
+            res.json({
+                status: ' TRUE',
+                data: studentinfos});
         }
         
     }
@@ -60,15 +62,19 @@ export default class StudentManager {
     public static async sendApprovaltoCoor(req: Request, res: Response ){
         if(Auth.checkAuth(req)){
             let result = await UserRepo.getUserById(req.session.bid).catch(err => res.send(err));
-            let dep = result['department'];
-            // burayı userdan çek böylece departmentını almış oluruz 
+            if(result instanceof User){
+            let dep = result.department;
             let result1 = await CoordinatorRepo.findCoordinatorByDepartment(dep).catch(err=>res.send(err));
             let result2 = await StudentRepo.setPreApprovalStatus(req.session.bid, ApprovalStatus.COORDINATOR_PENDING);
             if(result2) {
                 EmailM.approvalFormMail(result1['email']);
                 res.send(result2);
             }
-            else res.send("False");}
+        }
+            // burayı userdan çek böylece departmentını almış oluruz 
+            
+            else res.send("False");
+        }
             else {
                 res.send("Login");
             }
