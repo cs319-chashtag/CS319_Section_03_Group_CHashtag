@@ -1,8 +1,29 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
+    // let [id, setId] = useState(null);
+    // let [password, setPassword] = useState(null);
+    // async function logger() {
+    //     let res = await fetch("/loginPage", {
+    //         method: "POST",
+    //         headers: { "Content-type": "application/json" },
+    //         body: JSON.stringify({
+    //             idField: id,
+    //             passField: password,
+    //         }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             if (data.userinfo == "TRUE") {
+    //                 if (data.usertype == "1") {
+    //                     navigate("/studentActions");
+    //                 }
+    //             }
+    //         });
+    // }
     return (
         <div className="p-8">
             <div className="inline-block justify-center relative">
@@ -50,6 +71,7 @@ export default function Login() {
                         type="submit"
                         onClick={() => {
                             navigate("/student");
+                            //logger();
                         }}
                     >
                         Sign in (debug student)
