@@ -14,6 +14,8 @@ import { DepartmentType, UserType } from "./entity/UsersEntity/User"
 import AdministrationRepo from "./repository/AdministrationRepo"
 import SchoolRepo from "./repository/SchoolRepo"
 import UserRepo from "./repository/UserRepo"
+import BilkentUniRepo from "./repository/BilkentUniRepo"
+import ApprovedCourseRepo from "./repository/ApprovedCourseRepo"
 
 var compare1 = {
         approvedHostCourses : [
@@ -185,10 +187,18 @@ var studentCourseData  =  {
 };
 
 AppDataSource.initialize().then(async () => {
-    console.log("Initialized");
 
-    SchoolRepoTest();
+    // BilkentUniRepoTest(); /// DONE
 
+    // SchoolRepoTest();
+
+    // ApprovedCourseRepoTest(); // DONE
+
+    // CoordinatorRepoTest();
+
+    // AdministrationRepoTest();
+
+    
     // createOject();
     // getStudent(1234556).then((student) => {
     //     console.log(student);
@@ -274,10 +284,6 @@ AppDataSource.initialize().then(async () => {
     // });
     // console.log("DATA : " , data);
 
-
-
-    
-    
     // await StudentRepo.findById(21902296).then((student) => {
     //     console.log("APPROVAL : " , student.preApproval);
     // }).catch((err) => {
@@ -300,8 +306,6 @@ AppDataSource.initialize().then(async () => {
     //     console.error("ERROR HERE" , err.message);
     // });
 
-    
-
     // await createStudent(id, email, name, surname, password, department, "ERASMUS", school).catch((err) => {
     //     console.error("ERROR HERE" , err.message);
     // });
@@ -311,10 +315,7 @@ AppDataSource.initialize().then(async () => {
     //     console.error("ERROR HERE" , err.message);
     // });
 
-
-    
     // console.log("Student:", stdnt);
-    
 
     // const preApproval = getPreApproval(21902296);
     // console.log("PreApproval: ", preApproval);
@@ -332,16 +333,7 @@ AppDataSource.initialize().then(async () => {
     // console.log("Student id: " + std2);
 
     console.log("This is the end of the example.");
-
-    // console.log("Saved a new Coordinator with id: " + coordinator.id)
-    // console.log("Loading Coordinator from the database...")
-
-    // const coordinators = await coordinatorRepository.find()
-    // console.log("Loaded Coordinator: ", coordinators)
-    // console.log("Here you can setup and run express / fastify / any other framework.")
-
 }).catch(error => console.log("TypeORM connection error: ", error))
-
 
 
 // create(name: string, department: DepartmentType): Promise<boolean | null>;
@@ -370,43 +362,42 @@ async function SchoolRepoTest(){
 
     // console.log( "RESULT ALL SCHOOLS : ", await SchoolRepo.getAllSchools());
 
-    
     // console.log("Result of " + schoolName + " :  "  , await SchoolRepo.removeDepartment(schoolName, DepartmentType.ECON));
 
     // console.log( "REMOVE SCHOOL : ", await SchoolRepo.removeSchool(schoolName));
 
 
 ////// APPROVED COURSES TESTS
-    const bilkentCoursesRepository = AppDataSource.getRepository(BilkentCourse);
-    const bilkentCourse = new BilkentCourse();
-    bilkentCourse.code = "CS 353"
-    bilkentCourse.name = "Database Systems"
-    bilkentCourse.credit = 3
-    bilkentCourse.courseType = CourseType.MANDATORY;
-    bilkentCourse.department = DepartmentType.CS;
+    // const bilkentCoursesRepository = AppDataSource.getRepository(BilkentCourse);
+    // const bilkentCourse = new BilkentCourse();
+    // bilkentCourse.code = "CS 353"
+    // bilkentCourse.name = "Database Systems"
+    // bilkentCourse.credit = 3
+    // bilkentCourse.courseType = CourseType.MANDATORY;
+    // bilkentCourse.department = DepartmentType.CS;
 
     // await bilkentCoursesRepository.save(bilkentCourse);
     
-    const approvedHostCourseRepository = AppDataSource.getRepository(ApprovedHostCourse);
-    const approvedHostCourse = new ApprovedHostCourse();
-    approvedHostCourse.code = "CS-322"
-    approvedHostCourse.name = "Introduction to Database Systems"
-    approvedHostCourse.credit = 4
-    approvedHostCourse.department = DepartmentType.CS;
-    approvedHostCourse.school = schoolName;
+    // const approvedHostCourseRepository = AppDataSource.getRepository(ApprovedHostCourse);
+    // const approvedHostCourse = new ApprovedHostCourse();
+    // approvedHostCourse.code = "CS-322"
+    // approvedHostCourse.name = "Introduction to Database Systems"
+    // approvedHostCourse.credit = 4
+    // approvedHostCourse.department = DepartmentType.CS;
+    // approvedHostCourse.school = schoolName;
     // await approvedHostCourseRepository.save(approvedHostCourse);
 
-    const approvedCoursesRepository = AppDataSource.getRepository(ApprovedCourse); 
-    const approvedCourse = new ApprovedCourse();
-    approvedCourse.bilkentCourse = bilkentCourse;
-    // approvedCourse.school = ;
-    approvedCourse.school = await SchoolRepo.getSchoolByNameAndDepartment(schoolName, DepartmentType.CS);
-    approvedCourse.approvedHostCourses = [approvedHostCourse];
+    // const approvedCoursesRepository = AppDataSource.getRepository(ApprovedCourse); 
+    // const approvedCourse = new ApprovedCourse();
+    // approvedCourse.bilkentCourse = bilkentCourse;
+    // // approvedCourse.school = ;
+    // approvedCourse.school = await SchoolRepo.getSchoolByNameAndDepartment(schoolName, DepartmentType.CS);
+    // approvedCourse.approvedHostCourses = [approvedHostCourse];
     // await approvedCoursesRepository.save(approvedCourse);
 
-    console.log( " addApprovedCourse : " , await SchoolRepo.addApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
-    console.log( "removeApprovedCourse : " , await SchoolRepo.removeApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
-    console.log( "getApprovedCoursesByNameAndDepartment : ", await SchoolRepo.getApprovedCoursesByNameAndDepartment(schoolName, DepartmentType.CS));
+    // console.log( " addApprovedCourse : " , await SchoolRepo.addApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
+    // console.log( "removeApprovedCourse : " , await SchoolRepo.removeApprovedCourse(schoolName, DepartmentType.CS, approvedCourse));
+    // console.log( "getApprovedCoursesByNameAndDepartment : ", await SchoolRepo.getApprovedCoursesByNameAndDepartment(schoolName, DepartmentType.CS));
 //     console.log( "Result of school: " , await SchoolRepo.create("ETH", DepartmentType.EEE));
 //     console.log( "Removing of school: " , await SchoolRepo.removeDepartment("ETH", DepartmentType.CS));
 //     console.log( "Removing of school2: " , await SchoolRepo.addDepartment("ETH", DepartmentType.MATH));
@@ -425,7 +416,6 @@ async function AdministrationRepoTest(){
 
     // create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType)
     console.log( "Result Administration: " , await AdministrationRepo.create(idAdmini, emailAdmini, firstNameAdmin, lastNameAdmin, passwordAdmin, departmentAdmin));
-
     console.log( "Administration Found: ", await AdministrationRepo.findAdministrationByDepartment(DepartmentType.CS) );
 }
 
@@ -438,17 +428,79 @@ async function CoordinatorRepoTest(){
     const lastNameCoord = "Alkan";
     const passwordCoord = "canPassword";
 
+    const idCoor2 = 1453635;
+    const emailCoor2 = "c2@ug.bilkent.edu.tr";
+    const departmentCoord2 = DepartmentType.CS;
+    const firstNameCoor2 = "Aysegul";
+    const lastNameCoord2 = "Dundar";
+    const passwordCoord2 = "aysegulPasssword";
+
     console.log( "Result Coordinator: " , await CoordinatorRepo.create(idCoor, emailCoor, firstNameCoor, lastNameCoord, passwordCoord, departmentCoord));
 
+    console.log( "Result Coordinator2: " , await CoordinatorRepo.create(idCoor2, emailCoor2, firstNameCoor2, lastNameCoord2, passwordCoord2, departmentCoord2));
+
     console.log( "Result Coordinator: " , await CoordinatorRepo.findCoordinatorByDepartment(DepartmentType.CS) );
 }
 
+async function StudentRepoTest(){
+    const idStudent = 21432435;
+    const emailStudent = "";
+    
+
+
+}
 
 async function UserRepoTest(){
-
     console.log( "Result User: ", await UserRepo.getUserById(21432435) );
-
     console.log( "Result Coordinator: " , await CoordinatorRepo.findCoordinatorByDepartment(DepartmentType.CS) );
 }
 
+
+//DONE WITH TESTS 
+async function BilkentUniRepoTest(){
+    //department : DepartmentType, courseCode: string, courseName: string, courseType: CourseType, courseCredit: number
+
+    // console.log("Adding Bilkent: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"CS 353", "Database Systems",  CourseType.MANDATORY,3));
+    // console.log("Adding Bilkent: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"Technical Elective", "",  CourseType.ELECTIVE,3));
+    // console.log("Adding Bilkent Technical Elective: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"Technical Elective", "",  CourseType.ELECTIVE,3));
+    // console.log("Adding Bilkent CS 473: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"CS473", "Algorithms I",  CourseType.MANDATORY,3));
+    // console.log("Adding Bilkent Art Core Elective: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"Arts Core Elective", "",  CourseType.ELECTIVE,3));
+    // console.log("Adding Bilkent CS342: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"CS342", "Operating Systems",  CourseType.MANDATORY,4));
+    // console.log("Adding Bilkent Technical Elective CS 421: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"Technical Elective", "CS 421",  CourseType.ELECTIVE,3));
+    // console.log("Adding Bilkent Technical Elective CS 411: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.CS,"Technical Elective", "CS 411",  CourseType.ELECTIVE,3));
+    // console.log("Adding Bilkent: ", await BilkentUniRepo.addBilkentCourse(DepartmentType.ME,"Technical Elective", "MATH 260",  CourseType.ELECTIVE,3));
+
+    // console.log("Removing Bilkent: ", await BilkentUniRepo.removeBilkentCourse(DepartmentType.CS,"CS473", "Algorithms I",  CourseType.MANDATORY));
+    // console.log("Removing Bilkent: ", await BilkentUniRepo.removeBilkentCourse(DepartmentType.CS,"Technical Elective", "",  CourseType.ELECTIVE));
+    // console.log("getBilkentCoursesByCode: ", await BilkentUniRepo.getBilkentCoursesByCode(DepartmentType.CS,"Technical Elective"));
+
+    // console.log("\n\ngetBilkentCoursesByCourseType: ", await BilkentUniRepo.getBilkentCoursesByCourseType(DepartmentType.CS, CourseType.MANDATORY ));
+
+    // console.log("getBilkentCourseByCodeAndName: ", await BilkentUniRepo.getBilkentCourseByCodeAndName(DepartmentType.CS, "Technical Elective", "MATH 260" ));
+    // console.log( "Result Bilkent: ", await BilkentUniRepo.getAllBilkentCoursesByDepartment(DepartmentType.CS) );
+    
+    // console.log("\n--------------------------\n");
+    // console.log( "Result All Bilkent Courses: ", await BilkentUniRepo.getAllBilkentCourses() );
+}
+
+//DONE WITH TESTS
+async function ApprovedCourseRepoTest(){
+    const uniName = "ETH";
+    const dep = DepartmentType.CS;
+    console.log( "Approved Course Created: " , await ApprovedCourseRepo.createApprovedCourse(uniName,dep) );
+
+    //(schoolName : string, department: DepartmentType, courseCode: string, courseName: string, courseCredit: number)
+    console.log( "Adding Approved Host Course" ,await ApprovedCourseRepo.addApprovedHostCourse(uniName, dep, "INF4032", "System Programming",  2) );
+    console.log( "Adding Approved Host Course2 " ,await ApprovedCourseRepo.addApprovedHostCourse(uniName, dep, "INF4032", "Computer Networks",  2) );
+
+
+    console.log( "Adding Bilkent Course " , await ApprovedCourseRepo.addBilkentCourse(uniName, dep, "Technical Elective", "CS 421") );
+
+    console.log( "Removing Bilkent Course ", await ApprovedCourseRepo.removeApprovedCourse(uniName, dep, "Technical Elective", "CS 421") );
+    // console.log( await ApprovedCourseRepo.getApprovedCoursesBySchoolAndDepartment(uniName, dep) );
+
+    const approvedCourses = await SchoolRepo.getApprovedCoursesByNameAndDepartment(uniName, dep)
+    console.log("\n\nSchool: ", await SchoolRepo.getApprovedCoursesByNameAndDepartment(uniName, dep) );
+    console.log("Approved Courses: ", approvedCourses);
+}
 

@@ -6,7 +6,9 @@ import { NotApprovedHostCourse } from "./NotApprovedHostCourse"
 export enum CourseStatus {
     STUDENT_PENDING = "stdnt",
     INSTRUCTOR_PENDING = "instr",
-    REJECTED = "rjctd",
+    INSTRUCTOR_REJECTED = "rjctd",
+    COORDINATOR_PENDING = "crdnt",
+    COORDINATOR_REJECTED = "crjct",
     APPROVED = "apprvd",
 }
 

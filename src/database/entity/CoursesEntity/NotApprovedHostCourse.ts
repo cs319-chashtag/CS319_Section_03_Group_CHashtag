@@ -9,5 +9,5 @@ export class NotApprovedHostCourse extends HostCourse{
     // syllabusLink: string
     
     @Column({length: 150})
-    studentMessageLink: string
+    studentMessage: string
 }
