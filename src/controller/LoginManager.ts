@@ -13,18 +13,20 @@ export default class LoginManager {
             req.session.name = userinfo['name'];
             req.session.surname = userinfo['surname'];
             req.session.email = userinfo['email'];
-            req.session.type = userinfo['type'];
-            if(userinfo['type'] == "student"){
+            req.session.type = userinfo.userType;
+            req.session.cookie.expires = false;
+            console.log(userinfo);
+            if(userinfo.userType == "1"){
                 res.json({
-                    status: "Logged In",
-                    type: req.session.type = userinfo['type'],
+                    userinfo: "TRUE",
+                    usertype: req.session.type,
                 })
             }
-            else if (userinfo['type'] == "coordinator"){
-                res.json({
-                    status: "TRUE",
-                    type: req.session.type = userinfo['type'],
-                })
+            else if (userinfo.userType == "2"){
+                res.json(JSON.stringify({
+                    
+                    type: req.session.type,
+                }))
             }
             else if (userinfo['type'] == 'instructor'){
                 res.json({
@@ -41,6 +43,7 @@ export default class LoginManager {
             else {
                 res.json({
                     status: "ERROR",
+                    type: "can not find",
                     
                 })
             }

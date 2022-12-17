@@ -13,7 +13,6 @@ import { request } from "http"
 import { AppDataSource } from "./database/data-source"
 // const bodyParser = require('body-parser')
 import  StudentRepo  from "./database/repository/StudentRepo"
-import  LoginR from "./controller/LoginManager"
 import EmailM from "./controller/Emailmanager"
 import * as session from 'express-session';
 
@@ -47,9 +46,8 @@ app.use(session({
     saveUninitialized: false,
 }))
 app.use(express.json())
-
-app.use("/login", LogRoute);
-app.use("/studentActions",StudRoute);
+app.use("/loginPage", LogRoute);
+app.use("/studentPage",StudRoute);
 // register routes
 
 
@@ -77,6 +75,6 @@ app.delete("/users/:id", function (req: Request, res: Response) {
 })
 
 // start express server
-app.listen(3000, () => {
-    console.log("Server started on port 3000!")
+app.listen(5000, () => {
+    console.log("Server started on port 5000!")
 }); 

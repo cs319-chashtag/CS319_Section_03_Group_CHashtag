@@ -3,7 +3,10 @@ import LoginManager from "../controller/LoginManager";
 const router = Router();
 class LoginR { 
     constructor(){
-        router.get("/", LoginManager.checkLogin);
+        router.post("/", LoginManager.checkLogin);
+        router.get("/", (req,res)  =>  {
+            res.send("ok");
+        })
     };
 
 }

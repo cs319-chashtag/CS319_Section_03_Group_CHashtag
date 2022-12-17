@@ -10,19 +10,20 @@ import { User } from "../database/entity/UsersEntity/User";
 //Class which handles request that will come from student 
 export default class StudentManager {
     public static async getStudentInfo(req: Request, res:Response){
+        console.log(Auth.checkAuth(req))
     if(Auth.checkAuth(req)){
         let studentinfos =  await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
         if(studentinfos == null) { 
             res.json({
-                status: 'FALSE',
+                info: 'FALSE',
 
             })
         }
 
         else {
             res.json({
-                status: ' TRUE',
-                data: studentinfos});
+                info: ' TRUE',
+                sutdinfo: studentinfos});
         }
         
     }
@@ -60,6 +61,7 @@ export default class StudentManager {
      * approvala coordinator öğesi ekle 
      */
     public static async sendApprovaltoCoor(req: Request, res: Response ){
+       
         if(Auth.checkAuth(req)){
             let result = await UserRepo.getUserById(req.session.bid).catch(err => res.send(err));
             if(result instanceof User){
