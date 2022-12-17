@@ -2,14 +2,61 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../modal/modal_component";
 import { useState } from "react";
+import BilkentCourseCard from "./BilkentCourseCard";
+import PartnerCourseCardList from "./PartnerCourseCardList";
 
 export default function StudentCourseComponent() {
     const navigate = useNavigate();
+    const [ notApprovedNumber, setNotApprovedNumber ] = useState(0);
+    const [ bilkentCourseNumber, setBilkentCourseNumber ] = useState(0);
     const [modalOn, setModalOn] = useState(false);
     const [choice, setChoice] = useState(false);
 
-    const clicked = () => {
+    // const clicked = () => {
+    //     setModalOn(true);
+    // };
+
+    const hostCourseAddButtonClicked = () => {
+        setNotApprovedNumber(notApprovedNumber + 1);
         setModalOn(true);
+    };
+
+    const bilkentCourseAddButtonClicked = () => {
+        setBilkentCourseNumber(bilkentCourseNumber + 1);
+        setModalOn(true);
+    };
+
+
+    var counter = 0;
+    const ApprovedCourseData = {
+        bilkentCourse : {
+            bilkentCode : "Math 260",
+            name : "Intro to Computer Science",
+            type : "Mandatory",
+            credit : 4,
+        },
+        hostCourses : [
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+        ]
     };
 
     return (
@@ -267,9 +314,6 @@ export default function StudentCourseComponent() {
                             <h1 class="font-bold text-black text-3xl py-4 uppercase">
                                 Student Actions - Courses
                                 <br />
-                                <span className="text-gray-600 text-base">
-                                    Welcome Back, Arda Tavusbay
-                                </span>
                             </h1>
                         </div>
                         <div className="py-4 ml-auto">
@@ -285,75 +329,67 @@ export default function StudentCourseComponent() {
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
                             <div class="relative col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Courses - Host University
-                                </div>
-                                <div class="relative grid grid-rows gap-2">
-                                    <div className="p-2 border border-black rounded-lg">
-                                        <span className="text-l text-black">
-                                            CS353
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Database Systems
-                                        </span>
-                                    </div>
-                                    <div className="p-2 border border-black rounded-lg">
-                                        <span className="text-l text-black">
-                                            CS484
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Introduction to Computer Vision
-                                        </span>
-                                    </div>
-                                    <div className="p-2 border border-black rounded-lg">
-                                        <span className="text-l text-black">
-                                            CS449
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Learning for Robotics
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
-                                    <button
-                                        className="gap-2 flex"
-                                        type="button"
-                                        data-modal-toggle="defaultModal"
-                                        onClick={clicked}
-                                    >
-                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                        Add Course
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="relative col-span-3 p-6 border border-black rounded-lg">
-                                <div className="text-black pb-4">
                                     Courses - Partner University
                                 </div>
                                 <div class="relative grid grid-rows gap-2">
-                                    <div className="p-2 border border-black rounded-lg">
-                                        <span className="text-l text-black">
-                                            0434 L 500
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Informationssysteme und Datenanalyse
-                                        </span>
-                                    </div>
+                                    <PartnerCourseCardList hostCourses={ApprovedCourseData.hostCourses}/>
                                 </div>
+                                
+                                { notApprovedNumber < 5 ? 
+                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                    <button
+                                        
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={hostCourseAddButtonClicked}
+                                        // onClick={() => {setNotApprovedNumber(notApprovedNumber + 1)}}
+                                    >
+                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add Course
+                                    </button>
+                                </div> 
+                                : null }
+                                
+                            </div>
+                            <div class="relative col-span-3 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Bilkent Course
+                                </div>
+                                <div class="relative grid grid-rows gap-2">
+                                    <BilkentCourseCard
+                                        key={counter++}
+                                        bilkentCode={ApprovedCourseData.bilkentCourse.bilkentCode}
+                                        bilkentName={ApprovedCourseData.bilkentCourse.name}
+                                        bilkentCourseType = {ApprovedCourseData.bilkentCourse.type}
+                                        bilkentCredit = {ApprovedCourseData.bilkentCourse.credit}
+                                    />
+                                </div>
+                                { bilkentCourseNumber < 1 ? 
                                 <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
                                     <button
                                         className="gap-2 flex"
                                         type="button"
                                         data-modal-toggle="defaultModal"
-                                        onClick={clicked}
+                                        onClick={bilkentCourseAddButtonClicked}
                                     >
                                         <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
                                         Add Course
                                     </button>
                                 </div>
+                                
+                                : null }
+                            </div>
+                            <div className="relative col-span-6 p-2 border border-black rounded-lg m-auto mt-6 ">
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        // onClick={}
+                                    >
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                         Add to Pre Approval Form
+                                    </button>
                             </div>
                         </div>
                     </div>
