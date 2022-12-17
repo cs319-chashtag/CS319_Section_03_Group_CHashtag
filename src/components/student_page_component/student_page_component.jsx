@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentPageComponent() {
+export default async function StudentPageComponent() {
     const navigate = useNavigate();
+    let [infos, setInfos] = useState(null);
+    async function getter()  {
+        await fetch ("/studentPage",{
+            method: "GET",
+            headers: {"Content-type": "application/json"},
+        }).then((res) => res.json()
+            
+        )
+    }
+    getter();
 
     return (
+        
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
@@ -24,7 +35,7 @@ export default function StudentPageComponent() {
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                                 {infos.name};
                             </p>
                             <span class="text-xs text-slate-400">
                                 Erasmouse Student
@@ -278,7 +289,7 @@ export default function StudentPageComponent() {
                             Student Actions
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, {infos.name}
                             </span>
                         </h1>
                         <div
@@ -336,7 +347,7 @@ export default function StudentPageComponent() {
                             </div>
                             <div class="col-span-7 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Technical University of Berlin
+                                    {infos.school}
                                 </div>
                                 <div className="grid grid-cols-5">
                                     <div class="col-span-2 grid grid-rows-5 gap-6">

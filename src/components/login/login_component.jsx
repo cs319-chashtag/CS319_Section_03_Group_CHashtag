@@ -1,8 +1,29 @@
-import React from "react";
+
+import {useState, React} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    let [id, setId] = useState(null);
+    let [password, setPassword] = useState(null);
     const navigate = useNavigate();
+     async function logger ()  {
+        let res = await fetch ("/loginPage",{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                idField: id,
+                passField: password
+            })
+        }).then((res) =>res.json()).then((data) => {
+            if(data.userinfo == "TRUE"){
+                if(data.usertype == "1"){
+                    navigate("/studentActions");
+                }
+            }
+        })
+    }
+      
+   
     return (
         <div className="p-8">
             <div className="inline-block justify-center relative">
@@ -29,18 +50,20 @@ export default function Login() {
                             class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 "
                             type="text"
                             placeholder="Username or Email id"
+                            onChange = {e => setId(e.target.value)}
                         />
                         <input
                             class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500"
                             type="password"
                             placeholder="Password"
+                            onChange = {e => setPassword(e.target.value)}
                         />
                     </div>
                     <button
                         class="mt-5 w-full border border-black p-2"
                         type="submit"
                         onClick={() => {
-                            navigate("/studentActions");
+                             logger();
                         }}
                     >
                         Sign in
