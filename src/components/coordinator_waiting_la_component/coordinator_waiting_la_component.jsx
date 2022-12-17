@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../modal/modal_learning_component";
+import { useState } from "react";
 
-export default async function StudentPageComponent() {
+export default function CoordinatorWaitingLAComponent() {
     const navigate = useNavigate();
-    let [infos, setInfos] = useState(null);
-    async function getter()  {
-        await fetch ("/studentPage",{
-            method: "GET",
-            headers: {"Content-type": "application/json"},
-        }).then((res) => res.json()
-            
-        )
-    }
-    getter();
+    const [modalOn, setModalOn] = useState(false);
+    const [choice, setChoice] = useState(false);
+
+    const clicked = () => {
+        setModalOn(true);
+    };
 
     return (
-        
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
+            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
@@ -29,16 +27,16 @@ export default async function StudentPageComponent() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/photo.jpg")}
+                                src={require("../../assets/can_alkan_photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                 {infos.name};
+                                Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Student
+                                Erasmouse Coordinator
                             </span>
                         </div>
                     </a>
@@ -46,6 +44,9 @@ export default async function StudentPageComponent() {
                     <div id="menu" class="flex flex-col space-y-2 my-5">
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/coordinator");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -78,7 +79,7 @@ export default async function StudentPageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/preapprovalForms");
+                                navigate("/coordinator/waitingPreapprovals");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -111,6 +112,9 @@ export default async function StudentPageComponent() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/coordinator/waitingAgreements");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -142,6 +146,78 @@ export default async function StudentPageComponent() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/coordinator/todoPage");
+                            }}
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke="currentColor"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <line
+                                            x1="8"
+                                            y1="6"
+                                            x2="21"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="12"
+                                            x2="21"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="18"
+                                            x2="21"
+                                            y2="18"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="6"
+                                            x2="3.01"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="12"
+                                            x2="3.01"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="18"
+                                            x2="3.01"
+                                            y2="18"
+                                        ></line>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Todo List
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        Manage Tasks
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            onClick={() => {
+                                navigate("/coordinator/profile");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -176,40 +252,12 @@ export default async function StudentPageComponent() {
                                 </div>
                             </div>
                         </a>
+
                         <a
                             href="#"
-                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                        >
-                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                <div>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="w-6 h-6 group-hover:text-indigo-400"
-                                    >
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Mail
-                                    </p>
-                                    <p class="text-slate-400 text-sm hidden md:block">
-                                        View Mails
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                        <a
-                            href="#"
+                            onClick={() => {
+                                navigate("/coordinator/help");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -284,109 +332,54 @@ export default async function StudentPageComponent() {
                     id="content"
                     class="border border-black bg-white/10 col-span-8 rounded-lg p-6"
                 >
-                    <div id="24h">
-                        <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions
-                            <br />
-                            <span className="text-gray-600 text-base">
-                                Welcome Back, {infos.name}
-                            </span>
-                        </h1>
-                        <div
-                            id="stats"
-                            class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                        ></div>
+                    <div className="flex">
+                        <div id="title">
+                            <h1 class="font-bold text-black text-3xl py-4 uppercase">
+                                Coordinator Actions - Learning Agreements
+                                <br />
+                                <span className="text-gray-600 text-base">
+                                    Welcome Back, Can Alkan
+                                </span>
+                            </h1>
+                        </div>
                     </div>
-                    <div id="last-incomes">
-                        <div
-                            id="stats"
-                            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-10 gap-4"
-                        >
-                            <div class="col-span-3 p-6 border border-black rounded-lg">
+
+                    <div id="container">
+                        <div class="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
+                            <div class="relative col-span-6 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Upcoming Events
+                                    Waiting Learning Agreements
                                 </div>
-                                <div class="grid grid-rows-4 gap-7">
-                                    <div className="p-4 bg-sky-100 rounded-lg">
+                                <div class="relative grid-cols-3 grid grid-rows gap-2">
+                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
                                         <span className="text-l text-black">
-                                            6 November 2022
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Pre-Approval Form Upload
+                                            Tugberk Dikmen
                                         </span>
                                     </div>
-                                    <div className="p-4 bg-sky-100 rounded-lg">
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
+                                        <button
+                                            className="col-span-1 text-center text-xl text-black"
+                                            type="button"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={clicked}
+                                        >
+                                            Check Learning Agreement
+                                        </button>
+                                    </div>
+                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
                                         <span className="text-l text-black">
-                                            6 November 2022
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Pre-Approval Form Upload
+                                            Arda Tavusbay
                                         </span>
                                     </div>
-                                    <div className="p-4 bg-sky-100 rounded-lg">
-                                        <span className="text-l text-black">
-                                            6 November 2022
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Pre-Approval Form Upload
-                                        </span>
-                                    </div>
-                                    <div className="p-4 bg-sky-100 rounded-lg">
-                                        <span className="text-l text-black">
-                                            6 November 2022
-                                        </span>
-                                        <br />
-                                        <span className="text-l text-black">
-                                            Pre-Approval Form Upload
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-span-7 p-6 border border-black rounded-lg">
-                                <div className="text-black pb-4">
-                                    {infos.school}
-                                </div>
-                                <div className="grid grid-cols-5">
-                                    <div class="col-span-2 grid grid-rows-5 gap-6">
-                                        <div className="flex items-center text-center p-4 bg-sky-100 rounded-lg">
-                                            <button
-                                                onClick={() => {
-                                                    navigate("/courses");
-                                                }}
-                                                className="text-center text-xl text-black"
-                                            >
-                                                View Courses
-                                            </button>
-                                        </div>
-                                        <div className="flex items-center text-center p-4 bg-sky-100 rounded-lg">
-                                            <button className="text-center text-xl text-black">
-                                                My Pre-Approval Forms
-                                            </button>
-                                        </div>
-                                        <div className="flex items-center text-center p-4 bg-sky-100 rounded-lg">
-                                            <button className="text-center text-xl text-black">
-                                                My Learning Agreement
-                                            </button>
-                                        </div>
-                                        <div className="flex items-center text-center p-4 bg-sky-100 rounded-lg">
-                                            <button className="text-center text-xl text-black">
-                                                My Profile
-                                            </button>
-                                        </div>
-                                        <div className="flex items-center text-center p-4 bg-sky-100 rounded-lg">
-                                            <button className="text-center text-xl text-black">
-                                                Settings
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="px-8 col-span-3">
-                                        <img
-                                            src={require("../../assets/university.jpeg")}
-                                            width=""
-                                        />
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
+                                        <button
+                                            className="col-span-1 text-center text-xl text-black"
+                                            type="button"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={clicked}
+                                        >
+                                            Check Learning Agreement
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -36,7 +36,7 @@ export default function StudentPreapprovalPageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/studentActions");
+                                navigate("/student");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -69,6 +69,9 @@ export default function StudentPreapprovalPageComponent() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/student/preapprovalForms");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -100,6 +103,9 @@ export default function StudentPreapprovalPageComponent() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/student/learningAgreement");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -131,6 +137,9 @@ export default function StudentPreapprovalPageComponent() {
                         </a>
                         <a
                             href="#"
+                            onClick={() => {
+                                navigate("/student/profile");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -167,38 +176,9 @@ export default function StudentPreapprovalPageComponent() {
                         </a>
                         <a
                             href="#"
-                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                        >
-                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                <div>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="w-6 h-6 group-hover:text-indigo-400"
-                                    >
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Mail
-                                    </p>
-                                    <p class="text-slate-400 text-sm hidden md:block">
-                                        View Mails
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                        <a
-                            href="#"
+                            onClick={() => {
+                                navigate("/student/help");
+                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">

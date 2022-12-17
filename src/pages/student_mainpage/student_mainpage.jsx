@@ -1,6 +1,5 @@
 import React from "react";
-import StudentPageComponent from "../../components/student_page_component/student_page_component";
-import Card from "../../components/card/card_component";
+import StudentPageComponent from "../../components/student_mainpage_component/student_page_component";
 
 const StudentPage = () => {
     return <StudentPageComponent />;

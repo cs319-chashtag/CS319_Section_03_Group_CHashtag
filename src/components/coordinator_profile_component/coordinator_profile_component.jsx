@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentProfilePageComponent() {
+export default function CoordinatorProfileComponent() {
     const navigate = useNavigate();
 
     return (
@@ -18,16 +18,16 @@ export default function StudentProfilePageComponent() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/photo.jpg")}
+                                src={require("../../assets/can_alkan_photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                                Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Student
+                                Erasmouse Coordinator
                             </span>
                         </div>
                     </a>
@@ -36,7 +36,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student");
+                                navigate("/coordinator");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -70,7 +70,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/preapprovalForms");
+                                navigate("/coordinator/waitingPreapprovals");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -104,7 +104,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/learningAgreement");
+                                navigate("/coordinator/waitingAgreements");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -138,7 +138,76 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/profile");
+                                navigate("/coordinator/todoPage");
+                            }}
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke="currentColor"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <line
+                                            x1="8"
+                                            y1="6"
+                                            x2="21"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="12"
+                                            x2="21"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="18"
+                                            x2="21"
+                                            y2="18"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="6"
+                                            x2="3.01"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="12"
+                                            x2="3.01"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="18"
+                                            x2="3.01"
+                                            y2="18"
+                                        ></line>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Todo List
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        Manage Tasks
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            onClick={() => {
+                                navigate("/coordinator/profile");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -174,10 +243,11 @@ export default function StudentProfilePageComponent() {
                                 </div>
                             </div>
                         </a>
+
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/help");
+                                navigate("/coordinator/help");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -273,7 +343,7 @@ export default function StudentProfilePageComponent() {
                                 <form class="space-y-6" action="#">
                                     <img
                                         class="w-36 h-36 rounded-lg border border-black m-auto"
-                                        src={require("../../assets/photo.jpg")}
+                                        src={require("../../assets/can_alkan_photo.jpg")}
                                         alt="Extra large avatar"
                                     />
                                     <div class="flex">

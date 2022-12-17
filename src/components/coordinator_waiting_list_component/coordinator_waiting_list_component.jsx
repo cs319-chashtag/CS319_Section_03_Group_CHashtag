@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentProfilePageComponent() {
+export default function CoordinatorWaitingListComponent() {
     const navigate = useNavigate();
 
     return (
@@ -18,16 +18,16 @@ export default function StudentProfilePageComponent() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/photo.jpg")}
+                                src={require("../../assets/can_alkan_photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                                Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Student
+                                Erasmouse Coordinator
                             </span>
                         </div>
                     </a>
@@ -36,7 +36,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student");
+                                navigate("/coordinator");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -70,7 +70,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/preapprovalForms");
+                                navigate("/coordinator/waitingPreapprovals");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -104,7 +104,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/learningAgreement");
+                                navigate("/coordinator/waitingAgreements");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -138,7 +138,76 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/profile");
+                                navigate("/coordinator/todoPage");
+                            }}
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke="currentColor"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <line
+                                            x1="8"
+                                            y1="6"
+                                            x2="21"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="12"
+                                            x2="21"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="8"
+                                            y1="18"
+                                            x2="21"
+                                            y2="18"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="6"
+                                            x2="3.01"
+                                            y2="6"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="12"
+                                            x2="3.01"
+                                            y2="12"
+                                        ></line>
+                                        <line
+                                            x1="3"
+                                            y1="18"
+                                            x2="3.01"
+                                            y2="18"
+                                        ></line>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Todo List
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        Manage Tasks
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            onClick={() => {
+                                navigate("/coordinator/profile");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -174,10 +243,11 @@ export default function StudentProfilePageComponent() {
                                 </div>
                             </div>
                         </a>
+
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/help");
+                                navigate("/coordinator/help");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -255,10 +325,10 @@ export default function StudentProfilePageComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Profile
+                            Coordinator Actions - Waiting Students List
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, Can Alkan
                             </span>
                         </h1>
                         <div
@@ -266,81 +336,26 @@ export default function StudentProfilePageComponent() {
                             class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                         ></div>
                     </div>
-
-                    <div id="stats" class="">
-                        <div class="p-6 border border-black rounded-lg">
-                            <div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                                <form class="space-y-6" action="#">
-                                    <img
-                                        class="w-36 h-36 rounded-lg border border-black m-auto"
-                                        src={require("../../assets/photo.jpg")}
-                                        alt="Extra large avatar"
+                    <div id="">
+                        <div id="" class="">
+                            <div class="p-6 border border-black rounded-lg">
+                                <div className="text-black text-xl pb-4">
+                                    Current Waiting Students List
+                                </div>
+                                <div className="border border-black">
+                                    <embed
+                                        src={require("../../assets/2019-2020Erasmus+.pdf#page=1&zoom=500")}
+                                        className="w-full"
+                                        height="500"
                                     />
-                                    <div class="flex">
-                                        <button
-                                            type="button"
-                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        >
-                                            Change Password
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Lost Password?
-                                        </a>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
-                                    </div>
-                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex justify-end ">
+                            <div className="mr-3">
+                                <button className="p-2 border border-black rounded-lg m-auto mt-6 transition ease-in-out delay-150 bg-green-200 hover:-translate-y-1 hover:scale-110 hover:bg-green-500 duration-300">
+                                    Download
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../modal/modal_component";
+import { useState } from "react";
 
-export default function StudentProfilePageComponent() {
+export default function NavbarFCTF() {
     const navigate = useNavigate();
+    const [modalOn, setModalOn] = useState(false);
+    const [choice, setChoice] = useState(false);
+
+    const clicked = () => {
+        setModalOn(true);
+    };
 
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
+            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
@@ -18,16 +27,16 @@ export default function StudentProfilePageComponent() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/photo.jpg")}
+                                src={require("../../assets/can_alkan_photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                                Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Student
+                                Erasmouse Coordinator
                             </span>
                         </div>
                     </a>
@@ -35,9 +44,6 @@ export default function StudentProfilePageComponent() {
                     <div id="menu" class="flex flex-col space-y-2 my-5">
                         <a
                             href="#"
-                            onClick={() => {
-                                navigate("/student");
-                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -70,7 +76,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/preapprovalForms");
+                                navigate("/coordinator/preapprovalForms");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -103,9 +109,6 @@ export default function StudentProfilePageComponent() {
                         </a>
                         <a
                             href="#"
-                            onClick={() => {
-                                navigate("/student/learningAgreement");
-                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -137,9 +140,6 @@ export default function StudentProfilePageComponent() {
                         </a>
                         <a
                             href="#"
-                            onClick={() => {
-                                navigate("/student/profile");
-                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -176,9 +176,38 @@ export default function StudentProfilePageComponent() {
                         </a>
                         <a
                             href="#"
-                            onClick={() => {
-                                navigate("/student/help");
-                            }}
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Mail
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        View Mails
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -253,94 +282,56 @@ export default function StudentProfilePageComponent() {
                     id="content"
                     class="border border-black bg-white/10 col-span-8 rounded-lg p-6"
                 >
-                    <div id="24h">
-                        <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Profile
-                            <br />
-                            <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
-                            </span>
-                        </h1>
-                        <div
-                            id="stats"
-                            class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                        ></div>
+                    <div className="flex">
+                        <div id="title">
+                            <h1 class="font-bold text-black text-3xl py-4 uppercase">
+                                Coordinator Actions - Final Course Transfer Form
+                                <br />
+                                <span className="text-gray-600 text-base">
+                                    Welcome Back, Can Alkan
+                                </span>
+                            </h1>
+                        </div>
                     </div>
 
-                    <div id="stats" class="">
-                        <div class="p-6 border border-black rounded-lg">
-                            <div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                                <form class="space-y-6" action="#">
-                                    <img
-                                        class="w-36 h-36 rounded-lg border border-black m-auto"
-                                        src={require("../../assets/photo.jpg")}
-                                        alt="Extra large avatar"
-                                    />
-                                    <div class="flex">
+                    <div id="container">
+                        <div class="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
+                            <div class="relative col-span-6 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Waiting Final Course Transfer Forms
+                                </div>
+                                <div class="relative grid-cols-3 grid grid-rows gap-2">
+                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l text-black">
+                                            Tugberk Dikmen
+                                        </span>
+                                    </div>
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
                                         <button
+                                            className="col-span-1 text-center text-xl text-black"
                                             type="button"
-                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={clicked}
                                         >
-                                            Change Password
+                                            Upload
                                         </button>
                                     </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
+                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l text-black">
+                                            Arda Tavusbay
+                                        </span>
                                     </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
+                                        <button
+                                            className="col-span-1 text-center text-xl text-black"
+                                            type="button"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={clicked}
                                         >
-                                            Lost Password?
-                                        </a>
+                                            Upload
+                                        </button>
                                     </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

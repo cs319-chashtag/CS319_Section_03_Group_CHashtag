@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentProfilePageComponent() {
+export default function StudentPageComponent() {
     const navigate = useNavigate();
 
     return (
@@ -255,7 +255,7 @@ export default function StudentProfilePageComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Profile
+                            Student Actions - Pre-approval Forms
                             <br />
                             <span className="text-gray-600 text-base">
                                 Welcome Back, Arda Tavusbay
@@ -266,81 +266,31 @@ export default function StudentProfilePageComponent() {
                             class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                         ></div>
                     </div>
-
-                    <div id="stats" class="">
-                        <div class="p-6 border border-black rounded-lg">
-                            <div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                                <form class="space-y-6" action="#">
-                                    <img
-                                        class="w-36 h-36 rounded-lg border border-black m-auto"
-                                        src={require("../../assets/photo.jpg")}
-                                        alt="Extra large avatar"
+                    <div id="">
+                        <div id="" class="">
+                            <div class="p-6 border border-black rounded-lg">
+                                <div className="text-black text-xl pb-4">
+                                    Current Pre-approval Form
+                                </div>
+                                <div className="border border-black">
+                                    <embed
+                                        src={require("../../assets/dummy_la.pdf#page=1&zoom=500")}
+                                        className="w-full"
+                                        height="500"
                                     />
-                                    <div class="flex">
-                                        <button
-                                            type="button"
-                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        >
-                                            Change Password
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Lost Password?
-                                        </a>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
-                                    </div>
-                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex justify-end ">
+                            <div className="mr-3">
+                                <button className="p-2 border border-black rounded-lg m-auto mt-6 transition ease-in-out delay-150 bg-green-200 hover:-translate-y-1 hover:scale-110 hover:bg-green-500 duration-300">
+                                    Download
+                                </button>
+                            </div>
+                            <div>
+                                <button className="p-2 border border-black rounded-lg m-auto mt-6 transition ease-in-out delay-150 bg-blue-200 hover:-translate-y-1 hover:scale-110 hover:bg-blue-500 duration-300">
+                                    Send to Coordinator
+                                </button>
                             </div>
                         </div>
                     </div>

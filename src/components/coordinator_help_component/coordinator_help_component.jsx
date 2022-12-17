@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentProfilePageComponent() {
+export default function CoordinatorHelpComponent() {
     const navigate = useNavigate();
 
     return (
@@ -18,16 +18,16 @@ export default function StudentProfilePageComponent() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/photo.jpg")}
+                                src={require("../../assets/can_alkan_photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                                Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Student
+                                Erasmouse Coordinator
                             </span>
                         </div>
                     </a>
@@ -36,7 +36,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student");
+                                navigate("/coordinator");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -70,7 +70,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/preapprovalForms");
+                                navigate("/coordinator/preapprovalForms");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -104,7 +104,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/learningAgreement");
+                                navigate("/coordinator/learningAgreement");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -138,7 +138,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/profile");
+                                navigate("/coordinator/profile");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -176,8 +176,40 @@ export default function StudentProfilePageComponent() {
                         </a>
                         <a
                             href="#"
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+                        >
+                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="w-6 h-6 group-hover:text-indigo-400"
+                                    >
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
+                                        Mail
+                                    </p>
+                                    <p class="text-slate-400 text-sm hidden md:block">
+                                        View Mails
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
                             onClick={() => {
-                                navigate("/student/help");
+                                navigate("/coordinator/help");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -255,10 +287,10 @@ export default function StudentProfilePageComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Profile
+                            Coordinator Actions - Help Page
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, Can Alkan
                             </span>
                         </h1>
                         <div
@@ -266,81 +298,154 @@ export default function StudentProfilePageComponent() {
                             class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                         ></div>
                     </div>
+                    <div id="last-incomes">
+                        <div
+                            id="stats"
+                            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-10 gap-4"
+                        >
+                            <div class="col-span-7 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Frequently Asked Questions (FAQ)
+                                </div>
 
-                    <div id="stats" class="">
-                        <div class="p-6 border border-black rounded-lg">
-                            <div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                                <form class="space-y-6" action="#">
-                                    <img
-                                        class="w-36 h-36 rounded-lg border border-black m-auto"
-                                        src={require("../../assets/photo.jpg")}
-                                        alt="Extra large avatar"
-                                    />
-                                    <div class="flex">
-                                        <button
-                                            type="button"
-                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        >
-                                            Change Password
-                                        </button>
+                                <div class="grid grid-rows-4 gap-2">
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            What are Student Exchange Progrmas?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://w3.bilkent.edu.tr/www/degisim-programlari/
+                                        </span>
                                     </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            What are Erasmus Exchange
+                                            Agreements?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://www.bilkent.edu.tr/bilkent-tr/academic/erasmus_degisim_anlasmalari.html
+                                        </span>
                                     </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Lost Password?
-                                        </a>
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            What are Exchange Agreements?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://www.bilkent.edu.tr/bilkent-tr/academic/ikili_degisim_anlasmalari.html
+                                        </span>
                                     </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            What are Exchange Programs
+                                            Implementation Principles?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://w3.bilkent.edu.tr/www/uluslararasi-degisim-programlari-uygulama-esaslari/
+                                        </span>
                                     </div>
-                                </form>
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            How to Go Abroad with Exchange
+                                            Programs?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://w3.bilkent.edu.tr/bilkent/outgoing-students/
+                                        </span>
+                                    </div>
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            How to come to Bilkent University
+                                            with Exchange Programs?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            http://www.exchange.bilkent.edu.tr/
+                                        </span>
+                                    </div>
+                                    <div className=" p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l font-semibold text-black">
+                                            Where Can I Find List of Exchange
+                                            Coordinators by Department?
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            https://www.bilkent.edu.tr/bilkent-tr/academic/degisim_koordinator.html
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-3 p-6 space-y-2 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Communication Addresses
+                                </div>
+                                <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                    <span className="text-l font-semibold text-black">
+                                        Koordinatör, Değişim Programları
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Erkin Tarhan
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Tel: (312) 290 1065
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Faks: (312) 266 4787
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Eposta: terkin@bilkent.edu.tr
+                                    </span>
+                                </div>
+                                <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                    <span className="text-l font-semibold text-black">
+                                        Değişim Öğrencileri Danışmanı
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Buket HATAM
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Tel: (312) 290 3073
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Faks: (312) 266 4787
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Eposta: buketg@bilkent.edu.tr
+                                    </span>
+                                </div>
+                                <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                    <span className="text-l font-semibold text-black">
+                                        Değişim Öğrencileri Danışmanı
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Elif Ünsal
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Tel: (312) 290 1129
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Faks: (312) 266 4787
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Eposta: elif.unsal@bilkent.edu.tr
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
