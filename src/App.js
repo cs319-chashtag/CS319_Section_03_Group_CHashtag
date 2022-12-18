@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/loginpage/login_page";
+import LoginCoordinatorPage from "./pages/loginpages/login_coordinator_page";
 import StudentMainPage from "./pages/student_mainpage/student_mainpage";
 import StudentCoursePage from "./pages/student_course_page/student_course_page";
 import StudentPreapprovalPage from "./pages/student_preapproval_page/student_preapproval_page";
@@ -17,13 +17,43 @@ import CoordinatorWaitingLAComponent from "./components/coordinator_waiting_la_c
 import CoordinatorWaitingPreapprovalComponent from "./components/coordinator_waiting_preapproval_component/coordinator_waiting_preapproval_component";
 import CoordinatorWaitingListComponent from "./components/coordinator_waiting_list_component/coordinator_waiting_list_component";
 import CoordinatorToDoPage from "./pages/coordinator_todo_page/coordinator_todo_page";
+import HomePage from "./pages/homepage/homepage";
+import AdminMainpage from "./pages/admin_mainpage/admin_mainpage";
+import InstructorMainPage from "./pages/instructor_mainpage/instructor_mainpage";
+import LoginSelectionPage from "./pages/login_selection_page/login_selection_page";
+import LoginInstructorPage from "./pages/loginpages/login_instructor_page";
+import LoginStudentPage from "./pages/loginpages/login_student_page";
+import LoginAdminPage from "./pages/loginpages/login_admin_page";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route exact path="/loginPage" element={<LoginPage />} />
+                    <Route
+                        path="/loginSelection"
+                        element={<LoginSelectionPage />}
+                    />
+                    <Route
+                        exact
+                        path="/loginCoordinator"
+                        element={<LoginCoordinatorPage />}
+                    />
+                    <Route
+                        exact
+                        path="/loginAdmin"
+                        element={<LoginAdminPage />}
+                    />
+                    <Route
+                        exact
+                        path="/loginStudent"
+                        element={<LoginStudentPage />}
+                    />
+                    <Route
+                        exact
+                        path="/loginInstructor"
+                        element={<LoginInstructorPage />}
+                    />
                     <Route path="/student" element={<StudentMainPage />} />
                     <Route
                         path="/student/courses"
@@ -83,6 +113,12 @@ function App() {
                     <Route
                         path="/coordinator/todoPage"
                         element={<CoordinatorToDoPage />}
+                    />
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/admin" element={<AdminMainpage />} />
+                    <Route
+                        path="/instructor"
+                        element={<InstructorMainPage />}
                     />
                 </Routes>
             </Router>

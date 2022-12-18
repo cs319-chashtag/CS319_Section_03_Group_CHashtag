@@ -1,20 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../modal/modal_fctf_component";
-import { useState } from "react";
 
-export default function NavbarFCTF() {
+export default function AdminMainpageComponent() {
     const navigate = useNavigate();
-    const [modalOn, setModalOn] = useState(false);
-    const [choice, setChoice] = useState(false);
-
-    const clicked = () => {
-        setModalOn(true);
-    };
 
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
-            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
@@ -27,16 +18,16 @@ export default function NavbarFCTF() {
                         <div>
                             <img
                                 class="rounded-full w-10 h-10 relative object-cover"
-                                src={require("../../assets/can_alkan_photo.jpg")}
+                                src={require("../../assets/photo.jpg")}
                                 alt=""
                             />
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Can Alkan
+                                Arda Tavusbay
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Coordinator
+                                Erasmouse Admin
                             </span>
                         </div>
                     </a>
@@ -44,9 +35,6 @@ export default function NavbarFCTF() {
                     <div id="menu" class="flex flex-col space-y-2 my-5">
                         <a
                             href="#"
-                            onClick={() => {
-                                navigate("/coordinator");
-                            }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -79,7 +67,7 @@ export default function NavbarFCTF() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/coordinator/waitingPreapprovals");
+                                navigate("/admin/events");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -102,10 +90,10 @@ export default function NavbarFCTF() {
                                 </div>
                                 <div>
                                     <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Pre-Approval Forms
+                                        Events
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
-                                        View Form
+                                        Manage Events
                                     </p>
                                 </div>
                             </div>
@@ -113,7 +101,7 @@ export default function NavbarFCTF() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/coordinator/waitingAgreements");
+                                navigate("/admin/users");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -136,10 +124,10 @@ export default function NavbarFCTF() {
                                 </div>
                                 <div>
                                     <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Learning Agreement
+                                        Users
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
-                                        View Agreement
+                                        View Users
                                     </p>
                                 </div>
                             </div>
@@ -147,76 +135,7 @@ export default function NavbarFCTF() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/coordinator/todoPage");
-                            }}
-                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                        >
-                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                <div>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke="currentColor"
-                                        class="w-6 h-6 group-hover:text-indigo-400"
-                                    >
-                                        <line
-                                            x1="8"
-                                            y1="6"
-                                            x2="21"
-                                            y2="6"
-                                        ></line>
-                                        <line
-                                            x1="8"
-                                            y1="12"
-                                            x2="21"
-                                            y2="12"
-                                        ></line>
-                                        <line
-                                            x1="8"
-                                            y1="18"
-                                            x2="21"
-                                            y2="18"
-                                        ></line>
-                                        <line
-                                            x1="3"
-                                            y1="6"
-                                            x2="3.01"
-                                            y2="6"
-                                        ></line>
-                                        <line
-                                            x1="3"
-                                            y1="12"
-                                            x2="3.01"
-                                            y2="12"
-                                        ></line>
-                                        <line
-                                            x1="3"
-                                            y1="18"
-                                            x2="3.01"
-                                            y2="18"
-                                        ></line>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Todo List
-                                    </p>
-                                    <p class="text-slate-400 text-sm hidden md:block">
-                                        Manage Tasks
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                        <a
-                            href="#"
-                            onClick={() => {
-                                navigate("/coordinator/profile");
+                                navigate("/student/profile");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -248,46 +167,6 @@ export default function NavbarFCTF() {
                                     </p>
                                     <p class="text-slate-400 text-sm hidden md:block">
                                         Edit Profile
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a
-                            href="#"
-                            onClick={() => {
-                                navigate("/coordinator/help");
-                            }}
-                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                        >
-                            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                <div>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="w-6 h-6 group-hover:text-indigo-400"
-                                    >
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                        <line
-                                            x1="12"
-                                            y1="17"
-                                            x2="12.01"
-                                            y2="17"
-                                        ></line>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-base lg:text-lg text-black leading-4 group-hover:text-indigo-400">
-                                        Help
-                                    </p>
-                                    <p class="text-slate-400 text-sm hidden md:block">
-                                        Show Help
                                     </p>
                                 </div>
                             </div>
@@ -332,56 +211,62 @@ export default function NavbarFCTF() {
                     id="content"
                     class="border border-black bg-white/10 col-span-8 rounded-lg p-6"
                 >
-                    <div className="flex">
-                        <div id="title">
-                            <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                                Coordinator Actions - Final Course Transfer Form
-                                <br />
-                                <span className="text-gray-600 text-base">
-                                    Welcome Back, Can Alkan
-                                </span>
-                            </h1>
-                        </div>
+                    <div id="24h">
+                        <h1 class="font-bold text-black text-3xl py-4 uppercase">
+                            Admin Actions
+                            <br />
+                            <span className="text-gray-600 text-base">
+                                Welcome Back, Arda Tavusbay
+                            </span>
+                        </h1>
+                        <div
+                            id="stats"
+                            class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                        ></div>
                     </div>
-
-                    <div id="container">
-                        <div class="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
-                            <div class="relative col-span-6 p-6 border border-black rounded-lg">
+                    <div id="last-incomes">
+                        <div
+                            id="stats"
+                            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-10 gap-4"
+                        >
+                            <div class="col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Waiting Final Course Transfer Forms
+                                    Manage Events
                                 </div>
-                                <div class="relative grid-cols-3 grid grid-rows gap-2">
-                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
-                                        <span className="text-l text-black">
-                                            Tugberk Dikmen
+                                <div class="grid grid-rows-4 gap-7">
+                                    <button class="relative inline-block text-lg group">
+                                        <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
+                                            <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+                                            <span class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
+                                            <span class="relative">
+                                                Create New Event
+                                            </span>
                                         </span>
-                                    </div>
-                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
-                                        <button
-                                            className="col-span-1 text-center text-xl text-black"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={clicked}
-                                        >
-                                            Upload
-                                        </button>
-                                    </div>
-                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
-                                        <span className="text-l text-black">
-                                            Arda Tavusbay
+                                        <span
+                                            class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-gray-900 rounded-lg group-hover:mb-0 group-hover:mr-0"
+                                            data-rounded="rounded-lg"
+                                        ></span>
+                                    </button>
+                                    <button class="relative inline-block text-lg group">
+                                        <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
+                                            <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+                                            <span class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
+                                            <span class="relative">
+                                                Manage Events
+                                            </span>
                                         </span>
-                                    </div>
-                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
-                                        <button
-                                            className="col-span-1 text-center text-xl text-black"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={clicked}
-                                        >
-                                            Upload
-                                        </button>
-                                    </div>
+                                        <span
+                                            class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-gray-900 rounded-lg group-hover:mb-0 group-hover:mr-0"
+                                            data-rounded="rounded-lg"
+                                        ></span>
+                                    </button>
                                 </div>
+                            </div>
+                            <div class="col-span-7 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    View & Search & Kick Users
+                                </div>
+                                <div className="grid grid-cols-5"></div>
                             </div>
                         </div>
                     </div>

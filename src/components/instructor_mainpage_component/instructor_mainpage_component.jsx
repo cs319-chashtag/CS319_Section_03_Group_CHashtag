@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../modal/modal_fctf_component";
 import { useState } from "react";
 
-export default function NavbarFCTF() {
+export default function InstructorMainPageComponent() {
     const navigate = useNavigate();
     const [modalOn, setModalOn] = useState(false);
     const [choice, setChoice] = useState(false);
@@ -11,10 +10,8 @@ export default function NavbarFCTF() {
     const clicked = () => {
         setModalOn(true);
     };
-
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
-            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
@@ -36,7 +33,7 @@ export default function NavbarFCTF() {
                                 Can Alkan
                             </p>
                             <span class="text-xs text-slate-400">
-                                Erasmouse Coordinator
+                                Erasmouse Instructor
                             </span>
                         </div>
                     </a>
@@ -332,53 +329,91 @@ export default function NavbarFCTF() {
                     id="content"
                     class="border border-black bg-white/10 col-span-8 rounded-lg p-6"
                 >
-                    <div className="flex">
-                        <div id="title">
-                            <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                                Coordinator Actions - Final Course Transfer Form
-                                <br />
-                                <span className="text-gray-600 text-base">
-                                    Welcome Back, Can Alkan
-                                </span>
-                            </h1>
-                        </div>
+                    <div id="24h">
+                        <h1 class="font-bold text-black text-3xl py-4 uppercase">
+                            Instructor Actions
+                            <br />
+                            <span className="text-gray-600 text-base">
+                                Welcome Back, Can Alkan
+                            </span>
+                        </h1>
+                        <div
+                            id="stats"
+                            class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                        ></div>
                     </div>
-
-                    <div id="container">
-                        <div class="grid grid-cols-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
-                            <div class="relative col-span-6 p-6 border border-black rounded-lg">
+                    <div id="last-incomes">
+                        <div
+                            id="stats"
+                            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-10 gap-4"
+                        >
+                            <div class="col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Waiting Final Course Transfer Forms
+                                    Upcoming Events
                                 </div>
-                                <div class="relative grid-cols-3 grid grid-rows gap-2">
-                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
+                                <div class="grid grid-rows-4 gap-7">
+                                    <div className="p-4 bg-sky-100 rounded-lg">
                                         <span className="text-l text-black">
-                                            Tugberk Dikmen
+                                            6 November 2022
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Pre-Approval Form Check
                                         </span>
                                     </div>
-                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
-                                        <button
-                                            className="col-span-1 text-center text-xl text-black"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={clicked}
-                                        >
-                                            Upload
+                                    <div className="p-4 bg-sky-100 rounded-lg">
+                                        <span className="text-l text-black">
+                                            7 November 2022
+                                        </span>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            Pre-Approval Form Upload
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-7 p-6 border border-black rounded-lg">
+                                <div className="text-black pb-4">
+                                    Waiting Courses
+                                </div>
+
+                                <div class="grid grid-cols-5 gap-2">
+                                    <div className="col-span-3 p-4 bg-sky-100 rounded-lg">
+                                        <button className="col-span-1 text-center text-xl text-black">
+                                            Tugberk Dikmen
+                                        </button>{" "}
+                                        <br />
+                                        <span className="text-l text-black">
+                                            CS-353
+                                        </span>
+                                    </div>
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-indigo-200 rounded-full">
+                                        <button className="col-span-1 text-center text-xl text-black">
+                                            Approve
                                         </button>
                                     </div>
-                                    <div className="col-span-2 p-4 bg-sky-100 rounded-lg">
-                                        <span className="text-l text-black">
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-indigo-400 rounded-full">
+                                        <button className="col-span-1 text-center text-xl text-black">
+                                            Reject
+                                        </button>
+                                    </div>
+                                    <div className="col-span-3 p-4 bg-sky-100 rounded-lg">
+                                        <button className="col-span-1 text-center text-xl text-black">
                                             Arda Tavusbay
+                                        </button>
+                                        <br />
+                                        <span className="text-l text-black">
+                                            CS-319
                                         </span>
                                     </div>
-                                    <div className="col-span-1 flex items-center text-center p-4 bg-cyan-100 rounded-full">
-                                        <button
-                                            className="col-span-1 text-center text-xl text-black"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={clicked}
-                                        >
-                                            Upload
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-indigo-200 rounded-full">
+                                        <button className="col-span-1 text-center text-xl text-black">
+                                            Approve
+                                        </button>
+                                    </div>
+                                    <div className="col-span-1 flex items-center text-center p-4 bg-indigo-400 rounded-full">
+                                        <button className="col-span-1 text-center text-xl text-black">
+                                            Reject
                                         </button>
                                     </div>
                                 </div>

@@ -231,7 +231,7 @@ export default function StudentProfilePageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -283,8 +283,52 @@ export default function StudentProfilePageComponent() {
                     </div>
 
                     <div id="stats" class="">
-                        <div class="p-6 border border-black rounded-lg">
+                        <div class="p-6 grid grid-cols-2 border border-black rounded-lg">
                             <div class="w-full m-auto max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                <div className="col-span-2 p-4 rounded-lg">
+                                    <span className="text-l font-semibold text-black">
+                                        My Assigned Coordinator
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Erkin Tarhan
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Phone: (312) 290 1065
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Fax: (312) 266 4787
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Mail: terkin@bilkent.edu.tr
+                                    </span>
+                                </div>
+                                <div className="col-span-2 p-4 rounded-lg">
+                                    <span className="text-l font-semibold text-black">
+                                        Exchange Students Consultant
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Elif Ünsal
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Phone: (312) 290 1129
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Fax: (312) 266 4787
+                                    </span>
+                                    <br />
+                                    <span className="text-l text-black">
+                                        Mail: elif.unsal@bilkent.edu.tr
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="w-full m-auto max-w-sm p-4 bg-white border border-black rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                                 <form class="space-y-6" action="#">
                                     <img
                                         class="w-36 h-36 rounded-lg border border-black m-auto"
@@ -299,61 +343,13 @@ export default function StudentProfilePageComponent() {
                                             Change Password
                                         </button>
                                     </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    <div class="flex">
+                                        <button
+                                            type="button"
+                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                         >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Lost Password?
-                                        </a>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
+                                            Change Profile Picture
+                                        </button>
                                     </div>
                                 </form>
                             </div>
