@@ -14,7 +14,7 @@ export default class LoginManager {
             req.session.surname = userinfo['surname'];
             req.session.email = userinfo['email'];
             req.session.type = userinfo.userType;
-            req.session.cookie.expires = false;
+            req.session.cookie.maxAge = 3600000;
             console.log(userinfo);
             if(userinfo.userType == "1"){
                 res.json({
@@ -23,27 +23,27 @@ export default class LoginManager {
                 })
             }
             else if (userinfo.userType == "2"){
-                res.json(JSON.stringify({
-                    
-                    type: req.session.type,
-                }))
+                res.json({
+                    userinfo: "TRUE",
+                    usertype: req.session.type,
+                })
             }
             else if (userinfo['type'] == 'instructor'){
                 res.json({
-                    status: "TRUE",
-                    type: req.session.type = userinfo['type'],
+                    userinfo: "TRUE",
+                    usertype: req.session.type,
                 })
             }
             else if(userinfo['type'] == 'fa'){
                 res.json({
-                    status: "TRUE",
-                    type: req.session.type = userinfo['type'],
+                    userinfo: "TRUE",
+                    usertype: req.session.type,
                 })
             }
             else {
                 res.json({
-                    status: "ERROR",
-                    type: "can not find",
+                    userinfo: "ERROR",
+                    usertype: "can not find",
                     
                 })
             }

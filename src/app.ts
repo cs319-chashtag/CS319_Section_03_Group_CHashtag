@@ -9,7 +9,7 @@ import * as express from "express"
 import { Request, Response } from "express"
 import * as LogRoute from "./routers/LoginRouter";
 import * as StudRoute from "./routers/Studentrouter";
-import { request } from "http"
+import * as CoorRoute from "./routers/Coordinatorrouter";
 import { AppDataSource } from "./database/data-source"
 // const bodyParser = require('body-parser')
 import  StudentRepo  from "./database/repository/StudentRepo"
@@ -44,10 +44,12 @@ app.use(session({
     secret: 'Ax9**-131asdçç.123',
     resave: false,
     saveUninitialized: false,
+    
 }))
 app.use(express.json())
 app.use("/loginPage", LogRoute);
 app.use("/studentPage",StudRoute);
+app.use("/coordinator",CoorRoute);
 // register routes
 
 

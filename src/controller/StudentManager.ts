@@ -10,12 +10,14 @@ import { User } from "../database/entity/UsersEntity/User";
 //Class which handles request that will come from student 
 export default class StudentManager {
     public static async getStudentInfo(req: Request, res:Response){
-        console.log(Auth.checkAuth(req))
+    
     if(Auth.checkAuth(req)){
-        let studentinfos =  await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
+        let studentinfos =  await UserRepo.getUserById(req.session.bid).catch(err => console.log(err));
+        let studentinfos2 = await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
         if(studentinfos == null) { 
             res.json({
                 info: 'FALSE',
+                studinfo: "null",
 
             })
         }
@@ -23,7 +25,9 @@ export default class StudentManager {
         else {
             res.json({
                 info: ' TRUE',
-                sutdinfo: studentinfos});
+                sutdinfo: studentinfos,
+                studinfo1: studentinfos2,
+                });
         }
         
     }
