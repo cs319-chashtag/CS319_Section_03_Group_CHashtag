@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../modal/modal_component";
+import Modal from "../modal/modal_fctf_component";
 import { useState } from "react";
 
 export default function NavbarFCTF() {
@@ -295,7 +295,7 @@ export default function NavbarFCTF() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >

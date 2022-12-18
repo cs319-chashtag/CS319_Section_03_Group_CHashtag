@@ -286,7 +286,7 @@ export default function CoordinatorMainpageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -345,9 +345,9 @@ export default function CoordinatorMainpageComponent() {
 
                                 <div class="grid  gap-4">
                                     <div className="p-2 border border-black rounded-lg">
-                                        <div className="p-4 mb-4 border border-black rounded-lg">
-                                            <span className="text-l text-black">
-                                                Assign Students (Upload Excel)
+                                        <div className="text-center p-4 mb-4 border border-black rounded-lg">
+                                            <span className="text-black">
+                                                Assign Students
                                             </span>
                                         </div>
                                         <div class="flex items-center justify-center w-full">

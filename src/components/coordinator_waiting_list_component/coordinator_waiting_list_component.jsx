@@ -286,7 +286,7 @@ export default function CoordinatorWaitingListComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >

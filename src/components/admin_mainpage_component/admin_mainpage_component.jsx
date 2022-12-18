@@ -174,7 +174,7 @@ export default function AdminMainpageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -213,7 +213,7 @@ export default function AdminMainpageComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions
+                            Admin Actions
                             <br />
                             <span className="text-gray-600 text-base">
                                 Welcome Back, Arda Tavusbay

@@ -7,8 +7,8 @@ import PartnerCourseCardList from "./PartnerCourseCardList";
 
 export default function StudentCourseComponent() {
     const navigate = useNavigate();
-    const [ notApprovedNumber, setNotApprovedNumber ] = useState(0);
-    const [ bilkentCourseNumber, setBilkentCourseNumber ] = useState(0);
+    const [notApprovedNumber, setNotApprovedNumber] = useState(0);
+    const [bilkentCourseNumber, setBilkentCourseNumber] = useState(0);
     const [modalOn, setModalOn] = useState(false);
     const [choice, setChoice] = useState(false);
 
@@ -26,37 +26,36 @@ export default function StudentCourseComponent() {
         setModalOn(true);
     };
 
-
     var counter = 0;
     const ApprovedCourseData = {
-        bilkentCourse : {
-            bilkentCode : "Math 260",
-            name : "Intro to Computer Science",
-            type : "Mandatory",
-            credit : 4,
+        bilkentCourse: {
+            bilkentCode: "Math 260",
+            name: "Intro to Computer Science",
+            type: "Mandatory",
+            credit: 4,
         },
-        hostCourses : [
+        hostCourses: [
             {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
+                hostCode: "CS 101",
+                name: "Introduction to Computer Science",
+                credit: 3,
             },
             {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
+                hostCode: "CS 101",
+                name: "Introduction to Computer Science",
+                credit: 3,
             },
             {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
+                hostCode: "CS 101",
+                name: "Introduction to Computer Science",
+                credit: 3,
             },
             {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
+                hostCode: "CS 101",
+                name: "Introduction to Computer Science",
+                credit: 3,
             },
-        ]
+        ],
     };
 
     return (
@@ -332,25 +331,27 @@ export default function StudentCourseComponent() {
                                     Courses - Partner University
                                 </div>
                                 <div class="relative grid grid-rows gap-2">
-                                    <PartnerCourseCardList hostCourses={ApprovedCourseData.hostCourses}/>
+                                    <PartnerCourseCardList
+                                        hostCourses={
+                                            ApprovedCourseData.hostCourses
+                                        }
+                                    />
                                 </div>
-                                
-                                { notApprovedNumber < 5 ? 
-                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
-                                    <button
-                                        
-                                        className="gap-2 flex"
-                                        type="button"
-                                        data-modal-toggle="defaultModal"
-                                        onClick={hostCourseAddButtonClicked}
-                                        // onClick={() => {setNotApprovedNumber(notApprovedNumber + 1)}}
-                                    >
-                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                        Add Course
-                                    </button>
-                                </div> 
-                                : null }
-                                
+
+                                {notApprovedNumber < 5 ? (
+                                    <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                        <button
+                                            className="gap-2 flex"
+                                            type="button"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={hostCourseAddButtonClicked}
+                                            // onClick={() => {setNotApprovedNumber(notApprovedNumber + 1)}}
+                                        >
+                                            <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                            Add Course
+                                        </button>
+                                    </div>
+                                ) : null}
                             </div>
                             <div class="relative col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
@@ -359,37 +360,50 @@ export default function StudentCourseComponent() {
                                 <div class="relative grid grid-rows gap-2">
                                     <BilkentCourseCard
                                         key={counter++}
-                                        bilkentCode={ApprovedCourseData.bilkentCourse.bilkentCode}
-                                        bilkentName={ApprovedCourseData.bilkentCourse.name}
-                                        bilkentCourseType = {ApprovedCourseData.bilkentCourse.type}
-                                        bilkentCredit = {ApprovedCourseData.bilkentCourse.credit}
+                                        bilkentCode={
+                                            ApprovedCourseData.bilkentCourse
+                                                .bilkentCode
+                                        }
+                                        bilkentName={
+                                            ApprovedCourseData.bilkentCourse
+                                                .name
+                                        }
+                                        bilkentCourseType={
+                                            ApprovedCourseData.bilkentCourse
+                                                .type
+                                        }
+                                        bilkentCredit={
+                                            ApprovedCourseData.bilkentCourse
+                                                .credit
+                                        }
                                     />
                                 </div>
-                                { bilkentCourseNumber < 1 ? 
-                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
-                                    <button
-                                        className="gap-2 flex"
-                                        type="button"
-                                        data-modal-toggle="defaultModal"
-                                        onClick={bilkentCourseAddButtonClicked}
-                                    >
-                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                        Add Course
-                                    </button>
-                                </div>
-                                
-                                : null }
+                                {bilkentCourseNumber < 1 ? (
+                                    <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                        <button
+                                            className="gap-2 flex"
+                                            type="button"
+                                            data-modal-toggle="defaultModal"
+                                            onClick={
+                                                bilkentCourseAddButtonClicked
+                                            }
+                                        >
+                                            <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                            Add Course
+                                        </button>
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="relative col-span-6 p-2 border border-black rounded-lg m-auto mt-6 ">
-                                    <button
-                                        className="gap-2 flex"
-                                        type="button"
-                                        data-modal-toggle="defaultModal"
-                                        // onClick={}
-                                    >
-                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                         Add to Pre Approval Form
-                                    </button>
+                                <button
+                                    className="gap-2 flex"
+                                    type="button"
+                                    data-modal-toggle="defaultModal"
+                                    // onClick={}
+                                >
+                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                    Add to Pre Approval Form
+                                </button>
                             </div>
                         </div>
                     </div>

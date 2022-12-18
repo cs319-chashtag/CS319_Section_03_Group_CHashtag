@@ -286,7 +286,7 @@ export default function CoordinatorProfileComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/loginPage");
+                                navigate("/loginSelection");
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -325,10 +325,10 @@ export default function CoordinatorProfileComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Profile
+                            Coordinator Actions - Profile
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, Can Alkan
                             </span>
                         </h1>
                         <div
@@ -354,61 +354,21 @@ export default function CoordinatorProfileComponent() {
                                             Change Password
                                         </button>
                                     </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    <div class="flex">
+                                        <button
+                                            type="button"
+                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                         >
-                                            Your password
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            required
-                                        />
+                                            Change Profile Picture
+                                        </button>
                                     </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-start">
-                                            <div class="flex items-center h-5">
-                                                <input
-                                                    id="remember"
-                                                    type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                                    required
-                                                />
-                                            </div>
-                                            <label
-                                                for="remember"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
+                                    <div class="flex">
+                                        <button
+                                            type="button"
+                                            class="py-2.5 px-5 m-auto text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                         >
-                                            Lost Password?
-                                        </a>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Login to your account
-                                    </button>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                        Not registered?{" "}
-                                        <a
-                                            href="#"
-                                            class="text-blue-700 hover:underline dark:text-blue-500"
-                                        >
-                                            Create account
-                                        </a>
+                                            View Assigned Students
+                                        </button>
                                     </div>
                                 </form>
                             </div>
