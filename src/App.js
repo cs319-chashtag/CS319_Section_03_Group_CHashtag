@@ -17,6 +17,9 @@ import CoordinatorWaitingLAComponent from "./components/coordinator_waiting_la_c
 import CoordinatorWaitingPreapprovalComponent from "./components/coordinator_waiting_preapproval_component/coordinator_waiting_preapproval_component";
 import CoordinatorWaitingListComponent from "./components/coordinator_waiting_list_component/coordinator_waiting_list_component";
 import CoordinatorToDoPage from "./pages/coordinator_todo_page/coordinator_todo_page";
+import HomePage from "./pages/homepage/homepage";
+import AdminMainpage from "./pages/admin_mainpage/admin_mainpage";
+import InstructorMainPage from "./pages/instructor_mainpage/instructor_mainpage";
 
 function App() {
     return (
@@ -83,6 +86,12 @@ function App() {
                     <Route
                         path="/coordinator/todoPage"
                         element={<CoordinatorToDoPage />}
+                    />
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/admin" element={<AdminMainpage />} />
+                    <Route
+                        path="/instructor"
+                        element={<InstructorMainPage />}
                     />
                 </Routes>
             </Router>

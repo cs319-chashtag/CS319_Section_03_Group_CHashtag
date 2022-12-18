@@ -27,7 +27,13 @@ export default function Login() {
     return (
         <div className="p-8">
             <div className="inline-block justify-center relative">
-                <button className="border border-black p-2">
+                <button
+                    className="border border-black p-2"
+                    onClick={() => {
+                        navigate("/");
+                        //logger();
+                    }}
+                >
                     <img
                         className="object-scale-down h-6 w-10"
                         src="https://img.icons8.com/fluency-systems-regular/48/null/left.png"
@@ -75,6 +81,26 @@ export default function Login() {
                         }}
                     >
                         Sign in (debug student)
+                    </button>
+                    <button
+                        class="mt-5 w-full border border-black p-2"
+                        type="submit"
+                        onClick={() => {
+                            navigate("/admin");
+                            //logger();
+                        }}
+                    >
+                        Sign in (debug admin)
+                    </button>
+                    <button
+                        class="mt-5 w-full border border-black p-2"
+                        type="submit"
+                        onClick={() => {
+                            navigate("/instructor");
+                            //logger();
+                        }}
+                    >
+                        Sign in (debug instructor)
                     </button>
                     <div class="mt-5 flex justify-between text-sm text-gray-600">
                         <a href="#">Forgot password?</a>
