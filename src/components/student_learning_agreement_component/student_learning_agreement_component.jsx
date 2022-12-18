@@ -255,7 +255,7 @@ export default function StudentPageComponent() {
                 >
                     <div id="24h">
                         <h1 class="font-bold text-black text-3xl py-4 uppercase">
-                            Student Actions - Pre-approval Forms
+                            Student Actions - Learning Agreements
                             <br />
                             <span className="text-gray-600 text-base">
                                 Welcome Back, Arda Tavusbay
