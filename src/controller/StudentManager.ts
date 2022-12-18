@@ -14,6 +14,7 @@ export default class StudentManager {
     if(Auth.checkAuth(req)){
         let studentinfos =  await UserRepo.getUserById(req.session.bid).catch(err => console.log(err));
         let studentinfos2 = await StudentRepo.findStudentById(req.session.bid).catch(err => console.log(err));
+        console.log(studentinfos);
         if(studentinfos == null) { 
             res.json({
                 info: 'FALSE',
@@ -71,11 +72,11 @@ export default class StudentManager {
             if(result instanceof User){
             let dep = result.department;
             let result1 = await CoordinatorRepo.findCoordinatorByDepartment(dep).catch(err=>res.send(err));
-            let result2 = await StudentRepo.setPreApprovalStatus(req.session.bid, ApprovalStatus.COORDINATOR_PENDING);
-            if(result2) {
-                EmailM.approvalFormMail(result1['email']);
-                res.send(result2);
-            }
+           // let result2 = await StudentRepo.setPreApprovalStatus(req.session.bid, ApprovalStatus.COORDINATOR_PENDING);
+           // if(result2) {
+             //   EmailM.approvalFormMail(result1['email']);
+                //res.send(result2);
+            //}
         }
             // burayı userdan çek böylece departmentını almış oluruz 
             

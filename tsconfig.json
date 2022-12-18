@@ -5,6 +5,7 @@
          "es6",
          "DOM",
       ],
+      
       "target": "es5",
       "module": "commonjs",
       // "module": "es2020",

@@ -1,4 +1,4 @@
-// const express = require ("express")
+
 // const bodyParser = require ("body-parser")
 // const cors = require ("cors")
 // const { Request, Response } = require ("express")
@@ -10,7 +10,8 @@ import { Request, Response } from "express"
 import * as LogRoute from "./routers/LoginRouter";
 import * as StudRoute from "./routers/Studentrouter";
 import * as CoorRoute from "./routers/Coordinatorrouter";
-import { AppDataSource } from "./database/data-source"
+import * as InstRoute from "./routers/Instructorrouter";
+import { AppDataSource } from "./database/data-source";
 // const bodyParser = require('body-parser')
 import  StudentRepo  from "./database/repository/StudentRepo"
 import EmailM from "./controller/Emailmanager"
@@ -47,9 +48,12 @@ app.use(session({
     
 }))
 app.use(express.json())
-app.use("/loginPage", LogRoute);
-app.use("/studentPage",StudRoute);
+app.use("/login", LogRoute);
+app.use("/student",StudRoute);
 app.use("/coordinator",CoorRoute);
+app.use("/instructor",InstRoute);
+
+
 // register routes
 
 
