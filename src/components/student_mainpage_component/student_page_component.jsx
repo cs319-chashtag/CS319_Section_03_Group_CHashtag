@@ -7,7 +7,7 @@ export default function StudentPageComponent() {
     let [studinfos, setStudInfos] = useState([0]);
     useEffect(() => {
         async function getter()  {
-            await fetch ("/studentPage",{
+            await fetch ("/student",{
                 method: "GET",
                 headers: {"Content-type": "application/json"},
             }).then((res) => res.json()

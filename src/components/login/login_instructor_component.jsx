@@ -4,6 +4,29 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginInstructor() {
     const navigate = useNavigate();
+    let [id, setId] = useState(null);
+    let [password, setPassword] = useState(null);
+    async function logger() {
+        await fetch("/login", {
+           method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+              idField: id,
+           passField: password,
+            }),
+        })
+            .then((res) => res.json())
+        .then((res) => {
+           if (res.userinfo == "TRUE") {
+                   if (res.usertype == "1") {
+                       navigate("/student");
+                   }
+                   else if(res.usertype == "2"){
+                       navigate("/coordinator");
+                   }
+                }
+            });
+    }
     return (
         <div className="p-8">
             <div className="inline-block justify-center relative">
@@ -35,11 +58,14 @@ export default function LoginInstructor() {
                         <input
                             class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 "
                             type="text"
+                            onChange = {e => setId(e.target.value)}
                             placeholder="Username or Email id"
                         />
                         <input
                             class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500"
                             type="password"
+                            onChange = {e => setPassword(e.target.value)}
+
                             placeholder="Password"
                         />
                     </div>
@@ -47,7 +73,7 @@ export default function LoginInstructor() {
                         class="transition ease-in duration-100 hover:bg-black hover:text-white mt-5 w-full border border-black p-2"
                         type="submit"
                         onClick={() => {
-                            navigate("/instructor");
+                            logger();
                         }}
                     >
                         Sign in

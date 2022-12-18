@@ -5,6 +5,26 @@ export default function CoordinatorMainpageComponent() {
     const navigate = useNavigate();
     let [infos, setInfos] = useState([0]);
     let [coorinfos, setCoorInfos] = useState([0]);
+    let [loading, setLoading] = useState(true);
+    let [data,setData] = useState([]);
+    let [selectedFile,setSelectedFile] = useState(null);
+    function handleChange(e) {
+        this.setState({ ...this.state, selectedFile: e.target.files[0] });
+      };
+      
+    async function handleSubmit (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append(
+          'file',
+          this.state.selectedFile,
+          this.state.selectedFile.name
+        );
+        await fetch('/uploadStudent', {
+          method: 'POST',
+          body: formData,
+        });
+      };
     useEffect(() => {
         async function getter()  {
             await fetch ("/coordinator",{
