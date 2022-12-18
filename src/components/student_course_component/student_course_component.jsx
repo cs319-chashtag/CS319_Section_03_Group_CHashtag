@@ -4,63 +4,277 @@ import Modal from "../modal/modal_component";
 import { useState } from "react";
 import BilkentCourseCard from "./BilkentCourseCard";
 import PartnerCourseCardList from "./PartnerCourseCardList";
+import EnhancedTable from "./studentCourseTable2";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import NotApprovedBilkentCourseSelection from "./notApprovedbilkentCourseSelection";
+import NotApprovedHostCourseSelection from "./notApprovesHostCourseSelection";
 
+/* Mostly done by @mr3mre 
+ */
 export default function StudentCourseComponent() {
     const navigate = useNavigate();
-    const [notApprovedNumber, setNotApprovedNumber] = useState(0);
-    const [bilkentCourseNumber, setBilkentCourseNumber] = useState(0);
-    const [modalOn, setModalOn] = useState(false);
+    const [ notApprovedNumber, setNotApprovedNumber ] = useState(0);
+    const [ bilkentCourseNumber, setBilkentCourseNumber ] = useState(0);
+    const [bilkentModalOn, setBilkentModalOn] = useState(false);
+    const [hostModalOn, setHostModalOn] = useState(false);
     const [choice, setChoice] = useState(false);
+    const [addCourseButton, setCourseButton] = useState(true);
 
-    // const clicked = () => {
-    //     setModalOn(true);
-    // };
+    const [addNotApprovedCourseButton, setNotApprovedCourseButton] = useState(false);
+    const [studentApprovedCourseArray, setStudentApprovedCourseArray] = useState(null);
+    const [studentApprovedCourseClear, setStudentApprovedCourseClear] = useState(false);
+    const [approvedCourseArray, setApprovedCourseArray] = useState([]);
+    const [value, setValue] = useState("");
 
+    const [studentNotApprovedBilkentCourse, setStudentNotApprovedBilkentCourse] = useState(null);
+    const [studentNotApprovedHostCourseArray, setStudentNotApprovedHostCourseArray] = useState(null);
+    const [studentNotApprovedHostCourse, setStudentNotApprovedHostCourse2] = useState([]);
+
+    React.useEffect(() => {
+        setApprovedCourseArray(ApprovedCourseData2);
+        // console.log("approvedCourseArray: ", approvedCourseArray[0]);
+    }, []);
+
+
+    React.useEffect(() => {
+        console.log("\n\nINSIDE USE EFFECT studentNotApprovedCourseArray: ", studentNotApprovedBilkentCourse);
+        // console.log("approvedCourseArray: ", approvedCourseArray[0]);
+    }, [studentNotApprovedBilkentCourse]);
+
+    const studentNotApprovedHostArr = [];
+    React.useEffect(() => {
+        // const array = [];
+        if ( studentNotApprovedHostCourseArray != null ) {
+            console.log("studentNotApprovedHostCourseArray: ", studentNotApprovedHostCourseArray);
+            if ( studentNotApprovedHostCourse instanceof Array ) {
+                console.log("studentNotApprovedHostCourse is array: ", studentNotApprovedHostCourse);
+                setStudentNotApprovedHostCourse2(studentNotApprovedHostCourse.push(studentNotApprovedHostCourseArray));
+            }
+
+            // studentNotApprovedHostArr.push(studentNotApprovedHostCourseArray);
+            console.log("studentNotApprovedHostCourse", studentNotApprovedHostCourse);
+        }
+        // setStudentNotApprovedHostCourseArray(array.push(studentNotApprovedBilkentCourse));
+        // setStudentNotApprovedHostCourseArray(studentNotApprovedBilkentCourse);
+
+        // console.log("\n\nINSIDE USE EFFECT studentNotApprovedHostArr: ", studentNotApprovedHostCourse);
+    }, [studentNotApprovedHostCourseArray]);
+
+    function filterApprovedCourse(value) {
+        var checkExist = false;
+        for (const approvedCourse of approvedCourseArray) {
+          for (const hostCourse of approvedCourse.hostCourses) {
+            // console.log("hostCourse: ", hostCourse.hostCode);
+            if (hostCourse.hostCode === value) {
+              // console.log("hostCourse: ", hostCourse);
+              setStudentApprovedCourseArray(approvedCourse);
+              checkExist = true;
+            }
+          }
+        }
+        // if (checkExist === false) {
+        //   console.log("CheckExis:", checkExist);
+        //   setStudentCourseArray([]);
+        // }
+      }
+    //   React.useEffect(() => {
+    //     if (studentCourseArray != null) {
+
+    //        console.log("INSIDE USE EFFECT studentCourseArray: ", studentCourseArray);
+    //     //    setStudentCourseClear(true);
+    //     }
+    //     else{
+    //         console.log("INSIDE USE EFFECT studentCourseArray is empty: ", studentCourseArray );
+    //         // setStudentCourseClear(false);
+    //     }
+        
+    //   }, [studentCourseArray]);
+      
+      React.useEffect(() => {
+        if (value && !studentApprovedCourseClear) {
+          filterApprovedCourse(value.label);
+          setStudentApprovedCourseClear(true);
+          // for (const approvedCourse of approvedCourseArray) {
+          //   for (const hostCourse of approvedCourse.hostCourses) {
+          //     if ((hostCourse.hostCode = value.hostCode)) {
+          //       setStudentCourseArray(approvedCourse);
+          //     }
+          //   }
+          // }
+          // studentCourseArray.push(value);
+          //   console.log("studentCourseArray:", studentCourseArray);
+          // console.log("Value: ", value.hostCode);
+        }
+        else {
+            if ( studentApprovedCourseArray != null ) {
+                setStudentApprovedCourseClear(false);
+                setStudentApprovedCourseArray(null);
+            }
+            // else{
+            //     setStudentCourseClear(false);
+            // }
+        }
+        if (studentApprovedCourseClear){
+            console.log("studentCourseArray is setted to []:", studentApprovedCourseArray);
+        }
+        else{
+            console.log("studentCourseArray : ", studentApprovedCourseArray);
+        }
+      }, [value]);
+
+    // console.log("studentCourseArray: OUTSIDE OF FUNCTION ", studentCourseArray);
     const hostCourseAddButtonClicked = () => {
-        setNotApprovedNumber(notApprovedNumber + 1);
-        setModalOn(true);
+        // setNotApprovedNumber(notApprovedNumber + 1);
+        setHostModalOn(true);
     };
 
     const bilkentCourseAddButtonClicked = () => {
-        setBilkentCourseNumber(bilkentCourseNumber + 1);
-        setModalOn(true);
+        setBilkentCourseNumber(bilkentCourseNumber);
+        setBilkentModalOn(true);
     };
 
+    function returnToTablePage(){
+        setNotApprovedCourseButton(false);
+        setValue("");
+        setCourseButton(true);
+        setStudentNotApprovedBilkentCourse(null);
+        setBilkentCourseNumber(0);
+        setNotApprovedNumber(0);
+    }
+    
     var counter = 0;
     const ApprovedCourseData = {
-        bilkentCourse: {
+        bilkentCourse : {
+            bilkentCode : "Math 260",
+            name : "Intro to Computer Science",
+            type : "Mandatory",
+            credit : 4,
+        },
+        hostCourses : [
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+            {
+                hostCode : "CS 101",
+                name : "Introduction to Computer Science",
+                credit : 3,
+            },
+        ]
+    };
+
+    const ApprovedCourseData2 = [
+        {
+          bilkentCourse: {
             bilkentCode: "Math 260",
             name: "Intro to Computer Science",
             type: "Mandatory",
-            credit: 4,
+            credit: 4
+          },
+          hostCourses: [
+            {
+              hostCode: "CS 105",
+              name: "Introduction to Computer Science",
+              credit: 3
+            },
+            {
+              hostCode: "CS 101",
+              name: "Introduction to Computer Science",
+              credit: 3
+            },
+            {
+              hostCode: "CS 102",
+              name: "Introduction to Computer Science",
+              credit: 3
+            },
+            {
+              hostCode: "CS 103",
+              name: "Introduction to Computer Science",
+              credit: 3
+            },
+            {
+              hostCode: "CS 104",
+              name: "Introduction to Computer Science",
+              credit: 3
+            }
+          ]
         },
-        hostCourses: [
+        {
+          bilkentCourse: {
+            bilkentCode: "Technical Elective",
+            name: "Intro to Computer Science",
+            type: "Mandatory",
+            credit: 4
+          },
+          hostCourses: [
             {
-                hostCode: "CS 101",
-                name: "Introduction to Computer Science",
-                credit: 3,
+              hostCode: "CS 202",
+              name: "hI TEHER",
+              credit: 3
             },
             {
-                hostCode: "CS 101",
-                name: "Introduction to Computer Science",
-                credit: 3,
+              hostCode: "CS 106",
+              name: "Introduction to Computer Science",
+              credit: 3
             },
             {
-                hostCode: "CS 101",
-                name: "Introduction to Computer Science",
-                credit: 3,
+              hostCode: "CS 107",
+              name: "Introduction to Computer Science",
+              credit: 3
             },
             {
-                hostCode: "CS 101",
-                name: "Introduction to Computer Science",
-                credit: 3,
+              hostCode: "CS 108",
+              name: "Introduction to Computer Science",
+              credit: 3
             },
-        ],
-    };
+            {
+              hostCode: "CS 109",
+              name: "Introduction to Computer Science",
+              credit: 3
+            }
+          ]
+        }
+    ];
 
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
-            {modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
+            {bilkentModalOn && 
+            // <Modal setModalOn={setModalOn} setChoice={setChoice} />
+            <NotApprovedBilkentCourseSelection 
+                setModalOn={setBilkentModalOn} 
+                setChoice={setChoice} 
+                setBilkentCourseNumber={setBilkentCourseNumber} 
+                bilkentCourseNumber= {bilkentCourseNumber}
+                setStudentNotApprovedBilkentCourse = {setStudentNotApprovedBilkentCourse}
+            />
+            }
+            {hostModalOn &&
+            <NotApprovedHostCourseSelection
+                setModalOn={setHostModalOn}
+                setChoice={setChoice}
+                setNotApprovedNumber={setNotApprovedNumber}
+                notApprovedNumber={notApprovedNumber}
+                setStudentNotApprovedHostCourseArray = {setStudentNotApprovedHostCourseArray}
+            />
+            }
+
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
                 <div
                     id="menu"
@@ -93,8 +307,7 @@ export default function StudentCourseComponent() {
                             onClick={() => {
                                 navigate("/student");
                             }}
-                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                        >
+                            class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
                             <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
                                 <div>
                                     <svg
@@ -315,86 +528,128 @@ export default function StudentCourseComponent() {
                                 <br />
                             </h1>
                         </div>
+                        {addCourseButton ? 
                         <div className="py-4 ml-auto">
-                            <div className="p-2 bg-green-200  rounded-lg">
-                                <button className=" gap-2 flex">
-                                    Create Pre-Approval Form
+                            <div className="p-2  border border-black rounded-lg">
+                                <button className=" gap-2 flex" onClick={() => setCourseButton(false)}>
+                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                    Add New Course
                                 </button>
                             </div>
                         </div>
+                        : 
+                        <div className="py-4 ml-auto gap-4">
+                            {!addNotApprovedCourseButton ? 
+                            <Autocomplete
+                                value={value}
+                                onChange={(event, newValue) => {
+                                  setValue(newValue);
+                                }}
+                                disablePortal
+                                id="combo-box-demo"
+                                options={HostCourseList}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Select Host Code" />
+                                )}
+                            />
+                            : null
+                            }
+                            {!addNotApprovedCourseButton && !studentApprovedCourseClear ? 
+                            <div className="p-2  border border-black rounded-lg">
+                                <button className=" gap-2 flex" onClick={() => setNotApprovedCourseButton(true)}>
+                                    Add Not Approved Course
+                                </button>
+                            </div> 
+                            : null
+                            }
+                            <div className="p-2  border border-black rounded-lg">
+                                <button className=" gap-2 flex" onClick={() => returnToTablePage()}>
+                                    Return My Courses
+                                </button>
+                            </div>
+                        </div>
+                        }
+                        
                     </div>
-
+                    
+                    {addCourseButton ? 
+                    <EnhancedTable /> 
+                    : 
                     <div id="container">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
                             <div class="relative col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
                                     Courses - Partner University
                                 </div>
+                                { studentApprovedCourseArray != null ?
                                 <div class="relative grid grid-rows gap-2">
-                                    <PartnerCourseCardList
-                                        hostCourses={
-                                            ApprovedCourseData.hostCourses
-                                        }
-                                    />
+                                    <PartnerCourseCardList hostCourses={studentApprovedCourseArray.hostCourses}/>
                                 </div>
-
-                                {notApprovedNumber < 5 ? (
-                                    <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
-                                        <button
-                                            className="gap-2 flex"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={hostCourseAddButtonClicked}
-                                            // onClick={() => {setNotApprovedNumber(notApprovedNumber + 1)}}
-                                        >
-                                            <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                            Add Course
-                                        </button>
-                                    </div>
-                                ) : null}
+                                : <div> Please select a course from the list </div>
+                                }
+                                { notApprovedNumber < 5 && addNotApprovedCourseButton ? 
+                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={hostCourseAddButtonClicked}
+                                        // onClick={() => {setNotApprovedNumber(notApprovedNumber + 1)}}
+                                    >
+                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add Host Course(s) You Want To Take
+                                    </button>
+                                </div> 
+                                : null }
+                                
                             </div>
                             <div class="relative col-span-3 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
                                     Bilkent Course
                                 </div>
-                                <div class="relative grid grid-rows gap-2">
-                                    <BilkentCourseCard
-                                        key={counter++}
-                                        bilkentCode={
-                                            ApprovedCourseData.bilkentCourse
-                                                .bilkentCode
-                                        }
-                                        bilkentName={
-                                            ApprovedCourseData.bilkentCourse
-                                                .name
-                                        }
-                                        bilkentCourseType={
-                                            ApprovedCourseData.bilkentCourse
-                                                .type
-                                        }
-                                        bilkentCredit={
-                                            ApprovedCourseData.bilkentCourse
-                                                .credit
-                                        }
-                                    />
-                                </div>
-                                {bilkentCourseNumber < 1 ? (
-                                    <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
-                                        <button
-                                            className="gap-2 flex"
-                                            type="button"
-                                            data-modal-toggle="defaultModal"
-                                            onClick={
-                                                bilkentCourseAddButtonClicked
-                                            }
-                                        >
-                                            <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                            Add Course
-                                        </button>
+                                { studentApprovedCourseArray != null ?
+                                <div > 
+                                    <div class="relative grid grid-rows gap-2">
+                                        <BilkentCourseCard
+                                            bilkentCourse = {studentApprovedCourseArray.bilkentCourse}
+                                        />
                                     </div>
-                                ) : null}
+                                </div>
+                                : null
+                                }
+                                { studentNotApprovedBilkentCourse != null ? 
+                                    <div class="relative grid grid-rows gap-2">
+                                    <BilkentCourseCard
+                                        bilkentCourse = {studentNotApprovedBilkentCourse}
+                                    />
+                                    </div>
+                                    :
+                                    null
+                                }
+                                { studentNotApprovedBilkentCourse == null && studentApprovedCourseArray == null ?
+                                <div> Please select a course from the list </div>
+                                : null
+                                }
+                                { bilkentCourseNumber < 1 && addNotApprovedCourseButton ? 
+                                <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={bilkentCourseAddButtonClicked}
+                                    >
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add Bilkent Course Equivalent
+                                    </button>
+                                </div>
+                                
+                                : null }
                             </div>
-                            <div className="relative col-span-6 p-2 border border-black rounded-lg m-auto mt-6 ">
+                            {  (studentApprovedCourseArray != null || (studentNotApprovedHostCourseArray != null || studentNotApprovedBilkentCourse)) ?
+
+                            <div class= "relative col-span-6 flex-auto content-evenly content-around justify-center gap-7 justify-items-center grid grid-flow-col-dense" >
+                            <div className="justify-around p-2 border border-black rounded-lg m-auto">
                                 <button
                                     className="gap-2 flex"
                                     type="button"
@@ -402,13 +657,56 @@ export default function StudentCourseComponent() {
                                     // onClick={}
                                 >
                                     <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                    Add to Pre Approval Form
+                                     Add to Pre Approval Form
                                 </button>
                             </div>
+                            </div>
+
+                            : null
+                            }
                         </div>
                     </div>
+                    }
+                    
                 </div>
             </div>
         </div>
     );
 }
+
+
+const HostCourseList = [
+    {
+      label: "CS 101",
+      name: "Introduction to Computer Science",
+      credit: 3
+    },
+    {
+      label: "CS 102",
+      name: "Introduction to Computer Science",
+      credit: 3
+    },
+    {
+      label: "CS 103",
+      name: "Introduction to Computer Science",
+      credit: 3
+    },
+    {
+      label: "CS 104",
+      name: "Introduction to Computer Science",
+      credit: 3
+    },
+    {
+      label: "CS 105",
+      name: "Introduction to Computer Science",
+      credit: 3
+    },
+    {
+      label: "CS 202",
+      name: "hI TEHER",
+      credit: 3
+    }
+  ];
+
+
+ 
