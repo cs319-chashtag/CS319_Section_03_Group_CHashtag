@@ -1,5 +1,6 @@
 import { AppDataSource } from "../data-source"
-import { PreApproval } from "../entity/ApprovalsEntity/PreApproval"
+import { FCTSatus as FCTStatus } from "../entity/ApprovalsEntity/FCT"
+import { ApprovalStatus, PreApproval } from "../entity/ApprovalsEntity/PreApproval"
 import { Coordinator } from "../entity/UsersEntity/Coordinator"
 import { DepartmentType, UserType } from "../entity/UsersEntity/User"
 import StudentRepo from "./StudentRepo"
@@ -87,6 +88,74 @@ export default class CoordinatorRepo {
         return true;
     }
 
+    public static async approveStudentPreApproval(studentId : number, coordinatorId : number, coordinatorApproved: boolean): Promise<boolean> {
+        const student = await StudentRepo.findStudentById(studentId);
+
+        if (student == null) {
+            throw new Error("Student does not exist");
+        }
+        if ( student.coordinator.id != coordinatorId) {
+            throw new Error("Student is not assigned to this coordinator");
+        }
+        if (student.preApproval == null) {
+            throw new Error("Student does not have a pre-approval");
+        }
+        if ( student.preApproval.status != ApprovalStatus.COORDINATOR_PENDING){
+            throw new Error("Student pre-approval is not in pending status");
+        }
+        if ( coordinatorApproved )
+            student.preApproval.status = ApprovalStatus.ADMINISTRATION_PENDING;
+        else
+            student.preApproval.status = ApprovalStatus.COORDINATOR_REJECTED;
+
+        return true;
+    }
+
+    public static async approveStudentLA(studentId : number, coordinatorId : number, coordinatorApproved: boolean): Promise<boolean> {
+        const student = await StudentRepo.findStudentById(studentId);
+
+        if (student == null) {
+            throw new Error("Student does not exist");
+        }
+        if ( student.coordinator.id != coordinatorId) {
+            throw new Error("Student is not assigned to this coordinator");
+        }
+        if (student.learningAgreement == null) {
+            throw new Error("Student does not have a Learning Agreement");
+        }
+        if ( student.learningAgreement.status != ApprovalStatus.COORDINATOR_PENDING){
+            throw new Error("Student pre-approval is not in administration pending status");
+        }
+        if ( coordinatorApproved )
+            student.fct.status = FCTStatus.ADMINISTRATION_PENDING;
+        else
+            student.fct.status = FCTStatus.COORDINATOR_REJECTED;
+        
+        return true;
+    }
+
+    public static async approveStudentFCT(studentId : number, coordinatorId : number, coordinatorApproved: boolean): Promise<boolean> {
+        const student = await StudentRepo.findStudentById(studentId);
+
+        if (student == null) {
+            throw new Error("Student does not exist");
+        }
+        if ( student.coordinator.id != coordinatorId) {
+            throw new Error("Student is not assigned to this coordinator");
+        }
+        if (student.fct == null) {
+            throw new Error("Student does not have a FCT");
+        }
+        if ( student.fct.status != FCTStatus.COORDINATOR_PENDING){
+            throw new Error("Student pre-approval is not in administration pending status");
+        }
+        if ( coordinatorApproved )
+            student.fct.status = FCTStatus.ADMINISTRATION_PENDING;
+        else
+            student.fct.status = FCTStatus.COORDINATOR_REJECTED;
+        
+        return true;
+    }
 
     //DONE
     public static async create(id : number, email: string, firstName: string, lastName: string, password: string, department: DepartmentType) : Promise<boolean | null> {

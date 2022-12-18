@@ -4,6 +4,7 @@ import { ApprovedCourse } from '../entity/CoursesEntity/ApprovedCourse';
 import { ApprovedHostCourse } from '../entity/CoursesEntity/ApprovedHostCourse';
 import { BilkentCourse, CourseType } from '../entity/CoursesEntity/BilkentCourse';
 import { HostCourse } from '../entity/CoursesEntity/HostCourse';
+import { CourseStatus } from '../entity/CoursesEntity/PendingCourse';
 import { StudentCourse } from '../entity/CoursesEntity/StudentCourse';
 import { Administration } from '../entity/UsersEntity/Administration';
 import { Coordinator } from '../entity/UsersEntity/Coordinator';
@@ -33,18 +34,6 @@ export default class StudentRepo {
                 }
             }
         })
-    }
-
-    //DONE
-    public static async setPreApprovalStatus(id : number, status: ApprovalStatus): Promise<boolean> {
-        const studentRepo = AppDataSource.getRepository(Student)
-        const student =  await StudentRepo.findStudentById(id);
-        if (student == null) {
-            return false;
-        }
-        student.preApproval.status = status;
-        await studentRepo.save(student);
-        return true;
     }
 
     //DONE
@@ -170,6 +159,10 @@ export default class StudentRepo {
                     administration.students.push(student);
                     student.administration = administration;
                 }
+
+                var year = new Date().getFullYear();
+                var nextYear = new Date().getFullYear()+1;
+                
                 
                 student.preApproval = null;
                 student.learningAgreement = null;
@@ -247,6 +240,39 @@ export default class StudentRepo {
         });
     }
 
+    public static async confirmPreApproval(id : number): Promise<boolean> {
+        const student = await StudentRepo.findStudentById(id);
+
+        if (student == null) {
+            throw new Error("Student does not exist");
+        }
+
+        if (student.preApproval == null) {
+            throw new Error("Student does not have a pre-approval");
+        }
+
+        if (student.preApproval.status != ApprovalStatus.STUDENT_PENDING) {
+            throw new Error("Student pre-approval is not in the correct status");
+        }
+
+        if (student.preApproval.totalCredit < 30) {
+            throw new Error("Student pre-approval does not have enough credits");
+        }
+        
+        for ( const pendingCourse of student.preApproval.pendingCourses) {
+            if ( pendingCourse.bilkentCourse != null && pendingCourse.bilkentCourse.courseType == CourseType.MANDATORY ) {
+                if ( pendingCourse.status != CourseStatus.APPROVED ) {
+                    throw new Error("Student pre-approval has Pending Courses that are not approved");
+                }
+            }
+        }
+
+        student.preApproval.status = ApprovalStatus.COORDINATOR_PENDING;
+
+        return true;
+    }
+
+
     public static async updatePreApproval2(id : number, preApproval: PreApproval ): Promise<Student | null> {
 
         return StudentRepo.findStudentById(id).then(async (student) => {
@@ -314,7 +340,6 @@ export default class StudentRepo {
                             apprvdHstCourses.code = approvedHostCourse.code;
                             apprvdHstCourses.name = approvedHostCourse.name;
                             apprvdHstCourses.credit = approvedHostCourse.credit;
-                            apprvdHstCourses.school = student.school.name;
                             // approvedHostCourses.hostSchool = approvedCourse.hostSchool;
                             console.log("APPROVED HOST COURSES WILL BE ADDED : " , apprvdHstCourses.code);
                             

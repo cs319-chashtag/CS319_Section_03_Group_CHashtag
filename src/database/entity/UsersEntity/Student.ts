@@ -35,8 +35,8 @@ export class Student extends User {
     })
     semesterType: SemesterType
 
-    @Column({length: 11})
-    academicYear: string
+    // @Column({length: 11})
+    // academicYear: string
     
     @OneToOne(() => School, {eager: true})
     @JoinColumn()

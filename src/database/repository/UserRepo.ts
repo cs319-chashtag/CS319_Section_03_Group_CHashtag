@@ -15,8 +15,9 @@ export default class UserRepo {
             throw new Error(err);
         });
         if (user == null) {
-            return null;
+            throw new Error("User not found");
         }
+        
         return user;
     }
 
@@ -32,7 +33,7 @@ export default class UserRepo {
             throw new Error(err);
         });
         if (user == null) {
-            return null;
+            throw new Error("User not found");
         }
         return user;
     }

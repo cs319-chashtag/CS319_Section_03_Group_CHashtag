@@ -1,10 +1,23 @@
-import { Entity, Column, PrimaryColumn, ChildEntity, OneToOne, JoinColumn, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryColumn, ChildEntity, OneToOne, JoinColumn, ManyToOne, TableInheritance, PrimaryGeneratedColumn } from "typeorm"
 import { School } from "../SchoolEntity/School"
-import { Course } from "./Course"
+import { DepartmentType } from "../UsersEntity/User"
 
-@ChildEntity()
-export class HostCourse extends Course{
+@Entity()
+@TableInheritance({ column: { type: "varchar", name: "type" } })
+export class HostCourse {
+
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column({length: 20, nullable: false})
+    code : string
+
+    @Column({length: 20})
+    department : DepartmentType
+
+    @Column({length: 50, nullable: true})
+    name: string
 
     @Column()
-    school: string
+    credit : number
 }

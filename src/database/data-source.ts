@@ -4,7 +4,6 @@ import { User } from "./entity/UsersEntity/User"
 import { Student } from "./entity/UsersEntity/Student"
 import { Instructor } from "./entity/UsersEntity/Instructor"
 import { Coordinator } from "./entity/UsersEntity/Coordinator"
-import { Course } from "./entity/CoursesEntity/Course"
 import { BilkentCourse } from "./entity/CoursesEntity/BilkentCourse"
 import { HostCourse } from "./entity/CoursesEntity/HostCourse"
 import { ApprovedCourse } from "./entity/CoursesEntity/ApprovedCourse"
@@ -35,7 +34,6 @@ export const AppDataSource = new DataSource({
         Coordinator,
         Administration,
         Admin,
-        Course,
         ApprovedHostCourse,
         NotApprovedHostCourse,
         HostCourse,
