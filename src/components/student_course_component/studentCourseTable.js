@@ -19,108 +19,162 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 /* Done by @mr3mre 
  */
+// const ApprovedCourseData = [
+//   {
+//     bilkentCourse: {
+//       bilkentCode: "CS 201",
+//       name: "Intro to Computer Science",
+//       type: "Mandatory",
+//       credit: 4
+//     },
+//     hostCourses: [
+//       {
+//         hostCode: "CS 105",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       },
+//       {
+//         hostCode: "CS 101",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       },
+//       {
+//         hostCode: "CS 102",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       },
+//       {
+//         hostCode: "CS 103",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       },
+//       {
+//         hostCode: "CS 104",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       }
+//     ]
+//   },
+//   {
+//     bilkentCourse: {
+//       bilkentCode: "Technical Elective",
+//       name: "Intro to Computer Science",
+//       type: "Elective",
+//       credit: 4
+//     },
+//     hostCourses: [
+//       {
+//         hostCode: "CS 202",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       },
+//       {
+//         hostCode: "CS 109",
+//         name: "Introduction to Computer Science",
+//         credit: 3
+//       }
+//     ]
+//   },
+//   {
+//       bilkentCourse: {
+//         bilkentCode: "General Elective",
+//         name: "",
+//         type: "Elective",
+//         credit: 3
+//       },
+//       hostCourses: [
+//         {
+//           hostCode: "CS 205",
+//           name: "Introduction to Computer Science",
+//           credit: 3
+//         },
+//         {
+//           hostCode: "CS 109",
+//           name: "Introduction to Computer Science",
+//           credit: 3
+//         }
+//       ]
+//     }
+// ];
 const ApprovedCourseData = [
+  // {
+  //   bilkentCourse: {
+  //     bilkentCode: "CS 201",
+  //     name: "Intro to Computer Science",
+  //     type: "Mandatory",
+  //     credit: 4
+  //   },
+  //   hostCourses: [
+  //     {
+  //       hostCode: "CS 105",
+  //       name: "Introduction to Computer Science",
+  //       credit: 3
+  //     },
+  //     {
+  //       hostCode: "CS 101",
+  //       name: "Introduction to Computer Science",
+  //       credit: 3
+  //     },
+  //     {
+  //       hostCode: "CS 102",
+  //       name: "Introduction to Computer Science",
+  //       credit: 3
+  //     },
+  //     {
+  //       hostCode: "CS 103",
+  //       name: "Introduction to Computer Science",
+  //       credit: 3
+  //     },
+  //     {
+  //       hostCode: "CS 104",
+  //       name: "Introduction to Computer Science",
+  //       credit: 3
+  //     }
+  //   ]
+  // },
   {
     bilkentCourse: {
-      bilkentCode: "Math 260",
+      bilkentCode: "Technical Elective",
       name: "Intro to Computer Science",
-      type: "Mandatory",
+      type: "Elective",
       credit: 4
     },
     hostCourses: [
       {
-        hostCode: "CS 101",
+        hostCode: "CS 202",
         name: "Introduction to Computer Science",
         credit: 3
       },
       {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
+        hostCode: "CS 109",
         name: "Introduction to Computer Science",
         credit: 3
       }
     ]
   },
   {
-    bilkentCourse: {
-      bilkentCode: "Technical Elective",
-      name: "Intro to Computer Science",
-      type: "Mandatory",
-      credit: 4
-    },
-    hostCourses: [
-      {
-        hostCode: "CS 202",
-        name: "hI TEHER",
+      bilkentCourse: {
+        bilkentCode: "General Elective",
+        name: "",
+        type: "Elective",
         credit: 3
       },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      },
-      {
-        hostCode: "CS 101",
-        name: "Introduction to Computer Science",
-        credit: 3
-      }
-    ]
-  }
+      hostCourses: [
+        {
+          hostCode: "CS 205",
+          name: "Introduction to Computer Science",
+          credit: 3
+        },
+        {
+          hostCode: "CS 109",
+          name: "Introduction to Computer Science",
+          credit: 3
+        }
+      ]
+    }
 ];
 
-function createRow(num, hostCode, name, credit, span, check, counter) {
-  return { num, hostCode, name, credit, span, check, counter };
-}
-
-const rows = [];
-var num = 1;
-var check = true;
-var counter = 0;
-for (const approvedCourse of ApprovedCourseData) {
-  const span = approvedCourse.hostCourses.length;
-  for (const hostCourses of approvedCourse.hostCourses) {
-    rows.push(
-      createRow(
-        num++,
-        hostCourses.hostCode,
-        hostCourses.name,
-        hostCourses.credit,
-        span,
-        check,
-        counter
-      )
-    );
-    check = false;
-  }
-  counter++;
-  check = true;
-}
-
-function EnhancedTableToolbar(props) {
+function StudentTableToolbar(props) {
   const { numSelected } = props;
 
   return (
@@ -168,11 +222,79 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-EnhancedTableToolbar.propTypes = {
+StudentTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired
 };
 
-export default function EnhancedTable() {
+export default function StudentTable( { notApprovedCourseFinalArray, approvedCourseFinalArray }){
+  const [artists, setRows] = React.useState([]);
+  React.useEffect(() => {
+    // console.log("ApprovedCourseData: ", ApprovedCourseData);
+
+    if ( notApprovedCourseFinalArray.length != 0 ){
+      console.log("notApprovedCourseFinalArray: ", notApprovedCourseFinalArray );
+      ApprovedCourseData.push(notApprovedCourseFinalArray);
+      // notApprovedCourseFinalArray = [];
+      // approvedCourseFinalArray = [];
+    }
+    if ( approvedCourseFinalArray.length != 0  ){
+      console.log("approvedCourseFinalArray: ", approvedCourseFinalArray );
+      ApprovedCourseData.push(approvedCourseFinalArray);
+      // notApprovedCourseFinalArray = [];
+      // approvedCourseFinalArray = [];
+    }
+
+  }, [notApprovedCourseFinalArray, approvedCourseFinalArray]);
+
+
+
+  function createRow(num, hostCode, name, credit, span, check, counter) {
+    return { num, hostCode, name, credit, span, check, counter };
+  }
+
+  const rows = [];
+  React.useEffect(() => {
+    // console.log("ApprovedCourseData: ", ApprovedCourseData);
+    var num = 1;
+    var check = true;
+    var counter = 0;
+    for (const approvedCourse of ApprovedCourseData) {
+      const span = approvedCourse.hostCourses.length;
+      for (const hostCourses of approvedCourse.hostCourses) {
+        setRows( // Replace the state
+        [ // with a new array
+          ...artists, // that contains all the old items
+          createRow(
+            num++,
+            hostCourses.hostCode,
+            hostCourses.name,
+            hostCourses.credit,
+            span,
+            check,
+            counter
+          )// and one new item at the end
+        ]);
+        // rows.push(
+        
+        //   createRow(
+        //     num++,
+        //     hostCourses.hostCode,
+        //     hostCourses.name,
+        //     hostCourses.credit,
+        //     span,
+        //     check,
+        //     counter
+        //   )
+        // );
+        check = false;
+      }
+      counter++;
+      check = true;
+    }
+    console.log("artists: ", artists);
+  }, [ApprovedCourseData]);
+  
+
   const [selected, setSelected] = React.useState([]);
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -209,7 +331,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <StudentTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 900, maxHeight: 800 }}
@@ -244,7 +366,7 @@ export default function EnhancedTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => {
+                {artists.map((row, index) => {
                   const isItemSelected = isSelected(row.counter);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -272,19 +394,19 @@ export default function EnhancedTable() {
                       {row.check ? (
                         <TableCell rowSpan={row.span}>
                           {
-                            ApprovedCourseData[row.counter].bilkentCourse
+                            artists[row.counter].bilkentCourse
                               .bilkentCode
                           }
                         </TableCell>
                       ) : null}
                       {row.check ? (
                         <TableCell rowSpan={row.span}>
-                          {ApprovedCourseData[row.counter].bilkentCourse.name}
+                          {artists[row.counter].bilkentCourse.name}
                         </TableCell>
                       ) : null}
                       {row.check ? (
                         <TableCell rowSpan={row.span}>
-                          {ApprovedCourseData[row.counter].bilkentCourse.credit}
+                          {artists[row.counter].bilkentCourse.credit}
                         </TableCell>
                       ) : null}
                       {row.check ? (

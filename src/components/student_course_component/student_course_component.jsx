@@ -4,7 +4,7 @@ import Modal from "../modal/modal_component";
 import { useState } from "react";
 import BilkentCourseCard from "./BilkentCourseCard";
 import PartnerCourseCardList from "./PartnerCourseCardList";
-import EnhancedTable from "./studentCourseTable2";
+import StudentTable from "./studentCourseTable";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import NotApprovedBilkentCourseSelection from "./notApprovedbilkentCourseSelection";
@@ -28,38 +28,60 @@ export default function StudentCourseComponent() {
     const [value, setValue] = useState("");
 
     const [studentNotApprovedBilkentCourse, setStudentNotApprovedBilkentCourse] = useState(null);
-    const [studentNotApprovedHostCourseArray, setStudentNotApprovedHostCourseArray] = useState(null);
-    const [studentNotApprovedHostCourse, setStudentNotApprovedHostCourse2] = useState([]);
+    const [studentNotApprovedHostCourseArray, setStudentNotApprovedHostCourseArray] = useState([]);
+    const [studentNotApprovedHostCourse, setStudentNotApprovedHostCourse] = useState(null);
+    const [ notApprovedHostCredit, setNotApprovedHostCredit ] = useState(0);
+
+
+    const [ notApprovedCourseFinalArray, setNotApprovedCourseFinalArray ] = useState([]);
+    const [ approvedCourseFinalArray, setApprovedCourseFinalArray ] = useState([]);
+
+    // React.useEffect(() => {
+    //     fetch('http://localhost:3000/')
+    //         .then(courseData => {
+    //         console.log("DATA : ", courseData);
+    //     }).catch(err => {
+    //         console.log("ERROR: ", err);
+    //     })
+    // }, []);
+      
+
 
     React.useEffect(() => {
         setApprovedCourseArray(ApprovedCourseData2);
         // console.log("approvedCourseArray: ", approvedCourseArray[0]);
     }, []);
 
-
     React.useEffect(() => {
-        console.log("\n\nINSIDE USE EFFECT studentNotApprovedCourseArray: ", studentNotApprovedBilkentCourse);
+        // console.log("\n\nINSIDE USE EFFECT studentNotApprovedCourseArray: ", studentNotApprovedBilkentCourse);
         // console.log("approvedCourseArray: ", approvedCourseArray[0]);
     }, [studentNotApprovedBilkentCourse]);
 
-    const studentNotApprovedHostArr = [];
     React.useEffect(() => {
-        // const array = [];
-        if ( studentNotApprovedHostCourseArray != null ) {
-            console.log("studentNotApprovedHostCourseArray: ", studentNotApprovedHostCourseArray);
-            if ( studentNotApprovedHostCourse instanceof Array ) {
-                console.log("studentNotApprovedHostCourse is array: ", studentNotApprovedHostCourse);
-                setStudentNotApprovedHostCourse2(studentNotApprovedHostCourse.push(studentNotApprovedHostCourseArray));
-            }
-
-            // studentNotApprovedHostArr.push(studentNotApprovedHostCourseArray);
-            console.log("studentNotApprovedHostCourse", studentNotApprovedHostCourse);
-        }
-        // setStudentNotApprovedHostCourseArray(array.push(studentNotApprovedBilkentCourse));
-        // setStudentNotApprovedHostCourseArray(studentNotApprovedBilkentCourse);
-
-        // console.log("\n\nINSIDE USE EFFECT studentNotApprovedHostArr: ", studentNotApprovedHostCourse);
+        console.log("studentNotApprovedHostCourseArray: " , studentNotApprovedHostCourseArray);
     }, [studentNotApprovedHostCourseArray]);
+
+    React.useEffect(() => {
+        if (studentNotApprovedHostCourse != null  ){
+            // console.log("studentNotApprovedHostCourseArray: ", studentNotApprovedHostCourseArray);
+            const insertAt = 1; // Could be any index
+            const newStudentNotApprovedHostCourseArray = [
+                // Items before the insertion point:
+                ...studentNotApprovedHostCourseArray.slice(0, insertAt),
+                // New item:
+                { 
+                    hostCode: studentNotApprovedHostCourse.hostCode, 
+                    name: studentNotApprovedHostCourse.name,
+                    credit : studentNotApprovedHostCourse.credit,
+                    info : studentNotApprovedHostCourse.info,
+                },
+                // Items after the insertion point:
+                ...studentNotApprovedHostCourseArray.slice(insertAt)
+            ];
+            setNotApprovedHostCredit( notApprovedHostCredit + studentNotApprovedHostCourse.credit)
+            setStudentNotApprovedHostCourseArray(newStudentNotApprovedHostCourseArray);
+        }
+    }, [studentNotApprovedHostCourse]);
 
     function filterApprovedCourse(value) {
         var checkExist = false;
@@ -139,51 +161,69 @@ export default function StudentCourseComponent() {
         setValue("");
         setCourseButton(true);
         setStudentNotApprovedBilkentCourse(null);
+        setStudentNotApprovedHostCourseArray([]);
         setBilkentCourseNumber(0);
         setNotApprovedNumber(0);
+        setNotApprovedHostCredit(0);
+    }
+
+    function addStudentToPreApprovalForm(){
+        if ( studentNotApprovedBilkentCourse != null && studentNotApprovedHostCourseArray.length != 0 ){
+            setNotApprovedCourseFinalArray( {
+                bilkentCourse : studentNotApprovedBilkentCourse,
+                hostCourses : studentNotApprovedHostCourseArray,
+            });
+        }
+        if ( studentApprovedCourseArray != null){
+            setApprovedCourseFinalArray( {
+                bilkentCourse : studentApprovedCourseArray.bilkentCourse,
+                hostCourses : studentApprovedCourseArray.hostCourses,
+            });
+        }
+        returnToTablePage();
     }
     
     var counter = 0;
-    const ApprovedCourseData = {
-        bilkentCourse : {
-            bilkentCode : "Math 260",
-            name : "Intro to Computer Science",
-            type : "Mandatory",
-            credit : 4,
-        },
-        hostCourses : [
-            {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
-            },
-            {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
-            },
-            {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
-            },
-            {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
-            },
-            {
-                hostCode : "CS 101",
-                name : "Introduction to Computer Science",
-                credit : 3,
-            },
-        ]
-    };
+    // const ApprovedCourseData = {
+    //     bilkentCourse : {
+    //         bilkentCode : "Math 260",
+    //         name : "Intro to Computer Science",
+    //         type : "Mandatory",
+    //         credit : 4,
+    //     },
+    //     hostCourses : [
+    //         {
+    //             hostCode : "CS 101",
+    //             name : "Introduction to Computer Science",
+    //             credit : 3,
+    //         },
+    //         {
+    //             hostCode : "CS 101",
+    //             name : "Introduction to Computer Science",
+    //             credit : 3,
+    //         },
+    //         {
+    //             hostCode : "CS 101",
+    //             name : "Introduction to Computer Science",
+    //             credit : 3,
+    //         },
+    //         {
+    //             hostCode : "CS 101",
+    //             name : "Introduction to Computer Science",
+    //             credit : 3,
+    //         },
+    //         {
+    //             hostCode : "CS 101",
+    //             name : "Introduction to Computer Science",
+    //             credit : 3,
+    //         },
+    //     ]
+    // };
 
     const ApprovedCourseData2 = [
         {
           bilkentCourse: {
-            bilkentCode: "Math 260",
+            bilkentCode: "CS 201",
             name: "Intro to Computer Science",
             type: "Mandatory",
             credit: 4
@@ -220,27 +260,12 @@ export default function StudentCourseComponent() {
           bilkentCourse: {
             bilkentCode: "Technical Elective",
             name: "Intro to Computer Science",
-            type: "Mandatory",
+            type: "Elective",
             credit: 4
           },
           hostCourses: [
             {
               hostCode: "CS 202",
-              name: "hI TEHER",
-              credit: 3
-            },
-            {
-              hostCode: "CS 106",
-              name: "Introduction to Computer Science",
-              credit: 3
-            },
-            {
-              hostCode: "CS 107",
-              name: "Introduction to Computer Science",
-              credit: 3
-            },
-            {
-              hostCode: "CS 108",
               name: "Introduction to Computer Science",
               credit: 3
             },
@@ -250,7 +275,27 @@ export default function StudentCourseComponent() {
               credit: 3
             }
           ]
-        }
+        },
+        {
+            bilkentCourse: {
+              bilkentCode: "General Elective",
+              name: "",
+              type: "Elective",
+              credit: 3
+            },
+            hostCourses: [
+              {
+                hostCode: "CS 205",
+                name: "Introduction to Computer Science",
+                credit: 3
+              },
+              {
+                hostCode: "CS 109",
+                name: "Introduction to Computer Science",
+                credit: 3
+              }
+            ]
+          }
     ];
 
     return (
@@ -271,7 +316,7 @@ export default function StudentCourseComponent() {
                 setChoice={setChoice}
                 setNotApprovedNumber={setNotApprovedNumber}
                 notApprovedNumber={notApprovedNumber}
-                setStudentNotApprovedHostCourseArray = {setStudentNotApprovedHostCourseArray}
+                setStudentNotApprovedHostCourse = {setStudentNotApprovedHostCourse}
             />
             }
 
@@ -574,7 +619,8 @@ export default function StudentCourseComponent() {
                     </div>
                     
                     {addCourseButton ? 
-                    <EnhancedTable /> 
+                    // ApprovedCourseData = {ApprovedCourseData2} 
+                    <StudentTable notApprovedCourseFinalArray = {notApprovedCourseFinalArray} approvedCourseFinalArray = {approvedCourseFinalArray} /> 
                     : 
                     <div id="container">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
@@ -586,7 +632,18 @@ export default function StudentCourseComponent() {
                                 <div class="relative grid grid-rows gap-2">
                                     <PartnerCourseCardList hostCourses={studentApprovedCourseArray.hostCourses}/>
                                 </div>
-                                : <div> Please select a course from the list </div>
+                                : null
+                                }
+                                { studentNotApprovedHostCourseArray.length > 0 ?
+                                    <div class="relative grid grid-rows gap-2">
+                                    <PartnerCourseCardList hostCourses={studentNotApprovedHostCourseArray}/>
+                                    </div>
+                                    : 
+                                    null
+                                }
+                                { studentApprovedCourseArray == null && studentNotApprovedHostCourseArray.length == 0 ?
+                                <div> Please select a course from the list </div>
+                                : null
                                 }
                                 { notApprovedNumber < 5 && addNotApprovedCourseButton ? 
                                 <div className="p-2 w-40 border border-black rounded-lg m-auto mt-6 bottom-0 right-0">
@@ -646,19 +703,25 @@ export default function StudentCourseComponent() {
                                 
                                 : null }
                             </div>
-                            {  (studentApprovedCourseArray != null || (studentNotApprovedHostCourseArray != null || studentNotApprovedBilkentCourse)) ?
+                            {  (studentApprovedCourseArray != null || (studentNotApprovedHostCourseArray.length != 0 && studentNotApprovedBilkentCourse != null)) ?
 
                             <div class= "relative col-span-6 flex-auto content-evenly content-around justify-center gap-7 justify-items-center grid grid-flow-col-dense" >
                             <div className="justify-around p-2 border border-black rounded-lg m-auto">
-                                <button
-                                    className="gap-2 flex"
-                                    type="button"
-                                    data-modal-toggle="defaultModal"
-                                    // onClick={}
-                                >
-                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                     Add to Pre Approval Form
-                                </button>
+                                {
+                                    (notApprovedHostCredit >= 3) || studentApprovedCourseArray ? 
+
+                                    <button
+                                        className="gap-2 flex"
+                                        type="button"
+                                        data-modal-toggle="defaultModal"
+                                        onClick={addStudentToPreApprovalForm}
+                                    >
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add to Pre Approval Form
+                                    </button>
+                                    : 
+                                    <div> You need to take at least 3 ECTS credits to apply for pre-approval </div>
+                                }
                             </div>
                             </div>
 
@@ -706,7 +769,7 @@ const HostCourseList = [
       name: "hI TEHER",
       credit: 3
     }
-  ];
+];
 
 
  

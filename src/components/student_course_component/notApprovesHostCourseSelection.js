@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 /* Done by @mr3mre 
  */
 
-export default function NotApprovedHostCourseSelection({ setModalOn, setChoice, setNotApprovedNumber, notApprovedNumber, setStudentNotApprovedHostCourseArray }){
+export default function NotApprovedHostCourseSelection({ setModalOn, setChoice, setNotApprovedNumber, notApprovedNumber, setStudentNotApprovedHostCourse }){
     const [value, setValue] = useState("");
     const [hostCourseChoice, setHostCourseChoice] = useState(null);
    
@@ -90,7 +90,7 @@ export default function NotApprovedHostCourseSelection({ setModalOn, setChoice, 
         // console.log("hostCourseInfo: ", hostCourseInfo);
 
         setHostCourseChoice({
-            code: hostCourseCode,
+            hostCode: hostCourseCode,
             name: hostCourseName,
             credit: creditValue,
             info: hostCourseInfo
@@ -110,13 +110,13 @@ export default function NotApprovedHostCourseSelection({ setModalOn, setChoice, 
         setChoice(true);
         setModalOn(false);
         setNotApprovedNumber(notApprovedNumber + 1);
-        setStudentNotApprovedHostCourseArray(hostCourseChoice);
+        setStudentNotApprovedHostCourse(hostCourseChoice);
         // console.log("hostCourseChoice: ", hostCourseChoice);
     };
     const handleCancelClick = () => {
         setChoice(false);
         setModalOn(false);
-        setStudentNotApprovedHostCourseArray(null);
+        setStudentNotApprovedHostCourse(null);
     };
 
 
