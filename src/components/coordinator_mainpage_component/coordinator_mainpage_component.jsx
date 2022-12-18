@@ -1,9 +1,26 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CoordinatorMainpageComponent() {
     const navigate = useNavigate();
-
+    let [infos, setInfos] = useState([0]);
+    let [coorinfos, setCoorInfos] = useState([0]);
+    useEffect(() => {
+        async function getter()  {
+            await fetch ("/coordinator",{
+                method: "GET",
+                headers: {"Content-type": "application/json"},
+            }).then((res) => res.json()
+            ).then((res) => {
+                setInfos(res.coorinfo);
+                setCoorInfos(res.coorinfo2);
+                console.log(res.coorinfo);
+                console.log(res.coorinfo2);
+                return res;
+            });
+        }
+        getter();
+    },[]);
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
             <div class="grid grid-cols-10 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-4 max-w-7xl my-10 ">
@@ -24,7 +41,7 @@ export default function CoordinatorMainpageComponent() {
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Can Alkan
+                            {infos.firstName} {infos.lastName}
                             </p>
                             <span class="text-xs text-slate-400">
                                 Erasmouse Coordinator
@@ -328,7 +345,7 @@ export default function CoordinatorMainpageComponent() {
                             Coordinator Actions
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Can Alkan
+                                Welcome Back, {infos.firstName} {infos.lastName}
                             </span>
                         </h1>
                         <div

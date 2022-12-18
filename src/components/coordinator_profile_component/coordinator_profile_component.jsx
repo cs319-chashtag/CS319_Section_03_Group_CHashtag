@@ -1,8 +1,27 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CoordinatorProfileComponent() {
     const navigate = useNavigate();
+   
+    let [infos, setInfos] = useState([0]);
+    let [coorinfos, setCoorInfos] = useState([0]);
+    useEffect(() => {
+        async function getter()  {
+            await fetch ("/coordinator",{
+                method: "GET",
+                headers: {"Content-type": "application/json"},
+            }).then((res) => res.json()
+            ).then((res) => {
+                setInfos(res.coorinfo);
+                setCoorInfos(res.coorinfo2);
+                console.log(res.coorinfo);
+                console.log(res.coorinfo2);
+                return res;
+            });
+        }
+        getter();
+    },[]);
 
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
@@ -24,7 +43,7 @@ export default function CoordinatorProfileComponent() {
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Can Alkan
+                            {infos.firstName} {infos.lastName}
                             </p>
                             <span class="text-xs text-slate-400">
                                 Erasmouse Coordinator
@@ -328,7 +347,7 @@ export default function CoordinatorProfileComponent() {
                             Student Actions - Profile
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, {infos.firstName} {infos.lastName}
                             </span>
                         </h1>
                         <div

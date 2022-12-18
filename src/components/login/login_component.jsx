@@ -1,29 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
-    // let [id, setId] = useState(null);
-    // let [password, setPassword] = useState(null);
-    // async function logger() {
-    //     let res = await fetch("/loginPage", {
-    //         method: "POST",
-    //         headers: { "Content-type": "application/json" },
-    //         body: JSON.stringify({
-    //             idField: id,
-    //             passField: password,
-    //         }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             if (data.userinfo == "TRUE") {
-    //                 if (data.usertype == "1") {
-    //                     navigate("/studentActions");
-    //                 }
-    //             }
-    //         });
-    // }
+     let [id, setId] = useState(null);
+     let [password, setPassword] = useState(null);
+     async function logger() {
+         await fetch("/loginPage", {
+            method: "POST",
+             headers: { "Content-type": "application/json" },
+             body: JSON.stringify({
+               idField: id,
+            passField: password,
+             }),
+         })
+             .then((res) => res.json())
+         .then((res) => {
+            if (res.userinfo == "TRUE") {
+                    if (res.usertype == "1") {
+                        navigate("/student");
+                    }
+                    else if(res.usertype == "2"){
+                        navigate("/coordinator");
+                    }
+                 }
+             });
+     }
+
+     
     return (
         <div className="p-8">
             <div className="inline-block justify-center relative">
@@ -49,11 +54,13 @@ export default function Login() {
                         <input
                             class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 "
                             type="text"
+                            onChange = {e => setId(e.target.value)}
                             placeholder="Username or Email id"
                         />
                         <input
                             class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500"
                             type="password"
+                            onChange = {e => setPassword(e.target.value)}
                             placeholder="Password"
                         />
                     </div>
@@ -61,7 +68,7 @@ export default function Login() {
                         class="mt-5 w-full border border-black p-2"
                         type="submit"
                         onClick={() => {
-                            navigate("/coordinator");
+                            logger();
                         }}
                     >
                         Sign in (debug coordinator)
@@ -70,8 +77,8 @@ export default function Login() {
                         class="mt-5 w-full border border-black p-2"
                         type="submit"
                         onClick={() => {
-                            navigate("/student");
-                            //logger();
+                            //navigate("/student");
+                            logger();
                         }}
                     >
                         Sign in (debug student)

@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function StudentPageComponent() {
     const navigate = useNavigate();
+    let [infos, setInfos] = useState([0]);
+    let [studinfos, setStudInfos] = useState([0]);
+    useEffect(() => {
+        async function getter()  {
+            await fetch ("/studentPage",{
+                method: "GET",
+                headers: {"Content-type": "application/json"},
+            }).then((res) => res.json()
+            ).then((res) => {
+                setInfos(res.sutdinfo);
+                setStudInfos(res.studinfo1.school);
+                console.log(res.studinfo1);
+                console.log(res.sutdinfo);
+                return res;
+            });
+        }
+        getter();
+    },[]);
+    
+    
 
     return (
         <div class="antialiased bg-white w-full min-h-screen text-black relative py-4">
@@ -24,7 +44,7 @@ export default function StudentPageComponent() {
                         </div>
                         <div>
                             <p class="font-medium text-black group-hover:text-indigo-400 leading-4">
-                                Arda Tavusbay
+                               {infos.firstName} {infos.lastName}
                             </p>
                             <span class="text-xs text-slate-400">
                                 Erasmouse Student
@@ -67,7 +87,15 @@ export default function StudentPageComponent() {
                         <a
                             href="#"
                             onClick={() => {
-                                navigate("/student/preapprovalForms");
+                                navigate("/student/preapprovalForms",{
+                                    state: {
+                                        id: infos.id,
+                                        name: infos.firstName,
+                                        lastname: infos.lastName,
+                                        department: infos.department,
+                                        email: infos.email,
+                                    }
+                                });
                             }}
                             class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
                         >
@@ -255,7 +283,7 @@ export default function StudentPageComponent() {
                             Student Actions
                             <br />
                             <span className="text-gray-600 text-base">
-                                Welcome Back, Arda Tavusbay
+                                Welcome Back, {infos.firstName} {infos.lastName}
                             </span>
                         </h1>
                         <div
@@ -313,7 +341,7 @@ export default function StudentPageComponent() {
                             </div>
                             <div class="col-span-7 p-6 border border-black rounded-lg">
                                 <div className="text-black pb-4">
-                                    Technical University of Berlin
+                                    {studinfos.name}
                                 </div>
                                 <div className="grid grid-cols-5">
                                     <div class="col-span-2 grid grid-rows-5 gap-6">
