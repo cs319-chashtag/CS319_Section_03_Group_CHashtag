@@ -270,7 +270,7 @@ export default function StudentPageComponent() {
                         <div id="" class="">
                             <div class="p-6 border border-black rounded-lg">
                                 <div className="text-black text-xl pb-4">
-                                    Current Pre-approval Form
+                                    Current Learning Agreement
                                 </div>
                                 <div className="border border-black">
                                     <embed
