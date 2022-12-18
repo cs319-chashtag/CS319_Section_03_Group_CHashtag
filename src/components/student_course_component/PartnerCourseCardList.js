@@ -1,6 +1,8 @@
 import React from 'react';
 import PartnerCourseCard from './PartnerCourseCard';
 
+/* Done by @mr3mre 
+ */
 const PartnerCourseCardList = ({ hostCourses, unique = 0, count = 0 }) => {
     return (
         <div key = {unique++}>

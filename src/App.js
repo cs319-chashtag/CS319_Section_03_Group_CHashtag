@@ -24,6 +24,9 @@ import LoginSelectionPage from "./pages/login_selection_page/login_selection_pag
 import LoginInstructorPage from "./pages/loginpages/login_instructor_page";
 import LoginStudentPage from "./pages/loginpages/login_student_page";
 import LoginAdminPage from "./pages/loginpages/login_admin_page";
+import InstructorHelpPage from "./pages/instructor_help_page/instructor_help_page";
+import InstructorProfileComponent from "./components/instructor_profile_component/instructor_profile_component";
+import InstructorToDoPage from "./pages/instructor_todo_page/instructor_todo_page";
 
 function App() {
     return (
@@ -119,6 +122,18 @@ function App() {
                     <Route
                         path="/instructor"
                         element={<InstructorMainPage />}
+                    />
+                    <Route
+                        path="/instructor/help"
+                        element={<InstructorHelpPage />}
+                    />
+                    <Route
+                        path="/instructor/profile"
+                        element={<InstructorProfileComponent />}
+                    />
+                    <Route
+                        path="/instructor/todoPage"
+                        element={<InstructorToDoPage />}
                     />
                 </Routes>
             </Router>
