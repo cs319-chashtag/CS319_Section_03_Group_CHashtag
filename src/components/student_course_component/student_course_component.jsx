@@ -73,7 +73,7 @@ export default function StudentCourseComponent() {
                     hostCode: studentNotApprovedHostCourse.hostCode, 
                     name: studentNotApprovedHostCourse.name,
                     credit : studentNotApprovedHostCourse.credit,
-                    info : studentNotApprovedHostCourse.info,
+                    // info : studentNotApprovedHostCourse.info,
                 },
                 // Items after the insertion point:
                 ...studentNotApprovedHostCourseArray.slice(insertAt)
@@ -165,6 +165,14 @@ export default function StudentCourseComponent() {
         setBilkentCourseNumber(0);
         setNotApprovedNumber(0);
         setNotApprovedHostCredit(0);
+    }
+
+    function setSaveToDatabaseButton(){
+
+
+
+        setNotApprovedCourseFinalArray([]);
+        setApprovedCourseFinalArray([]);
     }
 
     function addStudentToPreApprovalForm(){
@@ -573,15 +581,25 @@ export default function StudentCourseComponent() {
                                 <br />
                             </h1>
                         </div>
-                        {addCourseButton ? 
-                        <div className="py-4 ml-auto">
-                            <div className="p-2  border border-black rounded-lg">
-                                <button className=" gap-2 flex" onClick={() => setCourseButton(false)}>
-                                    <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
-                                    Add New Course
-                                </button>
+                        {addCourseButton  ? 
+                            (notApprovedCourseFinalArray.length == 0 && approvedCourseFinalArray.length == 0) ?
+                            <div className="py-4 ml-auto">
+                                <div className="p-2  border border-black rounded-lg">
+                                    <button className=" gap-2 flex" onClick={() => setCourseButton(false)}>
+                                        <img src="https://img.icons8.com/material-outlined/24/null/plus-math--v1.png" />
+                                        Add New Course
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            <div className="py-4 ml-auto">
+                                <div className="p-2  border border-black rounded-lg">
+                                    <button className=" gap-2 flex" onClick={() => setSaveToDatabaseButton}>
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        
                         : 
                         <div className="py-4 ml-auto gap-4">
                             {!addNotApprovedCourseButton ? 
@@ -620,7 +638,11 @@ export default function StudentCourseComponent() {
                     
                     {addCourseButton ? 
                     // ApprovedCourseData = {ApprovedCourseData2} 
-                    <StudentTable notApprovedCourseFinalArray = {notApprovedCourseFinalArray} approvedCourseFinalArray = {approvedCourseFinalArray} /> 
+                    <StudentTable 
+                        notApprovedCourseFinalArray = {notApprovedCourseFinalArray} 
+                        approvedCourseFinalArray = {approvedCourseFinalArray} 
+                        // setStudentNotApprovedHostCourseArray= {setStudentNotApprovedHostCourseArray}
+                    /> 
                     : 
                     <div id="container">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-4">
